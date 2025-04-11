@@ -28,6 +28,25 @@ namespace CalendarWebsite.Server.Controllers
             return await _context.Users.Where(w => w.UserId == "duydd1@vntt.com.vn").ToListAsync();
         }
 
+        [HttpGet("GetUserByUserId")]
+        public async Task<ActionResult<IEnumerable<DataOnly_APIaCheckIn>>> GetUserByUserId(string userID)
+        {
+            return await _context.Users.Where(w => w.UserId == userID).ToListAsync();
+        }
+
+        [HttpGet("GetAllUsersName")]
+        public async Task<ActionResult<IEnumerable<string>>> GetAllUsersName()
+        {
+            var uniqueName = await _context.Users
+                .Where(e => e.UserId != "NULL")
+                .Select(e => e.UserId + " - " + e.FullName)
+                .Distinct()
+                .ToListAsync();
+
+            return Ok(uniqueName);
+
+        }
+
         // GET: api/DataOnly_APIaCheckIn/5
         [HttpGet("{id}")]
         public async Task<ActionResult<DataOnly_APIaCheckIn>> GetDataOnly_APIaCheckIn(long id)

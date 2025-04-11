@@ -25,7 +25,7 @@ namespace CalendarWebsite.Server
                 options.AddDefaultPolicy(
                     policy =>
                     {
-                        policy.WithOrigins("https://localhost:7179").AllowAnyHeader().AllowAnyMethod();
+                        policy.WithOrigins("https://localhost:50857").AllowAnyHeader().AllowAnyMethod();
                     });
             });
 
