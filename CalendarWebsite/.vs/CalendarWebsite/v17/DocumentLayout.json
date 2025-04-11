@@ -1,0 +1,49 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "C:\\Users\\Wunhh\\Desktop\\CalendarWebsite\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{B0B09F95-BF05-46F2-8C49-A520B279A67F}|CalendarWebsite.Server\\CalendarWebsite.Server.csproj|c:\\users\\wunhh\\desktop\\calendarwebsite\\calendarwebsite.server\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
+      "RelativeMoniker": "D:0:0:{B0B09F95-BF05-46F2-8C49-A520B279A67F}|CalendarWebsite.Server\\CalendarWebsite.Server.csproj|solutionrelative:calendarwebsite.server\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 3,
+          "Children": [
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{0ad07096-bba9-4900-a651-0598d26f6d24}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{aa2115a1-9712-457b-9047-dbb71ca2cdd2}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{34e76e81-ee4a-11d0-ae2e-00a0c90fffc3}"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "appsettings.json",
+              "DocumentMoniker": "C:\\Users\\Wunhh\\Desktop\\CalendarWebsite\\CalendarWebsite.Server\\appsettings.json",
+              "RelativeDocumentMoniker": "CalendarWebsite.Server\\appsettings.json",
+              "ToolTip": "C:\\Users\\Wunhh\\Desktop\\CalendarWebsite\\CalendarWebsite.Server\\appsettings.json",
+              "RelativeToolTip": "CalendarWebsite.Server\\appsettings.json",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAIAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
+              "WhenOpened": "2025-04-11T01:42:50.895Z",
+              "EditorCaption": ""
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

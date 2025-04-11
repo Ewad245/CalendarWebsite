@@ -1,0 +1,12 @@
+{
+  "version": 2,
+  "dgSpecHash": "mo71yNiCDaE=",
+  "success": true,
+  "projectFilePath": "C:\\Users\\Wunhh\\Desktop\\CalendarWebsite\\CalendarWebsite.Server\\CalendarWebsite.Server.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\Wunhh\\.nuget\\packages\\microsoft.aspnetcore.openapi\\9.0.0\\microsoft.aspnetcore.openapi.9.0.0.nupkg.sha512",
+    "C:\\Users\\Wunhh\\.nuget\\packages\\microsoft.aspnetcore.spaproxy\\9.0.4\\microsoft.aspnetcore.spaproxy.9.0.4.nupkg.sha512",
+    "C:\\Users\\Wunhh\\.nuget\\packages\\microsoft.openapi\\1.6.17\\microsoft.openapi.1.6.17.nupkg.sha512"
+  ],
+  "logs": []
+}
