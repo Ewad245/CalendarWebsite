@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Wunhh\\Desktop\\CalendarWebsite\\CalendarWebsite.Server\\CalendarWebsite.Server.csproj": {}
+    "D:\\GitHub\\CalendarWebsite\\CalendarWebsite\\CalendarWebsite.Server\\CalendarWebsite.Server.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Wunhh\\Desktop\\CalendarWebsite\\CalendarWebsite.Server\\CalendarWebsite.Server.csproj": {
+    "D:\\GitHub\\CalendarWebsite\\CalendarWebsite\\CalendarWebsite.Server\\CalendarWebsite.Server.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Wunhh\\Desktop\\CalendarWebsite\\CalendarWebsite.Server\\CalendarWebsite.Server.csproj",
+        "projectUniqueName": "D:\\GitHub\\CalendarWebsite\\CalendarWebsite\\CalendarWebsite.Server\\CalendarWebsite.Server.csproj",
         "projectName": "CalendarWebsite.Server",
-        "projectPath": "C:\\Users\\Wunhh\\Desktop\\CalendarWebsite\\CalendarWebsite.Server\\CalendarWebsite.Server.csproj",
+        "projectPath": "D:\\GitHub\\CalendarWebsite\\CalendarWebsite\\CalendarWebsite.Server\\CalendarWebsite.Server.csproj",
         "packagesPath": "C:\\Users\\Wunhh\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Wunhh\\Desktop\\CalendarWebsite\\CalendarWebsite.Server\\obj\\",
+        "outputPath": "D:\\GitHub\\CalendarWebsite\\CalendarWebsite\\CalendarWebsite.Server\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
@@ -57,6 +57,24 @@
             "Microsoft.AspNetCore.SpaProxy": {
               "target": "Package",
               "version": "[9.*-*, )"
+            },
+            "Microsoft.EntityFrameworkCore.SqlServer": {
+              "target": "Package",
+              "version": "[9.0.4, )"
+            },
+            "Microsoft.EntityFrameworkCore.Tools": {
+              "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[9.0.0, )"
+            },
+            "Microsoft.VisualStudio.Web.CodeGeneration.Design": {
+              "target": "Package",
+              "version": "[9.0.0, )"
+            },
+            "Scalar.AspNetCore": {
+              "target": "Package",
+              "version": "[2.1.11, )"
             }
           },
           "imports": [

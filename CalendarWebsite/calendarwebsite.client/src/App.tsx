@@ -1,38 +1,44 @@
 import { useEffect, useState } from 'react';
 import './App.css';
+import { User } from './interfaces/type';
 
-interface Forecast {
-    date: string;
-    temperatureC: number;
-    temperatureF: number;
-    summary: string;
-}
 
 function App() {
-    const [forecasts, setForecasts] = useState<Forecast[]>();
+    const [users, setUsers] = useState<User[]>();
 
     useEffect(() => {
+        async function populateWeatherData() {
+            const response = await fetch('https://localhost:7179/api/DataOnly_APIaCheckIn');
+            if (response.ok) {
+                const data = await response.json();
+                console.log(data);
+                setUsers(data);
+            }
+        }
         populateWeatherData();
+        
     }, []);
 
-    const contents = forecasts === undefined
+
+    const contents = users === undefined
         ? <p><em>Loading... Please refresh once the ASP.NET backend has started. See <a href="https://aka.ms/jspsintegrationreact">https://aka.ms/jspsintegrationreact</a> for more details.</em></p>
         : <table className="table table-striped" aria-labelledby="tableLabel">
             <thead>
                 <tr>
-                    <th>Date</th>
-                    <th>Temp. (C)</th>
-                    <th>Temp. (F)</th>
-                    <th>Summary</th>
+                    <th>User Id</th>
+                    <th>Email</th>
+                    <th>In at</th>
+                    <th>Out at</th>
                 </tr>
             </thead>
             <tbody>
-                {forecasts.map(forecast =>
-                    <tr key={forecast.date}>
-                        <td>{forecast.date}</td>
-                        <td>{forecast.temperatureC}</td>
-                        <td>{forecast.temperatureF}</td>
-                        <td>{forecast.summary}</td>
+                {users.map(users =>
+                    <tr key={users.id}>
+                        <td>{users.id}</td>
+                        <td>{users.userId}</td>
+                        <td>{users.inAt.toString()}</td>
+                        <td>{users.outAt.toString()}</td>
+                        
                     </tr>
                 )}
             </tbody>
@@ -46,13 +52,7 @@ function App() {
         </div>
     );
 
-    async function populateWeatherData() {
-        const response = await fetch('weatherforecast');
-        if (response.ok) {
-            const data = await response.json();
-            setForecasts(data);
-        }
-    }
+    
 }
 
 export default App;

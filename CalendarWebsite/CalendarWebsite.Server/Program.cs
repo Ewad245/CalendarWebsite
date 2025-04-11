@@ -1,4 +1,8 @@
 
+using CalendarWebsite.Server.Data;
+using Microsoft.EntityFrameworkCore;
+using Scalar.AspNetCore;
+
 namespace CalendarWebsite.Server
 {
     public class Program
@@ -13,14 +17,28 @@ namespace CalendarWebsite.Server
             // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
             builder.Services.AddOpenApi();
 
+            builder.Services.AddDbContext<UserDataContext>(options =>
+                options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+
+            builder.Services.AddCors(options =>
+            {
+                options.AddDefaultPolicy(
+                    policy =>
+                    {
+                        policy.WithOrigins("https://localhost:7179").AllowAnyHeader().AllowAnyMethod();
+                    });
+            });
+
             var app = builder.Build();
 
+            app.UseCors();
             app.UseDefaultFiles();
             app.MapStaticAssets();
 
             // Configure the HTTP request pipeline.
             if (app.Environment.IsDevelopment())
             {
+                app.MapScalarApiReference();
                 app.MapOpenApi();
             }
 

@@ -3,7 +3,7 @@
 "ServerUrl": "https://localhost:50857",
 "RedirectUrl": "",
 "LaunchCommand": "npm run dev",
-"WorkingDirectory": "C:\\Users\\Wunhh\\Desktop\\CalendarWebsite\\CalendarWebsite.Server\\..\\calendarwebsite.client",
+"WorkingDirectory": "D:\\GitHub\\CalendarWebsite\\CalendarWebsite\\CalendarWebsite.Server\\..\\calendarwebsite.client",
 "MaxTimeoutInSeconds": "120",
 "KeepRunning": "false"
 }
