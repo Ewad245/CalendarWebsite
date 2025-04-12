@@ -1,31 +1,25 @@
 {
   "format": 1,
   "restore": {
-    "D:\\GitHub\\CalendarWebsite\\CalendarWebsite\\CalendarWebsite.Server\\CalendarWebsite.Server.csproj": {}
+    "/Users/thomasjohnson/Documents/GitHub/CalendarWebsite/CalendarWebsite/CalendarWebsite.Server/CalendarWebsite.Server.csproj": {}
   },
   "projects": {
-    "D:\\GitHub\\CalendarWebsite\\CalendarWebsite\\CalendarWebsite.Server\\CalendarWebsite.Server.csproj": {
+    "/Users/thomasjohnson/Documents/GitHub/CalendarWebsite/CalendarWebsite/CalendarWebsite.Server/CalendarWebsite.Server.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\GitHub\\CalendarWebsite\\CalendarWebsite\\CalendarWebsite.Server\\CalendarWebsite.Server.csproj",
+        "projectUniqueName": "/Users/thomasjohnson/Documents/GitHub/CalendarWebsite/CalendarWebsite/CalendarWebsite.Server/CalendarWebsite.Server.csproj",
         "projectName": "CalendarWebsite.Server",
-        "projectPath": "D:\\GitHub\\CalendarWebsite\\CalendarWebsite\\CalendarWebsite.Server\\CalendarWebsite.Server.csproj",
-        "packagesPath": "C:\\Users\\Wunhh\\.nuget\\packages\\",
-        "outputPath": "D:\\GitHub\\CalendarWebsite\\CalendarWebsite\\CalendarWebsite.Server\\obj\\",
+        "projectPath": "/Users/thomasjohnson/Documents/GitHub/CalendarWebsite/CalendarWebsite/CalendarWebsite.Server/CalendarWebsite.Server.csproj",
+        "packagesPath": "/Users/thomasjohnson/.nuget/packages/",
+        "outputPath": "/Users/thomasjohnson/Documents/GitHub/CalendarWebsite/CalendarWebsite/CalendarWebsite.Server/obj/",
         "projectStyle": "PackageReference",
-        "fallbackFolders": [
-          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
-        ],
         "configFilePaths": [
-          "C:\\Users\\Wunhh\\AppData\\Roaming\\NuGet\\NuGet.Config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+          "/Users/thomasjohnson/.nuget/NuGet/NuGet.Config"
         ],
         "originalTargetFrameworks": [
           "net9.0"
         ],
         "sources": {
-          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
@@ -44,7 +38,7 @@
           "auditLevel": "low",
           "auditMode": "direct"
         },
-        "SdkAnalysisLevel": "9.0.100"
+        "SdkAnalysisLevel": "9.0.200"
       },
       "frameworks": {
         "net9.0": {
@@ -96,7 +90,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.101/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "/Users/thomasjohnson/.dotnet/sdk/9.0.200/PortableRuntimeIdentifierGraph.json"
         }
       }
     }

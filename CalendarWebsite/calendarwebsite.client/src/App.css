@@ -1,11 +1,330 @@
-﻿#root {
-    max-width: 1280px;
-    margin: 0 auto;
-    padding: 2rem;
-    text-align: center;
+﻿/* Tailwind classes will be used in components, but we'll keep some custom styles for specific components */
+
+#root {
+    @apply max-w-7xl mx-auto p-8 text-center font-sans;
+}
+
+.app-container {
+    @apply w-full box-border flex flex-col items-center;
+}
+
+/* Responsive adjustments for smaller screens */
+@media (max-width: 768px) {
+    #root {
+        @apply p-4;
+    }
 }
 
 th, td {
-    padding-left: 1rem;
-    padding-right: 1rem;
+    @apply px-4 py-2;
+}
+
+@media (max-width: 768px) {
+    th, td {
+        @apply px-2 py-1;
+    }
+}
+
+.calendar-container {
+    @apply my-8 mx-auto p-6 bg-white rounded-xl shadow-sm max-w-7xl border border-gray-200 w-full box-border;
+}
+
+@media (max-width: 768px) {
+    .calendar-container {
+        @apply my-4 mx-auto py-4 px-2;
+    }
+}
+
+.calendar-search-container {
+    @apply mb-5 w-full max-w-xs mx-auto relative;
+}
+
+.calendar-search-input {
+    @apply w-full p-2 rounded border border-gray-300 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none;
+}
+
+.calendar-search-button {
+    @apply px-3 py-2 rounded border border-gray-300 bg-gray-50 hover:bg-gray-100 cursor-pointer transition-colors;
+}
+
+.calendar-search-list {
+    @apply list-none p-0 m-0 max-h-48 overflow-y-auto absolute bg-white w-full z-10 shadow-md;
+}
+
+.calendar-search-item {
+    @apply p-2 cursor-pointer border-b border-gray-100 hover:bg-gray-50;
+}
+
+.calendar-search-item-empty {
+    @apply p-2 text-gray-500;
+}
+
+.calendar-selected-user {
+    @apply mt-3 text-center;
+}
+
+.fc {
+    /* Preserve FullCalendar variables for consistent styling */
+    --fc-border-color: theme('gray.200');
+    --fc-button-bg-color: theme('colors.blue.500');
+    --fc-button-border-color: theme('colors.blue.500');
+    --fc-button-hover-bg-color: theme('colors.blue.700');
+    --fc-button-hover-border-color: theme('colors.blue.700');
+    --fc-today-bg-color: theme('colors.blue.50');
+    --fc-event-bg-color: theme('colors.blue.500');
+    --fc-event-border-color: transparent;
+}
+
+.fc-event {
+    @apply rounded border-0 py-px px-0.5 my-px mx-0 transition-all duration-200 ease-in-out text-sm;
+}
+
+/* Event colors based on check-in status */
+.fc-event-on-time[data-type="check-in"] {
+    @apply bg-blue-600 text-white border-l-4 border-l-blue-800;
+}
+
+.fc-event-on-time[data-type="check-out"] {
+    @apply bg-blue-500 text-white border-r-4 border-r-blue-800;
+}
+
+.fc-event-late[data-type="check-in"] {
+    @apply bg-red-600 text-white border-l-4 border-l-red-800;
+}
+
+.fc-event-late[data-type="check-out"] {
+    @apply bg-red-400 text-white border-r-4 border-r-red-800;
+}
+
+.fc-event-early[data-type="check-in"] {
+    @apply bg-green-600 text-white border-l-4 border-l-green-800;
+}
+
+.fc-event-early[data-type="check-out"] {
+    @apply bg-green-500 text-white border-r-4 border-r-green-800;
+}
+
+.fc-daygrid-event-dot {
+    @apply hidden;
+}
+
+.fc .fc-daygrid-day-events {
+    @apply mt-1;
+}
+
+.fc-daygrid-block-event {
+    @apply bg-blue-600 border-0 py-0.5 px-1.5;
+}
+
+.fc-daygrid-block-event .fc-event-time {
+    @apply font-medium;
+}
+
+.fc-daygrid-dot-event {
+    @apply py-0.5 px-2 text-gray-700;
+}
+
+.fc-daygrid-dot-event:hover {
+    @apply bg-gray-100;
+}
+
+.fc-event:hover {
+    @apply scale-[1.02];
+}
+
+.fc-event-main-content {
+    @apply py-0.5 px-1 leading-tight max-w-full overflow-hidden flex items-center gap-1 cursor-pointer transition-all duration-200 ease-in-out;
+}
+
+.fc-event-main-content:hover {
+    opacity: 0.9;
+    transform: scale(1.02);
+}
+
+/* Popover styles */
+.popover-container {
+    @apply z-[1000] relative;
+}
+
+/* Style for the close button in popover */
+.event-popover-close-btn {
+    @apply absolute top-2 right-2 bg-transparent border-0 text-base cursor-pointer text-gray-600 z-[2] p-1 leading-none hover:text-gray-900 transition-colors;
+}
+
+.event-popover-content {
+    @apply font-sans relative p-3 bg-white rounded-md shadow-lg min-w-[250px];
+}
+
+@media (max-width: 768px) {
+    .event-popover-content {
+        @apply min-w-[200px] max-w-[90vw] p-2.5;
+    }
+}
+
+.event-popover-content h4 {
+    @apply text-gray-800 text-base font-semibold pr-8 mt-0 mb-3 overflow-hidden text-ellipsis relative;
+}
+
+.event-popover-content p {
+    @apply text-gray-700 text-sm my-2;
+}
+
+.event-popover-content strong {
+    @apply font-semibold text-gray-800;
+}
+
+.event-popover-status {
+    @apply mt-2.5 p-2 rounded text-sm;
+}
+
+.event-popover-status-late {
+    @apply bg-red-100 text-red-800;
+}
+
+.event-popover-status-early {
+    @apply bg-green-100 text-green-800;
+}
+
+.event-popover-status-ontime {
+    @apply bg-blue-50 text-blue-800;
+}
+
+.event-popover-detail {
+    @apply my-2 flex justify-between items-center;
+}
+
+.fc-event-main-content div {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.fc-event-main-content small {
+    display: block;
+    font-size: 0.85em;
+    opacity: 0.9;
+    margin-top: 2px;
+}
+
+.fc .fc-daygrid-day.fc-day-today {
+    background-color: var(--fc-today-bg-color);
+}
+
+.fc .fc-daygrid-day-frame {
+    min-height: 100px;
+    padding: 4px;
+}
+
+@media (max-width: 768px) {
+    .fc .fc-daygrid-day-frame {
+        min-height: 60px;
+        padding: 2px;
+    }
+    
+    .fc-event {
+        font-size: 0.75rem;
+    }
+    
+    .fc-event-main-content small {
+        font-size: 0.7em;
+    }
+}
+
+.fc .fc-daygrid-day-top {
+    @apply flex-row p-1 font-medium text-gray-700;
+}
+
+.fc .fc-day-other .fc-daygrid-day-top {
+    @apply opacity-50;
+}
+
+.fc-event-time {
+    @apply text-sm font-medium;
+}
+
+.fc .fc-button {
+    @apply font-medium capitalize py-2 px-4 rounded-md transition-colors;
+}
+
+@media (max-width: 768px) {
+    .fc .fc-button {
+        padding: 6px 10px;
+        font-size: 0.9rem;
+    }
+    
+    .fc .fc-toolbar {
+        flex-direction: column;
+        gap: 10px;
+    }
+    
+    .fc .fc-toolbar-title {
+        font-size: 1.2em;
+    }
+}
+
+.fc .fc-toolbar-title {
+    @apply text-2xl font-semibold text-gray-800;
+}
+
+.fc .fc-col-header-cell {
+    @apply py-3 px-0 bg-gray-50 font-semibold uppercase text-xs tracking-wider text-gray-500 border-b-2 border-gray-200;
+}
+
+@media (max-width: 768px) {
+    .fc .fc-col-header-cell {
+        padding: 8px 0;
+        font-size: 0.65rem;
+        letter-spacing: 0;
+    }
+    
+    /* Use abbreviated day names on mobile */
+    .fc-col-header-cell-cushion {
+        display: block;
+    }
+    
+    /* Adjust day number size */
+    .fc-daygrid-day-number {
+        font-size: 0.9rem;
+    }
+}
+
+:root {
+    --primary-color-rgb: 49, 130, 206;
+}
+
+/* Responsive calendar view */
+.responsive-calendar-view {
+    width: 100%;
+    overflow-x: auto;
+}
+
+/* Additional responsive styles */
+@media (max-width: 480px) {
+    #root {
+        @apply p-2;
+    }
+    
+    .calendar-container {
+        @apply py-2.5 px-1 my-2.5 mx-auto;
+    }
+    
+    .fc .fc-toolbar {
+        @apply flex flex-col items-center gap-2;
+    }
+    
+    .fc .fc-toolbar-chunk {
+        @apply flex justify-center mb-1;
+    }
+    
+    .fc .fc-button {
+        @apply py-1 px-2 text-xs;
+    }
+    
+    h1 {
+        @apply text-2xl;
+    }
+    
+    p {
+        @apply text-sm;
+    }
 }

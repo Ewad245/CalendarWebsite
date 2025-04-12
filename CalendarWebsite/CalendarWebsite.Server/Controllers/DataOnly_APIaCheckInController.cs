@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using CalendarWebsite.Server.Data;
 using CalendarWebsite.Server.Models;
+using System.Linq;
 
 namespace CalendarWebsite.Server.Controllers
 {
@@ -23,16 +24,25 @@ namespace CalendarWebsite.Server.Controllers
 
         // GET: api/DataOnly_APIaCheckIn
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<DataOnly_APIaCheckIn>>> GetUsers()
+        public async Task<ActionResult<IEnumerable<UserInfo>>> GetUsers()
         {
-            return await _context.Users.Where(w => w.UserId == "duydd1@vntt.com.vn").ToListAsync();
+            return await _context.Users.AsNoTracking()
+                .Where(u => u.FullName != null)
+                .GroupBy(u => u.UserId)
+                .Select(g => new UserInfo
+                {
+                    userId = g.Select(u => u.UserId).FirstOrDefault(),
+                    fullName = g.Select(x => x.FullName).FirstOrDefault()
+                })
+                .ToListAsync();
+
         }
 
         // GET: api/DataOnly_APIaCheckIn/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<DataOnly_APIaCheckIn>> GetDataOnly_APIaCheckIn(long id)
+        public async Task<ActionResult<IEnumerable<DataOnly_APIaCheckIn>>> GetDataOnly_APIaCheckIn(string id)
         {
-            var dataOnly_APIaCheckIn = await _context.Users.FindAsync(id);
+            var dataOnly_APIaCheckIn = await _context.Users.Where(w => w.UserId == id).ToListAsync();
 
             if (dataOnly_APIaCheckIn == null)
             {

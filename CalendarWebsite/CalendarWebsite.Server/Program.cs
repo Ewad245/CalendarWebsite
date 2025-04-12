@@ -22,16 +22,18 @@ namespace CalendarWebsite.Server
 
             builder.Services.AddCors(options =>
             {
-                options.AddDefaultPolicy(
+                options.AddPolicy("AllowAll",
                     policy =>
                     {
-                        policy.WithOrigins("https://localhost:7179").AllowAnyHeader().AllowAnyMethod();
+                        policy.AllowAnyOrigin()
+                            .AllowAnyMethod()
+                            .AllowAnyHeader();
                     });
             });
 
             var app = builder.Build();
 
-            app.UseCors();
+            app.UseCors("AllowAll");
             app.UseDefaultFiles();
             app.MapStaticAssets();
 

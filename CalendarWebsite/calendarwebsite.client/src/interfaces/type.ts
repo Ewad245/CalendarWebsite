@@ -17,3 +17,8 @@ export type User = {
     fullName: string; 
     data: string;
 }
+
+export type UserInfo = {
+    userId: string;
+    fullName: string;
+}
