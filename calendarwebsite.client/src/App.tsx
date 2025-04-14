@@ -92,7 +92,6 @@ const normalizeString = (str: string) => {
 };
 
 function App() {
-  const { isDarkMode } = useTheme();
   const [userList, setUserList] = useState<UserInfo[]>([]);
   const [selectedUser, setSelectedUser] = useState<UserInfo | null>(null);
   const [events, setEvents] = useState<EventInput[]>([]);
