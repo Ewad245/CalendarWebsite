@@ -6,6 +6,8 @@ import dayGridPlugin from "@fullcalendar/daygrid";
 import { EventInput, EventContentArg } from "@fullcalendar/core";
 import { useCombobox } from "downshift";
 import { Popover } from "react-tiny-popover";
+import ThemeToggle from "./components/ThemeToggle";
+import { useTheme } from "./contexts/ThemeContext";
 
 // Helper function to normalize Vietnamese characters for case-insensitive comparison
 const normalizeString = (str: string) => {
@@ -142,9 +144,7 @@ function App() {
 
   async function fetchUserList() {
     try {
-      const response = await fetch(
-        "http://localhost:5194/api/DataOnly_APIaCheckIn"
-      );
+      const response = await fetch("/api/DataOnly_APIaCheckIn");
       if (response.ok) {
         const data: UserInfo[] = await response.json();
         setUserList(data);
@@ -158,9 +158,7 @@ function App() {
 
   async function fetchUserCheckInData(userId: string) {
     try {
-      const response = await fetch(
-        `http://localhost:5194/api/DataOnly_APIaCheckIn/${userId}`
-      );
+      const response = await fetch(`/api/DataOnly_APIaCheckIn/${userId}`);
       if (response.ok) {
         const data: User[] = await response.json();
 
@@ -234,63 +232,71 @@ function App() {
 
   const contents =
     userList.length === 0 ? (
-      <p>
+      <p className="italic text-gray-600 dark:text-neutral-50 text-center">
         <em>Loading... Please refresh once the ASP.NET backend has started.</em>
       </p>
     ) : (
-      <div className="calendar-container">
-        <div className="calendar-search-container">
-          <div>
-            <div className="flex gap-2 flex-wrap">
-              <input
-                {...getInputProps()}
-                placeholder="Search for a user"
-                className="calendar-search-input"
-              />
-              {inputValue && (
-                <button
-                  onClick={handleClearSelection}
-                  className="calendar-search-button"
-                >
-                  Clear
-                </button>
-              )}
-            </div>
-            <ul
-              {...getMenuProps()}
-              className={`calendar-search-list ${
-                isOpen && filteredItems.length > 0
-                  ? "border border-gray-300 shadow-md"
-                  : ""
-              }`}
-            >
-              {isOpen &&
-                filteredItems.map((item, index) => (
-                  <li
-                    key={item.userId}
-                    {...getItemProps({ item, index })}
-                    className={`calendar-search-item ${
-                      highlightedIndex === index ? "bg-gray-100" : "bg-white"
-                    }`}
+      <div className="calendar-container w-full">
+        <div className="mb-5">
+          <div className="w-full max-w-md mx-auto relative">
+            <div>
+              <div className="flex gap-2 items-center">
+                <input
+                  {...getInputProps()}
+                  placeholder="Search for a user"
+                  className="flex-1 p-2 sm:p-3 rounded-lg border border-gray-300 dark:border-gray-600 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none bg-white dark:bg-neutral-700 text-neutral-900 dark:text-neutral-50 transition-colors duration-200 text-sm sm:text-base"
+                />
+                {inputValue && (
+                  <button
+                    onClick={handleClearSelection}
+                    className="shrink-0 px-3 sm:px-4 py-2 sm:py-2.5 rounded-lg border border-gray-300 dark:border-gray-600 bg-gray-50 dark:bg-neutral-700 hover:bg-gray-100 dark:hover:bg-neutral-600 cursor-pointer transition-colors text-neutral-900 dark:text-neutral-50 text-sm sm:text-base"
                   >
-                    {item.fullName}
+                    Clear
+                  </button>
+                )}
+              </div>
+              <ul
+                {...getMenuProps()}
+                className={`list-none p-0 m-0 max-h-48 overflow-y-auto absolute bg-white dark:bg-neutral-700 w-full z-10 rounded-lg shadow-lg mt-1 ${
+                  isOpen && filteredItems.length > 0
+                    ? "border border-gray-300 dark:border-gray-600"
+                    : ""
+                }`}
+              >
+                {isOpen &&
+                  filteredItems.map((item, index) => (
+                    <li
+                      key={item.userId}
+                      {...getItemProps({ item, index })}
+                      className={`p-2 sm:p-3 cursor-pointer text-sm sm:text-base ${
+                        highlightedIndex === index
+                          ? "bg-gray-100 dark:bg-neutral-600"
+                          : "bg-white dark:bg-neutral-700"
+                      } ${
+                        index < filteredItems.length - 1
+                          ? "border-b border-gray-100 dark:border-gray-700"
+                          : ""
+                      } text-neutral-900 dark:text-neutral-50`}
+                    >
+                      {item.fullName}
+                    </li>
+                  ))}
+                {isOpen && filteredItems.length === 0 && inputValue && (
+                  <li className="p-2 sm:p-3 text-gray-500 dark:text-gray-300 text-sm sm:text-base">
+                    No matching users found
                   </li>
-                ))}
-              {isOpen && filteredItems.length === 0 && inputValue && (
-                <li className="calendar-search-item-empty">
-                  No matching users found
-                </li>
-              )}
-            </ul>
+                )}
+              </ul>
+            </div>
           </div>
+          {selectedUser && (
+            <div className="mt-3 text-center">
+              <p className="text-sm sm:text-base">
+                Selected User: <strong>{selectedUser.fullName}</strong>
+              </p>
+            </div>
+          )}
         </div>
-        {selectedUser && (
-          <div className="calendar-selected-user">
-            <p>
-              Selected User: <strong>{selectedUser.fullName}</strong>
-            </p>
-          </div>
-        )}
         <FullCalendar
           plugins={[dayGridPlugin]}
           initialView="dayGridMonth"
@@ -315,56 +321,64 @@ function App() {
 
             // Create popover content
             const popoverContent = (
-              <div className="event-popover-content">
+              <div className="p-4 bg-neutral-50 dark:bg-neutral-800 rounded-lg shadow-lg max-w-xs transition-colors duration-200">
                 <button
                   onClick={() => setPopoverEvent(null)}
-                  className="event-popover-close-btn"
+                  className="float-right text-neutral-500 dark:text-neutral-400 hover:text-neutral-700 dark:hover:text-neutral-200"
                 >
                   ✕
                 </button>
-                <h4>{eventInfo.event.title}</h4>
+                <h4 className="text-base sm:text-lg font-semibold mb-2 text-neutral-900 dark:text-neutral-50">
+                  {eventInfo.event.title}
+                </h4>
                 <div className="flex items-center mb-2">
                   <div
                     className={`w-2.5 h-2.5 rounded-full mr-2 ${
                       status === "late"
-                        ? "bg-red-600"
+                        ? "bg-red-600 dark:bg-red-500"
                         : status === "early"
-                        ? "bg-green-600"
-                        : "bg-blue-500"
+                        ? "bg-green-600 dark:bg-green-500"
+                        : "bg-blue-600 dark:bg-blue-500"
                     }`}
                   ></div>
                   <span
-                    className={`capitalize font-semibold ${
+                    className={`capitalize font-bold text-sm sm:text-base ${
                       status === "late"
-                        ? "text-red-600"
+                        ? "text-red-700 dark:text-red-400"
                         : status === "early"
-                        ? "text-green-600"
-                        : "text-blue-500"
+                        ? "text-green-700 dark:text-green-400"
+                        : "text-blue-700 dark:text-blue-400"
                     }`}
                   >
                     {status}
                   </span>
                 </div>
-                <div className="event-popover-detail">
-                  <strong>Date:</strong>{" "}
+                <p className="my-2 flex justify-between text-neutral-800 dark:text-neutral-100 text-sm sm:text-base">
+                  <strong className="text-neutral-900 dark:text-neutral-50">
+                    Date:
+                  </strong>{" "}
                   {new Date(eventInfo.event.start!).toLocaleDateString()}
-                </div>
-                <div className="event-popover-detail">
-                  <strong>Time:</strong>{" "}
+                </p>
+                <p className="my-2 flex justify-between text-neutral-800 dark:text-neutral-100 text-sm sm:text-base">
+                  <strong className="text-neutral-900 dark:text-neutral-50">
+                    Time:
+                  </strong>{" "}
                   {new Date(eventInfo.event.start!).toLocaleTimeString()}
-                </div>
-                <div className="event-popover-detail">
-                  <strong>Type:</strong>{" "}
+                </p>
+                <p className="my-2 flex justify-between text-neutral-800 dark:text-neutral-100 text-sm sm:text-base">
+                  <strong className="text-neutral-900 dark:text-neutral-50">
+                    Type:
+                  </strong>{" "}
                   {type === "check-in" ? "Check In" : "Check Out"}
-                </div>
+                </p>
                 {type === "check-in" && (
                   <div
-                    className={`event-popover-status ${
+                    className={`mt-2.5 p-2 rounded text-xs sm:text-sm ${
                       status === "late"
-                        ? "event-popover-status-late"
+                        ? "bg-red-100 text-red-800 dark:bg-red-900 dark:text-red-200"
                         : status === "early"
-                        ? "event-popover-status-early"
-                        : "event-popover-status-ontime"
+                        ? "bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200"
+                        : "bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-200"
                     }`}
                   >
                     {status === "late"
@@ -376,12 +390,12 @@ function App() {
                 )}
                 {type === "check-out" && (
                   <div
-                    className={`event-popover-status ${
+                    className={`mt-2.5 p-2 rounded text-xs sm:text-sm ${
                       status === "late"
-                        ? "event-popover-status-late"
+                        ? "bg-red-100 text-red-800 dark:bg-red-900 dark:text-red-200"
                         : status === "early"
-                        ? "event-popover-status-early"
-                        : "event-popover-status-ontime"
+                        ? "bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200"
+                        : "bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-200"
                     }`}
                   >
                     {status === "late"
@@ -404,7 +418,7 @@ function App() {
                 containerClassName="popover-container"
               >
                 <div
-                  className={`fc-event-main-content fc-event-${status}`}
+                  className={`fc-event-main-content fc-event-${status} cursor-pointer`}
                   data-type={type}
                   onClick={() =>
                     setPopoverEvent(
@@ -426,11 +440,24 @@ function App() {
       </div>
     );
 
+  // Get theme context to use in component
+  const { isDarkMode } = useTheme();
+
   return (
-    <div className="app-container">
-      <h1 id="tableLabel">Staff Check-in Calendar</h1>
-      <p>Monthly view of staff check-in/out times</p>
-      {contents}
+    <div className="app-container min-h-screen w-full px-4 sm:px-6 lg:px-8 py-8">
+      <ThemeToggle />
+      <div className="max-w-7xl mx-auto">
+        <h1
+          id="tableLabel"
+          className="text-2xl sm:text-3xl md:text-4xl font-bold mb-2 text-neutral-700 dark:text-neutral-50 text-center sm:text-left"
+        >
+          Staff Check-in Calendar
+        </h1>
+        <p className="mb-6 text-neutral-700 dark:text-neutral-50 text-center sm:text-left text-sm sm:text-base">
+          Monthly view of staff check-in/out times
+        </p>
+        {contents}
+      </div>
     </div>
   );
 }

@@ -1,4 +1,4 @@
-﻿using System.ComponentModel.DataAnnotations.Schema;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace CalendarWebsite.Server.Models;
     [Table("DataOnly_APIaCheckIn", Schema = "Dynamic")]

@@ -1,7 +1,8 @@
-﻿/* Tailwind classes will be used in components, but we'll keep some custom styles for specific components */
+﻿@import "tailwindcss";
+@custom-variant dark (&:where(.dark, .dark *));
 
 #root {
-    @apply max-w-7xl mx-auto p-8 text-center font-sans;
+    @apply max-w-7xl mx-auto p-8 text-center font-sans text-neutral-900 dark:text-neutral-100 transition-colors duration-200;
 }
 
 .app-container {
@@ -26,7 +27,7 @@ th, td {
 }
 
 .calendar-container {
-    @apply my-8 mx-auto p-6 bg-white rounded-xl shadow-sm max-w-7xl border border-gray-200 w-full box-border;
+    @apply my-8 mx-auto p-6 bg-neutral-50 dark:bg-neutral-800 rounded-xl shadow-sm max-w-7xl border border-neutral-300 dark:border-neutral-700 w-full box-border transition-colors duration-200;
 }
 
 @media (max-width: 768px) {
@@ -40,23 +41,23 @@ th, td {
 }
 
 .calendar-search-input {
-    @apply w-full p-2 rounded border border-gray-300 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none;
+    @apply w-full p-2 rounded border border-neutral-300 dark:border-neutral-600 focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 outline-none bg-white dark:bg-neutral-700 text-neutral-900 dark:text-neutral-100 transition-colors duration-200;
 }
 
 .calendar-search-button {
-    @apply px-3 py-2 rounded border border-gray-300 bg-gray-50 hover:bg-gray-100 cursor-pointer transition-colors;
+    @apply px-3 py-2 rounded border border-neutral-300 dark:border-neutral-600 bg-neutral-200 dark:bg-neutral-700 hover:bg-neutral-300 dark:hover:bg-neutral-600 cursor-pointer transition-colors text-neutral-900 dark:text-neutral-100;
 }
 
 .calendar-search-list {
-    @apply list-none p-0 m-0 max-h-48 overflow-y-auto absolute bg-white w-full z-10 shadow-md;
+    @apply list-none p-0 m-0 max-h-48 overflow-y-auto absolute bg-white dark:bg-neutral-700 w-full z-10 shadow-md border border-neutral-200 dark:border-neutral-600 rounded-md;
 }
 
 .calendar-search-item {
-    @apply p-2 cursor-pointer border-b border-gray-100 hover:bg-gray-50;
+    @apply p-2 cursor-pointer border-b border-gray-100 dark:border-neutral-600 hover:bg-gray-50 dark:hover:bg-neutral-600 text-neutral-900 dark:text-neutral-100;
 }
 
 .calendar-search-item-empty {
-    @apply p-2 text-gray-500;
+    @apply p-2 text-gray-500 dark:text-gray-300;
 }
 
 .calendar-selected-user {
@@ -64,76 +65,96 @@ th, td {
 }
 
 .fc {
-    /* Preserve FullCalendar variables for consistent styling */
-    --fc-border-color: theme('gray.200');
-    --fc-button-bg-color: theme('colors.blue.500');
-    --fc-button-border-color: theme('colors.blue.500');
-    --fc-button-hover-bg-color: theme('colors.blue.700');
-    --fc-button-hover-border-color: theme('colors.blue.700');
-    --fc-today-bg-color: theme('colors.blue.50');
-    --fc-event-bg-color: theme('colors.blue.500');
+    --fc-border-color: #e5e7eb;
+    --fc-button-bg-color: #3182ce;
+    --fc-button-border-color: #3182ce;
+    --fc-button-hover-bg-color: #2c5282;
+    --fc-button-hover-border-color: #2c5282;
+    --fc-today-bg-color: #EBF8FF;
+    --fc-event-bg-color: #3182ce;
+    --fc-event-border-color: transparent;
+}
+
+.dark .fc {
+    --fc-border-color: #404040;
+    --fc-button-bg-color: #4f46e5;
+    --fc-button-border-color: #4f46e5;
+    --fc-button-hover-bg-color: #4338ca;
+    --fc-button-hover-border-color: #4338ca;
+    --fc-today-bg-color: #1e3a8a;
+    --fc-event-bg-color: #4f46e5;
     --fc-event-border-color: transparent;
 }
 
 .fc-event {
-    @apply rounded border-0 py-px px-0.5 my-px mx-0 transition-all duration-200 ease-in-out text-sm;
+    @apply rounded border-none py-0.5 px-1 my-0.5 mx-0 transition-all duration-200 ease-in-out text-sm overflow-hidden;
 }
 
 /* Event colors based on check-in status */
 .fc-event-on-time[data-type="check-in"] {
-    @apply bg-blue-600 text-white border-l-4 border-l-blue-800;
+    @apply bg-blue-600 text-white border-l-4 border-blue-800;
 }
 
 .fc-event-on-time[data-type="check-out"] {
-    @apply bg-blue-500 text-white border-r-4 border-r-blue-800;
+    @apply bg-blue-500 text-white border-r-4 border-blue-800;
 }
 
 .fc-event-late[data-type="check-in"] {
-    @apply bg-red-600 text-white border-l-4 border-l-red-800;
+    @apply bg-red-600 text-white border-l-4 border-red-700;
 }
 
 .fc-event-late[data-type="check-out"] {
-    @apply bg-red-400 text-white border-r-4 border-r-red-800;
+    @apply bg-red-400 text-white border-r-4 border-red-700;
 }
 
 .fc-event-early[data-type="check-in"] {
-    @apply bg-green-600 text-white border-l-4 border-l-green-800;
+    @apply bg-green-600 text-white border-l-4 border-green-700;
 }
 
 .fc-event-early[data-type="check-out"] {
-    @apply bg-green-500 text-white border-r-4 border-r-green-800;
+    @apply bg-green-400 text-white border-r-4 border-green-700;
 }
 
 .fc-daygrid-event-dot {
-    @apply hidden;
+    display: none;
 }
 
 .fc .fc-daygrid-day-events {
-    @apply mt-1;
+    margin-top: 4px;
 }
 
 .fc-daygrid-block-event {
-    @apply bg-blue-600 border-0 py-0.5 px-1.5;
+    background-color: #3182ce;
+    border: none;
+    padding: 2px 6px;
 }
 
 .fc-daygrid-block-event .fc-event-time {
-    @apply font-medium;
+    font-weight: 500;
 }
 
 .fc-daygrid-dot-event {
-    @apply py-0.5 px-2 text-gray-700;
+    padding: 2px 8px;
+    @apply text-neutral-700 dark:text-neutral-200;
 }
 
 .fc-daygrid-dot-event:hover {
-    @apply bg-gray-100;
+    @apply bg-neutral-100 dark:bg-neutral-700;
 }
 
 .fc-event:hover {
-    @apply scale-[1.02];
+    transform: scale(1.02);
 }
 
 .fc-event-main-content {
-    @apply py-0.5 px-1 leading-tight max-w-full overflow-hidden flex items-center gap-1 cursor-pointer transition-all duration-200 ease-in-out;
+    @apply flex flex-col text-xs leading-tight overflow-hidden truncate cursor-pointer min-w-0;
+    padding: 2px 4px;
+    line-height: 1.3;
+    max-width: 100%;
+    display: flex;
+    align-items: flex-start;
+    gap: 2px;
+    transition: all 0.2s ease;
 }
 
 .fc-event-main-content:hover {
@@ -143,54 +164,50 @@ th, td {
 
 /* Popover styles */
 .popover-container {
-    @apply z-[1000] relative;
+    @apply z-10;
+    position: relative;
 }
 
 /* Style for the close button in popover */
 .event-popover-close-btn {
-    @apply absolute top-2 right-2 bg-transparent border-0 text-base cursor-pointer text-gray-600 z-[2] p-1 leading-none hover:text-gray-900 transition-colors;
+    @apply absolute top-2 right-2 bg-transparent border-none cursor-pointer text-neutral-500 dark:text-neutral-400 hover:text-neutral-700 dark:hover:text-neutral-200 text-base p-1 leading-none;
+    z-index: 2;
 }
 
 .event-popover-content {
-    @apply font-sans relative p-3 bg-white rounded-md shadow-lg min-w-[250px];
+    @apply bg-neutral-50 dark:bg-neutral-800 rounded-lg shadow-lg p-4 max-w-xs relative transition-colors duration-200 border border-neutral-200 dark:border-neutral-700;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    min-width: 250px;
 }
 
 @media (max-width: 768px) {
     .event-popover-content {
-        @apply min-w-[200px] max-w-[90vw] p-2.5;
+        min-width: 200px;
+        max-width: 90vw;
+        padding: 10px;
     }
 }
 
 .event-popover-content h4 {
-    @apply text-gray-800 text-base font-semibold pr-8 mt-0 mb-3 overflow-hidden text-ellipsis relative;
+    @apply text-neutral-900 dark:text-neutral-50;
+    font-size: 16px;
+    font-weight: 600;
+    padding-right: 30px; /* Increased padding to prevent overlap with close button */
+    margin-top: 0;
+    margin-bottom: 12px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    position: relative;
 }
 
 .event-popover-content p {
-    @apply text-gray-700 text-sm my-2;
+    @apply text-neutral-800 dark:text-neutral-100;
+    font-size: 14px;
 }
 
 .event-popover-content strong {
-    @apply font-semibold text-gray-800;
-}
-
-.event-popover-status {
-    @apply mt-2.5 p-2 rounded text-sm;
-}
-
-.event-popover-status-late {
-    @apply bg-red-100 text-red-800;
-}
-
-.event-popover-status-early {
-    @apply bg-green-100 text-green-800;
-}
-
-.event-popover-status-ontime {
-    @apply bg-blue-50 text-blue-800;
-}
-
-.event-popover-detail {
-    @apply my-2 flex justify-between items-center;
+    font-weight: 600;
+    @apply text-neutral-900 dark:text-neutral-50;
 }
 
 .fc-event-main-content div {
@@ -208,11 +225,13 @@ th, td {
 
 .fc .fc-daygrid-day.fc-day-today {
     background-color: var(--fc-today-bg-color);
+    @apply text-neutral-900 dark:text-neutral-50;
 }
 
 .fc .fc-daygrid-day-frame {
     min-height: 100px;
     padding: 4px;
+    @apply text-neutral-800 dark:text-neutral-200;
 }
 
 @media (max-width: 768px) {
@@ -231,19 +250,26 @@ th, td {
 }
 
 .fc .fc-daygrid-day-top {
-    @apply flex-row p-1 font-medium text-gray-700;
+    flex-direction: row;
+    padding: 4px;
+    font-weight: 500;
+    @apply text-neutral-700 dark:text-neutral-200;
 }
 
 .fc .fc-day-other .fc-daygrid-day-top {
-    @apply opacity-50;
+    opacity: 0.5;
 }
 
 .fc-event-time {
-    @apply text-sm font-medium;
+    font-size: 0.9em;
+    font-weight: 500;
 }
 
 .fc .fc-button {
-    @apply font-medium capitalize py-2 px-4 rounded-md transition-colors;
+    font-weight: 500;
+    text-transform: capitalize;
+    padding: 8px 16px;
+    border-radius: 6px;
 }
 
 @media (max-width: 768px) {
@@ -263,11 +289,22 @@ th, td {
 }
 
 .fc .fc-toolbar-title {
-    @apply text-2xl font-semibold text-gray-800;
+    font-size: 1.5em;
+    font-weight: 600;
+    @apply text-neutral-800 dark:text-neutral-100;
 }
 
 .fc .fc-col-header-cell {
-    @apply py-3 px-0 bg-gray-50 font-semibold uppercase text-xs tracking-wider text-gray-500 border-b-2 border-gray-200;
+    padding: 12px 0;
+    @apply bg-neutral-50 dark:bg-neutral-800 font-semibold uppercase text-[0.75rem] tracking-wider text-neutral-600 dark:text-neutral-200;
+    font-weight: 600;
+    text-transform: uppercase;
+    font-size: 0.75rem;
+    letter-spacing: 0.05em;
+}
+
+.dark .fc .fc-col-header-cell {
+    @apply border-b-2 border-neutral-700;
 }
 
 @media (max-width: 768px) {
@@ -294,37 +331,77 @@ th, td {
 
 /* Responsive calendar view */
 .responsive-calendar-view {
-    width: 100%;
-    overflow-x: auto;
+    @apply text-sm w-full overflow-x-auto;
+}
+
+@media (max-width: 768px) {
+    .responsive-calendar-view {
+        @apply text-xs;
+    }
+
+    .fc-toolbar-title {
+        @apply !text-xl;
+    }
+
+    .fc-button {
+        @apply !py-1 !px-2 !text-xs;
+    }
+
+    .fc-col-header-cell {
+        @apply !py-1 !px-0.5;
+    }
+
+    .fc-daygrid-day-number {
+        @apply !p-0.5 !text-xs;
+    }
+
+    .fc-event {
+        @apply text-xs p-0.5;
+    }
+
+    .fc-event-main-content {
+        @apply text-[0.65rem];
+    }
+
+    .fc-event-main-content small {
+        @apply text-[0.6rem];
+    }
 }
 
 /* Additional responsive styles */
 @media (max-width: 480px) {
     #root {
-        @apply p-2;
+        padding: 0.5rem;
     }
     
     .calendar-container {
-        @apply py-2.5 px-1 my-2.5 mx-auto;
+        padding: 10px 5px;
+        margin: 10px auto;
     }
     
     .fc .fc-toolbar {
-        @apply flex flex-col items-center gap-2;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 8px;
     }
     
     .fc .fc-toolbar-chunk {
-        @apply flex justify-center mb-1;
+        display: flex;
+        justify-content: center;
+        margin-bottom: 5px;
     }
     
     .fc .fc-button {
-        @apply py-1 px-2 text-xs;
+        padding: 4px 8px;
+        font-size: 0.8rem;
     }
     
     h1 {
-        @apply text-2xl;
+        font-size: 1.5rem;
     }
     
     p {
-        @apply text-sm;
+        font-size: 0.9rem;
     }
 }
