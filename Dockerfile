@@ -3,6 +3,7 @@ WORKDIR /app
 COPY calendarwebsite.client/package*.json ./
 RUN npm install
 COPY calendarwebsite.client/ .
+ENV NODE_ENV=production
 RUN npm run build
 
 FROM mcr.microsoft.com/dotnet/sdk:9.0 AS backend-build
