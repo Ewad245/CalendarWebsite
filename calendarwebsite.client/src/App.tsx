@@ -7,7 +7,6 @@ import { EventInput, EventContentArg } from "@fullcalendar/core";
 import { useCombobox } from "downshift";
 import { Popover } from "react-tiny-popover";
 import ThemeToggle from "./components/ThemeToggle";
-import { useTheme } from "./contexts/ThemeContext";
 
 // Helper function to normalize Vietnamese characters for case-insensitive comparison
 const normalizeString = (str: string) => {
