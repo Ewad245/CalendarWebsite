@@ -1,10 +1,8 @@
-version: '3.8'
-
 services:
   backend:
     build:
-      context: .
-      dockerfile: CalendarWebsite.Server/Dockerfile
+      context: ./CalendarWebsite.Server
+      dockerfile: Dockerfile
     ports:
       - "5194:5194"
     environment:
@@ -15,8 +13,8 @@ services:
 
   frontend:
     build:
-      context: .
-      dockerfile: calendarwebsite.client/Dockerfile
+      context: ./calendarwebsite.client
+      dockerfile: Dockerfile
     ports:
       - "50857:50857"
     depends_on:
@@ -26,4 +24,4 @@ services:
 
 networks:
   app-network:
-    driver: bridge 
+    driver: bridge
