@@ -92,6 +92,7 @@ const normalizeString = (str: string) => {
 };
 
 function App() {
+  const { isDarkMode } = useTheme();
   const [userList, setUserList] = useState<UserInfo[]>([]);
   const [selectedUser, setSelectedUser] = useState<UserInfo | null>(null);
   const [events, setEvents] = useState<EventInput[]>([]);
@@ -439,9 +440,6 @@ function App() {
         />
       </div>
     );
-
-  // Get theme context to use in component
-  const { isDarkMode } = useTheme();
 
   return (
     <div className="app-container min-h-screen w-full px-4 sm:px-6 lg:px-8 py-8">
