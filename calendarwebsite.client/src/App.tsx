@@ -114,7 +114,8 @@ function App() {
       // Try both original match and normalized match
       return (
         user.fullName.toLowerCase().includes(inputValue.toLowerCase()) ||
-        normalizedName.includes(normalizedInput)
+        normalizedName.includes(normalizedInput) ||
+        user.email.toLowerCase().includes(inputValue.toLowerCase())
       );
     });
   };
@@ -214,7 +215,7 @@ function App() {
 
   useEffect(() => {
     if (selectedUser) {
-      fetchUserCheckInData(selectedUser.userId);
+      fetchUserCheckInData(selectedUser.email);
     }
   }, [selectedUser]);
 
@@ -265,7 +266,7 @@ function App() {
                 {isOpen &&
                   filteredItems.map((item, index) => (
                     <li
-                      key={item.userId}
+                      key={item.email}
                       {...getItemProps({ item, index })}
                       className={`p-2 sm:p-3 cursor-pointer text-sm sm:text-base ${
                         highlightedIndex === index
@@ -277,7 +278,7 @@ function App() {
                           : ""
                       } text-neutral-900 dark:text-neutral-50`}
                     >
-                      {item.fullName}
+                      {item.fullName} - {item.email}
                     </li>
                   ))}
                 {isOpen && filteredItems.length === 0 && inputValue && (
