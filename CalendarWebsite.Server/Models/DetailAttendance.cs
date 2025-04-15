@@ -2,7 +2,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace CalendarWebsite.Server.Models;
     [Table("DataOnly_APIaCheckIn", Schema = "Dynamic")]
-    public class DataOnly_APIaCheckIn
+    public class DetailAttendance
     {
         public long? Id { get; set; }
         public long? UserWorkflowId { get; set; }

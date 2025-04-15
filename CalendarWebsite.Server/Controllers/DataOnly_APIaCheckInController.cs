@@ -24,45 +24,48 @@ namespace CalendarWebsite.Server.Controllers
 
         // GET: api/DataOnly_APIaCheckIn
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<UserInfo>>> GetUsers()
+        public async Task<IEnumerable<CustomUserInfo>> GetUsers()
         {
-            return await _context.Users.AsNoTracking()
-                .Where(u => u.FullName != null)
-                .GroupBy(u => u.UserId)
-                .Select(g => new UserInfo
-                {
-                    userId = g.Select(u => u.UserId).FirstOrDefault(),
-                    fullName = g.Select(x => x.FullName).FirstOrDefault()
-                })
-                .ToListAsync();
+            string sql = @"
+            WITH RankedEmails AS (
+                SELECT *,
+                       ROW_NUMBER() OVER (PARTITION BY [p].Email ORDER BY [p].Id) AS rn
+                FROM [dbo].[PersonalProfile] as [p] WHERE [p].UserStatus <> -1 AND [p].IsDeleted = 0
+            )
+            SELECT Id, Email, FullName
+            FROM RankedEmails
+            WHERE rn = 1";
+            
+            return await _context.Set<CustomUserInfo>().FromSqlRaw(sql).ToListAsync();
 
         }
 
-        // GET: api/DataOnly_APIaCheckIn/5
+        // GET: api/DataOnly_APIaCheckIn/Bob@gmail.com
+        // This uses Email as id
         [HttpGet("{id}")]
-        public async Task<ActionResult<IEnumerable<DataOnly_APIaCheckIn>>> GetDataOnly_APIaCheckIn(string id)
+        public async Task<ActionResult<IEnumerable<DetailAttendance>>> GetDetailAttendance(string id)
         {
-            var dataOnly_APIaCheckIn = await _context.Users.Where(w => w.UserId == id).ToListAsync();
+            var attendances = await _context.Attendances.Where(w => w.UserId == id).ToListAsync();
 
-            if (dataOnly_APIaCheckIn == null)
+            if (attendances == null)
             {
                 return NotFound();
             }
 
-            return dataOnly_APIaCheckIn;
+            return attendances;
         }
 
         // PUT: api/DataOnly_APIaCheckIn/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
-        [HttpPut("{id}")]
-        public async Task<IActionResult> PutDataOnly_APIaCheckIn(long id, DataOnly_APIaCheckIn dataOnly_APIaCheckIn)
+        /*[HttpPut("{id}")]
+        public async Task<IActionResult> PutDetailAttendance(long id, DetailAttendance attendance)
         {
-            if (id != dataOnly_APIaCheckIn.Id)
+            if (id != attendance.Id)
             {
                 return BadRequest();
             }
 
-            _context.Entry(dataOnly_APIaCheckIn).State = EntityState.Modified;
+            _context.Entry(attendance).State = EntityState.Modified;
 
             try
             {
@@ -113,6 +116,6 @@ namespace CalendarWebsite.Server.Controllers
         private bool DataOnly_APIaCheckInExists(long id)
         {
             return _context.Users.Any(e => e.Id == id);
-        }
+        }*/
     }
 }
