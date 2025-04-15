@@ -331,28 +331,54 @@ function App() {
                 <h4 className="text-base sm:text-lg font-semibold mb-2 text-neutral-900 dark:text-neutral-50">
                   {eventInfo.event.title}
                 </h4>
-                <div className="flex items-center mb-2">
-                  <div
-                    className={`w-2.5 h-2.5 rounded-full mr-2 ${
-                      status === "late"
-                        ? "bg-red-600 dark:bg-red-500"
-                        : status === "early"
-                        ? "bg-green-600 dark:bg-green-500"
-                        : "bg-blue-600 dark:bg-blue-500"
-                    }`}
-                  ></div>
-                  <span
-                    className={`capitalize font-bold text-sm sm:text-base ${
-                      status === "late"
-                        ? "text-red-700 dark:text-red-400"
-                        : status === "early"
-                        ? "text-green-700 dark:text-green-400"
-                        : "text-blue-700 dark:text-blue-400"
-                    }`}
-                  >
-                    {status}
-                  </span>
-                </div>
+                {type === "check-in" && (
+                  <div className="flex items-center mb-2">
+                    <div
+                      className={`w-2.5 h-2.5 rounded-full mr-2 ${
+                        status === "late"
+                          ? "bg-red-600 dark:bg-red-500"
+                          : status === "early"
+                          ? "bg-green-600 dark:bg-green-500"
+                          : "bg-blue-600 dark:bg-blue-500"
+                      }`}
+                    ></div>
+                    <span
+                      className={`capitalize font-bold text-sm sm:text-base ${
+                        status === "late"
+                          ? "text-red-700 dark:text-red-400"
+                          : status === "early"
+                          ? "text-green-700 dark:text-green-400"
+                          : "text-blue-700 dark:text-blue-400"
+                      }`}
+                    >
+                      {status}
+                    </span>
+                  </div>
+                )}
+                {type === "check-out" && (
+                  <div className="flex items-center mb-2">
+                    <div
+                      className={`w-2.5 h-2.5 rounded-full mr-2 ${
+                        status === "late"
+                          ? "bg-green-600 dark:bg-green-500"
+                          : status === "early"
+                          ? "bg-red-600 dark:bg-red-500"
+                          : "bg-blue-600 dark:bg-blue-500"
+                      }`}
+                    ></div>
+                    <span
+                      className={`capitalize font-bold text-sm sm:text-base ${
+                        status === "late"
+                          ? "text-green-700 dark:text-green-400"
+                          : status === "early"
+                          ? "text-red-700 dark:text-red-400"
+                          : "text-blue-700 dark:text-blue-400"
+                      }`}
+                    >
+                      {status}
+                    </span>
+                  </div>
+                )}
                 <p className="my-2 flex justify-between text-neutral-800 dark:text-neutral-100 text-sm sm:text-base">
                   <strong className="text-neutral-900 dark:text-neutral-50">
                     Date:
