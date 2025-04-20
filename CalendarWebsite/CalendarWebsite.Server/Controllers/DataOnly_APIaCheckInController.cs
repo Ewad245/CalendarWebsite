@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -24,45 +24,188 @@ namespace CalendarWebsite.Server.Controllers
 
         // GET: api/DataOnly_APIaCheckIn
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<UserInfo>>> GetUsers()
+        public async Task<IEnumerable<CustomUserInfo>> GetUsers()
         {
-            return await _context.Users.AsNoTracking()
-                .Where(u => u.FullName != null)
-                .GroupBy(u => u.UserId)
-                .Select(g => new UserInfo
-                {
-                    userId = g.Select(u => u.UserId).FirstOrDefault(),
-                    fullName = g.Select(x => x.FullName).FirstOrDefault()
-                })
-                .ToListAsync();
+            string sql = @"
+            WITH RankedEmails AS (
+                SELECT *,
+                       ROW_NUMBER() OVER (PARTITION BY [p].Email ORDER BY [p].Id) AS rn
+                FROM [dbo].[PersonalProfile] as [p] WHERE [p].UserStatus <> -1 AND [p].IsDeleted = 0
+            )
+            SELECT Id, Email, FullName
+            FROM RankedEmails
+            WHERE rn = 1";
+            
+            return await _context.Set<CustomUserInfo>().FromSqlRaw(sql).ToListAsync();
 
         }
-
-        // GET: api/DataOnly_APIaCheckIn/5
+        
+        // GET: api/DataOnly_APIaCheckIn/Bob@gmail.com
+        // This uses Email as id
         [HttpGet("{id}")]
-        public async Task<ActionResult<IEnumerable<DataOnly_APIaCheckIn>>> GetDataOnly_APIaCheckIn(string id)
+        public async Task<ActionResult<IEnumerable<DetailAttendance>>> GetDetailAttendanceNoPag(string id)
         {
-            var dataOnly_APIaCheckIn = await _context.Users.Where(w => w.UserId == id).ToListAsync();
+            var attendances = await _context.Attendances.Where(w => w.UserId == id).ToListAsync();
 
-            if (dataOnly_APIaCheckIn == null)
+            if (attendances == null)
             {
                 return NotFound();
             }
 
-            return dataOnly_APIaCheckIn;
+            return attendances;
+        }
+
+        // GET: api/DataOnly_APIaCheckIn/Bob@gmail.com?pageNumber=1&pageSize=10&fromDate=2023-01-01&toDate=2023-12-31
+        // This uses Email as id with pagination support and optional date filtering
+        [HttpGet("pagination/{id}")]
+        public async Task<ActionResult<PaginatedResult<DetailAttendance>>> GetDetailAttendanceYesPag(
+            string id, 
+            [FromQuery] int pageNumber = 1, 
+            [FromQuery] int pageSize = 10,
+            [FromQuery] DateTime? fromDate = null,
+            [FromQuery] DateTime? toDate = null)
+        {
+            if (pageNumber < 1) pageNumber = 1;
+            if (pageSize < 1) pageSize = 10;
+            if (pageSize > 100) pageSize = 100; // Limit maximum page size
+            
+            var query = _context.Attendances.Where(w => w.UserId == id);
+            
+            // Apply date filters if provided
+            if (fromDate.HasValue)
+            {
+                query = query.Where(a => a.At >= fromDate.Value);
+            }
+            
+            if (toDate.HasValue)
+            {
+                // Include the entire day for the end date
+                var endDate = toDate.Value.Date.AddDays(1).AddTicks(-1);
+                query = query.Where(a => a.At <= endDate);
+            }
+            
+            // Get total count for pagination metadata
+            var totalCount = await query.CountAsync();
+            
+            if (totalCount == 0)
+            {
+                return new PaginatedResult<DetailAttendance>
+                {
+                    Items = new List<DetailAttendance>(),
+                    PageNumber = pageNumber,
+                    PageSize = pageSize,
+                    TotalCount = 0,
+                    TotalPages = 0
+                };
+            }
+            
+            // Apply pagination
+            var items = await query
+                .OrderByDescending(a => a.At) // Order by date, most recent first
+                .Skip((pageNumber - 1) * pageSize)
+                .Take(pageSize)
+                .ToListAsync();
+            
+            // Calculate total pages
+            var totalPages = (int)Math.Ceiling(totalCount / (double)pageSize);
+            
+            var result = new PaginatedResult<DetailAttendance>
+            {
+                Items = items,
+                PageNumber = pageNumber,
+                PageSize = pageSize,
+                TotalCount = totalCount,
+                TotalPages = totalPages
+            };
+            
+            return result;
+        }
+        
+        // GET: api/DataOnly_APIaCheckIn/count/Bob@gmail.com
+        // Get total count of attendance records for a staff
+        [HttpGet("count/{id}")]
+        public async Task<ActionResult<int>> GetDetailAttendanceCount(string id)
+        {
+            var count = await _context.Attendances.CountAsync(w => w.UserId == id);
+            return count;
+        }
+
+        //GET: api/DataOnly_APIaCheckIn/pagination
+        // Get all result in case the user do not select specific staff
+        [HttpGet("pagination")]
+        public async Task<ActionResult<PaginatedResult<DetailAttendance>>> GetAllDetailAttendanceYesPag(
+            [FromQuery] int pageNumber = 1, 
+            [FromQuery] int pageSize = 10,
+            [FromQuery] DateTime? fromDate = null,
+            [FromQuery] DateTime? toDate = null)
+        {
+            if (pageNumber < 1) pageNumber = 1;
+            if (pageSize < 1) pageSize = 10;
+            if (pageSize > 100) pageSize = 100; // Limit maximum page size
+
+            var query = _context.Attendances.AsQueryable();
+            
+            // Apply date filters if provided
+            if (fromDate.HasValue)
+            {
+                query = query.Where(a => a.At >= fromDate.Value);
+            }
+            
+            if (toDate.HasValue)
+            {
+                // Include the entire day for the end date
+                var endDate = toDate.Value.Date.AddDays(1).AddTicks(-1);
+                query = query.Where(a => a.At <= endDate);
+            }
+            
+            // Get total count for pagination metadata
+            var totalCount = await query.CountAsync();
+            
+            if (totalCount == 0)
+            {
+                return new PaginatedResult<DetailAttendance>
+                {
+                    Items = new List<DetailAttendance>(),
+                    PageNumber = pageNumber,
+                    PageSize = pageSize,
+                    TotalCount = 0,
+                    TotalPages = 0
+                };
+            }
+            
+            // Apply pagination
+            var items = await query
+                .OrderByDescending(a => a.At) // Order by date, most recent first
+                .Skip((pageNumber - 1) * pageSize)
+                .Take(pageSize)
+                .ToListAsync();
+            
+            // Calculate total pages
+            var totalPages = (int)Math.Ceiling(totalCount / (double)pageSize);
+            
+            var result = new PaginatedResult<DetailAttendance>
+            {
+                Items = items,
+                PageNumber = pageNumber,
+                PageSize = pageSize,
+                TotalCount = totalCount,
+                TotalPages = totalPages
+            };
+            
+            return result;
         }
 
         // PUT: api/DataOnly_APIaCheckIn/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
-        [HttpPut("{id}")]
-        public async Task<IActionResult> PutDataOnly_APIaCheckIn(long id, DataOnly_APIaCheckIn dataOnly_APIaCheckIn)
+        /*[HttpPut("{id}")]
+        public async Task<IActionResult> PutDetailAttendance(long id, DetailAttendance attendance)
         {
-            if (id != dataOnly_APIaCheckIn.Id)
+            if (id != attendance.Id)
             {
                 return BadRequest();
             }
 
-            _context.Entry(dataOnly_APIaCheckIn).State = EntityState.Modified;
+            _context.Entry(attendance).State = EntityState.Modified;
 
             try
             {
@@ -113,6 +256,6 @@ namespace CalendarWebsite.Server.Controllers
         private bool DataOnly_APIaCheckInExists(long id)
         {
             return _context.Users.Any(e => e.Id == id);
-        }
+        }*/
     }
 }

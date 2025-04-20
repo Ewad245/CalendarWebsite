@@ -6,7 +6,6 @@ EXPOSE 443
 FROM mcr.microsoft.com/dotnet/sdk:9.0 AS build
 WORKDIR /src
 COPY ["CalendarWebsite.Server/CalendarWebsite.Server.csproj", "CalendarWebsite.Server/"]
-COPY ["calendarwebsite.client/calendarwebsite.client.esproj", "calendarwebsite.client/"]
 RUN dotnet restore "CalendarWebsite.Server/CalendarWebsite.Server.csproj"
 COPY . .
 WORKDIR "/src/CalendarWebsite.Server"
