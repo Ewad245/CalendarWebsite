@@ -15,7 +15,7 @@ export default function Calendar({ events }: CalendarProps) {
   );
 
   return (
-    <div className="calendar-container w-full">
+    <div className="calendar-container w-full h-full shadow-lg rounded-lg p-4 bg-white dark:bg-neutral-800">
       <FullCalendar
         plugins={[dayGridPlugin]}
         initialView="dayGridMonth"

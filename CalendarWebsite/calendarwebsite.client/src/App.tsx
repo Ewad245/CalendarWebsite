@@ -55,8 +55,8 @@ function CalendarPage() {
             backgroundColor: user.lateIn
               ? "#ef4444" // red for late
               : user.earlyIn
-              ? "#22c55e" // green for early
-              : "#3b82f6", // blue for on-time
+                ? "#22c55e" // green for early
+                : "#3b82f6", // blue for on-time
           },
           {
             id: `checkout-${user.userId}-${index}`,
@@ -73,15 +73,15 @@ function CalendarPage() {
               status: user.earlyOut
                 ? "early"
                 : user.lateOut
-                ? "late"
-                : "on-time",
+                  ? "late"
+                  : "on-time",
               data: user,
             },
             backgroundColor: user.earlyOut
               ? "#ef4444" // red for early
               : user.lateOut
-              ? "#22c55e" // green for late
-              : "#3b82f6", // blue for on-time
+                ? "#22c55e" // green for late
+                : "#3b82f6", // blue for on-time
           },
         ]);
 
@@ -107,11 +107,11 @@ function CalendarPage() {
   }, [selectedUser]);
 
   return (
-    <div className="container mx-auto px-4 py-8">
-      <div className="flex justify-between items-center mb-4">
+    <div className="container mx-auto px-4 py-6 sm:py-8">
+      <div className="flex flex-col sm:flex-row justify-between items-center mb-6 sm:mb-8 gap-4">
         <Header />
         <Link to="/attendance">
-          <button className="px-4 py-2 bg-primary text-primary-foreground rounded-md hover:bg-primary/90 transition-colors">
+          <button className="w-full sm:w-auto px-4 py-2 bg-primary text-primary-foreground rounded-md hover:bg-primary/90 transition-colors">
             View Attendance Data
           </button>
         </Link>
@@ -123,8 +123,8 @@ function CalendarPage() {
           </em>
         </p>
       ) : (
-        <div className="flex flex-col md:flex-row gap-4 mb-4">
-          <div className="w-full md:w-1/3">
+        <div className="flex flex-col gap-6 mb-4">
+          <div className="w-full max-w-md mx-auto">
             <UserSearch
               userList={userList}
               selectedUser={selectedUser}
@@ -134,7 +134,7 @@ function CalendarPage() {
               setEvents={setEvents}
             />
           </div>
-          <div className="w-full md:w-2/3">
+          <div className="w-full max-w-5xl mx-auto">
             <Calendar events={events} />
           </div>
         </div>

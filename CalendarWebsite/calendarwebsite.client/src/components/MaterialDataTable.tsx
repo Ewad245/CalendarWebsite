@@ -4,27 +4,13 @@ import { format } from "date-fns";
 
 // Material UI imports
 import {
-  Paper,
-  Table,
-  TableBody,
-  TableCell,
-  TableContainer,
-  TableHead,
-  TableRow,
-  Typography,
   Box,
   TextField,
-  Button,
   Card,
   CardContent,
   CardHeader,
   Grid,
-  MenuItem,
-  Select,
-  FormControl,
-  InputLabel,
-  Popover,
-  IconButton,
+  Typography,
   CircularProgress,
   Autocomplete,
 } from "@mui/material";
@@ -34,11 +20,18 @@ import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns";
 
+// Material UI DataGrid
+import {
+  DataGrid,
+  GridColDef,
+  GridRenderCellParams,
+  GridToolbar,
+  GridPaginationModel,
+} from "@mui/x-data-grid";
+
 // Material UI Icons
 import {
   CalendarMonth as CalendarIcon,
-  ChevronLeft,
-  ChevronRight,
 } from "@mui/icons-material";
 
 interface DetailAttendance {
@@ -76,13 +69,103 @@ export default function MaterialDataTable({
   const [selectedUser, setSelectedUser] = useState<UserInfo | null>(null);
   const [attendanceData, setAttendanceData] = useState<DetailAttendance[]>([]);
   const [loading, setLoading] = useState(false);
-  const [pageNumber, setPageNumber] = useState(1);
-  const [pageSize, setPageSize] = useState(10);
-  const [totalPages, setTotalPages] = useState(0);
+  const [paginationModel, setPaginationModel] = useState<GridPaginationModel>({
+    page: 0,
+    pageSize: 10,
+  });
+  const [totalRows, setTotalRows] = useState(0);
   const [fromDate, setFromDate] = useState<Date | null>(null);
   const [toDate, setToDate] = useState<Date | null>(null);
   const [searchInput, setSearchInput] = useState("");
   const [filteredUserList, setFilteredUserList] = useState<UserInfo[]>([]);
+
+  // Define columns for DataGrid
+  const columns: GridColDef[] = [
+    {
+      field: 'id',
+      headerName: 'ID',
+      width: 60,
+      flex: 0.3,
+      minWidth: 50
+    },
+    {
+      field: 'fullName',
+      headerName: 'User',
+      width: 150,
+      flex: 1,
+      minWidth: 120
+    },
+    {
+      field: 'inAt',
+      headerName: 'Check In',
+      width: 180,
+      flex: 1,
+      minWidth: 150,
+      renderCell: (params: GridRenderCellParams) => {
+        const record = params.row;
+        return (
+          <>
+            {formatDateTime(record.inAt)}
+            {record.lateIn
+              ? " (Late)"
+              : record.earlyIn
+                ? " (Early)"
+                : ""}
+          </>
+        );
+      }
+    },
+    {
+      field: 'outAt',
+      headerName: 'Check Out',
+      width: 180,
+      flex: 1,
+      minWidth: 150,
+      renderCell: (params: GridRenderCellParams) => {
+        const record = params.row;
+        return (
+          <>
+            {formatDateTime(record.outAt)}
+            {record.earlyOut
+              ? " (Early)"
+              : record.lateOut
+                ? " (Late)"
+                : ""}
+          </>
+        );
+      }
+    },
+    {
+      field: 'check',
+      headerName: 'Status',
+      width: 90,
+      flex: 0.5,
+      minWidth: 80,
+      valueGetter: (value, row) => {
+        return row.check === 1 ? "Present" : "Absent";
+      }
+    },
+    {
+      field: 'wt',
+      headerName: 'Work Time',
+      width: 110,
+      flex: 0.7,
+      minWidth: 100,
+      valueGetter: (value, row) => {
+        return `${row.wt} minutes`;
+      }
+    },
+    {
+      field: 'at',
+      headerName: 'Date',
+      width: 150,
+      flex: 0.8,
+      minWidth: 120,
+      valueGetter: (value, row) => {
+        return formatDateTime(row.at);
+      }
+    },
+  ];
 
   // Filter users based on search input
   useEffect(() => {
@@ -108,14 +191,16 @@ export default function MaterialDataTable({
     } else {
       setAttendanceData([]);
     }
-  }, [selectedUser, pageNumber, pageSize, fromDate, toDate]);
+  }, [selectedUser, paginationModel.page, paginationModel.pageSize, fromDate, toDate]);
 
   const fetchAttendanceData = async () => {
     if (!selectedUser) return;
 
     setLoading(true);
     try {
-      let url = `/api/DataOnly_APIaCheckIn/pagination/${selectedUser.email}?pageNumber=${pageNumber}&pageSize=${pageSize}`;
+      // DataGrid uses 0-based page index, but API expects 1-based page number
+      const apiPageNumber = paginationModel.page + 1;
+      let url = `/api/DataOnly_APIaCheckIn/pagination/${selectedUser.email}?pageNumber=${apiPageNumber}&pageSize=${paginationModel.pageSize}`;
 
       if (fromDate) {
         url += `&fromDate=${format(fromDate, "yyyy-MM-dd")}`;
@@ -129,8 +214,16 @@ export default function MaterialDataTable({
 
       if (response.ok) {
         const data: PaginatedResult<DetailAttendance> = await response.json();
-        setAttendanceData(data.items);
-        setTotalPages(data.totalPages);
+
+        // Adjust dates for UTC+7 timezone in the received data
+        const adjustedItems = data.items.map(item => ({
+          ...item,
+          // We don't modify the original dates here since formatDateTime will handle the adjustment
+          // This ensures consistency with how dates are displayed
+        }));
+
+        setAttendanceData(adjustedItems);
+        setTotalRows(data.totalCount);
       } else {
         console.error("Failed to fetch attendance data");
         setAttendanceData([]);
@@ -145,13 +238,14 @@ export default function MaterialDataTable({
 
   const handleUserSelect = (user: UserInfo | null) => {
     setSelectedUser(user);
-    setPageNumber(1); // Reset to first page when changing user
+    setPaginationModel({
+      page: 0, // Reset to first page when changing user
+      pageSize: paginationModel.pageSize
+    });
   };
 
-  const handlePageChange = (newPage: number) => {
-    if (newPage > 0 && newPage <= totalPages) {
-      setPageNumber(newPage);
-    }
+  const handlePaginationModelChange = (newModel: GridPaginationModel) => {
+    setPaginationModel(newModel);
   };
 
   const normalizeString = (str: string) => {
@@ -232,9 +326,13 @@ export default function MaterialDataTable({
     return [...str].map((char) => charMap[char] || char).join("");
   };
 
+  // UTC+7 timezone offset constant
+  const utcOffset = 7; // UTC+7 timezone offset
+
   const formatDateTime = (dateString: string | Date) => {
     if (!dateString) return "N/A";
-    const date = new Date(dateString);
+    // Adjust for UTC+7 timezone
+    const date = new Date(new Date(dateString).getTime() + utcOffset * 3600000);
     return format(date, "yyyy-MM-dd HH:mm:ss");
   };
 
@@ -313,126 +411,69 @@ export default function MaterialDataTable({
             </Grid>
           </Grid>
 
-          {/* Data Table */}
-          <TableContainer component={Paper} sx={{ mb: 2 }}>
-            <Table sx={{ minWidth: 800 }}>
-              <TableHead>
-                <TableRow>
-                  <TableCell width={100}>ID</TableCell>
-                  <TableCell>User</TableCell>
-                  <TableCell>Check In</TableCell>
-                  <TableCell>Check Out</TableCell>
-                  <TableCell width={100}>Status</TableCell>
-                  <TableCell width={120}>Work Time</TableCell>
-                  <TableCell>Date</TableCell>
-                </TableRow>
-              </TableHead>
-              <TableBody>
-                {loading ? (
-                  <TableRow>
-                    <TableCell colSpan={7} align="center" sx={{ py: 4 }}>
-                      <CircularProgress size={24} sx={{ mr: 1 }} />
-                      Loading...
-                    </TableCell>
-                  </TableRow>
-                ) : attendanceData.length === 0 ? (
-                  <TableRow>
-                    <TableCell colSpan={7} align="center" sx={{ py: 4 }}>
-                      {selectedUser
-                        ? "No attendance data found"
-                        : "Select a user to view attendance data"}
-                    </TableCell>
-                  </TableRow>
-                ) : (
-                  attendanceData.map((record) => (
-                    <TableRow key={record.id}>
-                      <TableCell>{record.id}</TableCell>
-                      <TableCell>{record.fullName}</TableCell>
-                      <TableCell>
-                        {formatDateTime(record.inAt)}
-                        {record.lateIn
-                          ? " (Late)"
-                          : record.earlyIn
-                          ? " (Early)"
-                          : ""}
-                      </TableCell>
-                      <TableCell>
-                        {formatDateTime(record.outAt)}
-                        {record.earlyOut
-                          ? " (Early)"
-                          : record.lateOut
-                          ? " (Late)"
-                          : ""}
-                      </TableCell>
-                      <TableCell>
-                        {record.check === 1 ? "Present" : "Absent"}
-                      </TableCell>
-                      <TableCell>{record.wt} minutes</TableCell>
-                      <TableCell>{formatDateTime(record.at)}</TableCell>
-                    </TableRow>
-                  ))
-                )}
-              </TableBody>
-            </Table>
-          </TableContainer>
-
-          {/* Pagination */}
-          {selectedUser && attendanceData.length > 0 && (
-            <Box
-              sx={{
-                display: "flex",
-                justifyContent: "space-between",
-                alignItems: "center",
-              }}
-            >
-              <Box sx={{ display: "flex", alignItems: "center", gap: 2 }}>
-                <FormControl
-                  variant="outlined"
-                  size="small"
-                  sx={{ minWidth: 100 }}
-                >
-                  <InputLabel id="page-size-label">Per Page</InputLabel>
-                  <Select
-                    labelId="page-size-label"
-                    value={pageSize}
-                    onChange={(e) => {
-                      setPageSize(Number(e.target.value));
-                      setPageNumber(1); // Reset to first page when changing page size
-                    }}
-                    label="Per Page"
-                  >
-                    <MenuItem value={5}>5 per page</MenuItem>
-                    <MenuItem value={10}>10 per page</MenuItem>
-                    <MenuItem value={20}>20 per page</MenuItem>
-                    <MenuItem value={50}>50 per page</MenuItem>
-                  </Select>
-                </FormControl>
-                <Typography variant="body2" color="text.secondary">
-                  Page {pageNumber} of {totalPages}
+          {/* DataGrid */}
+          <Box sx={{ height: { xs: 500, md: 400 }, width: '100%', mb: 2, overflowX: 'auto' }}>
+            {selectedUser ? (
+              <DataGrid
+                rows={attendanceData}
+                columns={columns}
+                paginationModel={paginationModel}
+                onPaginationModelChange={handlePaginationModelChange}
+                pageSizeOptions={[5, 10, 20, 50]}
+                pagination
+                paginationMode="server"
+                rowCount={totalRows}
+                loading={loading}
+                disableRowSelectionOnClick
+                getRowId={(row) => row.id}
+                slots={{
+                  toolbar: GridToolbar,
+                }}
+                slotProps={{
+                  toolbar: {
+                    showQuickFilter: true,
+                  },
+                }}
+                sx={{
+                  '& .MuiDataGrid-cell': {
+                    whiteSpace: 'normal',
+                    lineHeight: 'normal',
+                    padding: { xs: '8px 4px', md: '16px 8px' },
+                  },
+                  '& .MuiDataGrid-columnHeaders': {
+                    backgroundColor: 'rgba(0, 0, 0, 0.04)',
+                  },
+                  '& .MuiDataGrid-virtualScroller': {
+                    overflowX: 'auto',
+                  },
+                  '& .MuiDataGrid-main': {
+                    // Allow horizontal scrolling on mobile
+                    overflow: 'auto',
+                  },
+                  '& .MuiDataGrid-root': {
+                    // Ensure the grid adapts to container width
+                    width: '100%',
+                    minWidth: { xs: 650, sm: 'auto' },
+                  }
+                }}
+              />
+            ) : (
+              <Box
+                sx={{
+                  height: '100%',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  border: '1px solid rgba(0, 0, 0, 0.12)',
+                  borderRadius: 1,
+                }}
+              >
+                <Typography variant="body1" color="text.secondary">
+                  Select a user to view attendance data
                 </Typography>
               </Box>
-              <Box sx={{ display: "flex", gap: 1 }}>
-                <Button
-                  variant="outlined"
-                  size="small"
-                  onClick={() => handlePageChange(pageNumber - 1)}
-                  disabled={pageNumber <= 1}
-                  startIcon={<ChevronLeft />}
-                >
-                  Previous
-                </Button>
-                <Button
-                  variant="outlined"
-                  size="small"
-                  onClick={() => handlePageChange(pageNumber + 1)}
-                  disabled={pageNumber >= totalPages}
-                  endIcon={<ChevronRight />}
-                >
-                  Next
-                </Button>
-              </Box>
-            </Box>
-          )}
+            )}
+          </Box>
         </CardContent>
       </Card>
     </Box>
