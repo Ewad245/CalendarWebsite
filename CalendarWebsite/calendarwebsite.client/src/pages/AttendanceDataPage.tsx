@@ -3,10 +3,12 @@ import { UserInfo } from "../interfaces/type";
 import Header from "../components/Header";
 import MaterialDataTable from "@/components/MaterialDataTable";
 import { Link } from "react-router-dom";
+import { useTranslation } from 'react-i18next';
 
 export default function AttendanceDataPage() {
   const [userList, setUserList] = useState<UserInfo[]>([]);
   const [loading, setLoading] = useState(true);
+  const { t } = useTranslation();
 
   useEffect(() => {
     fetchUserList();
@@ -20,10 +22,10 @@ export default function AttendanceDataPage() {
         const data: UserInfo[] = await response.json();
         setUserList(data);
       } else {
-        console.error("Failed to fetch user list");
+        console.error(t('attendance.message.fetchError'));
       }
     } catch (error) {
-      console.error("Error fetching user list:", error);
+      console.error(`${t('attendance.message.fetchErrorDetails')}`, error);
     } finally {
       setLoading(false);
     }
@@ -35,18 +37,18 @@ export default function AttendanceDataPage() {
         <Header />
         <Link to="/" className="w-full sm:w-auto">
           <button className="w-full sm:w-auto px-4 py-2 bg-primary text-primary-foreground rounded-md hover:bg-primary/90 transition-colors">
-            View Calendar
+            {t('navigation.viewCalendar')}
           </button>
         </Link>
       </div>
 
       {loading ? (
         <div className="flex justify-center items-center h-64">
-          <p className="text-lg">Loading user data...</p>
+          <p className="text-lg">{t('attendance.message.loadingData')}</p>
         </div>
       ) : (
-        <div className="w-full overflow-hidden rounded-md shadow-sm">
-          <div className="max-w-full overflow-x-auto">
+        <div className="min-h-screen py-6 flex flex-col items-center rounded-md shadow-sm">
+          <div className="container mx-auto px-4 max-w-6xl">
             <MaterialDataTable userList={userList} />
           </div>
         </div>

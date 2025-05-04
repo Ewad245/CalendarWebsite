@@ -10,7 +10,7 @@ public class UserInfo
     public string? AccountName { get; set; } = string.Empty;
     public string? Name { get; set; }
     public string? FullName { get; set; } = string.Empty;
-    public long? DepartmentId { get; set; }
+    public long DepartmentId { get; set; } = -1;
     public long? ManagerId { get; set; }
     public long? PositionId { get; set; }
     public bool? Gender { get; set; }

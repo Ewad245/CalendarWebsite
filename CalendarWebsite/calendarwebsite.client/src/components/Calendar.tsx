@@ -3,13 +3,17 @@ import dayGridPlugin from "@fullcalendar/daygrid";
 import { EventInput, EventContentArg } from "@fullcalendar/core";
 import { Popover } from "react-tiny-popover";
 import { useState } from "react";
+import { useTranslation } from 'react-i18next';
 import EventPopover from "./EventPopover";
+import enLocale from '@fullcalendar/core/locales/en-gb';
+import viLocale from '@fullcalendar/core/locales/vi';
 
 interface CalendarProps {
   events: EventInput[];
 }
 
 export default function Calendar({ events }: CalendarProps) {
+  const { t } = useTranslation();
   const [popoverEvent, setPopoverEvent] = useState<EventContentArg | null>(
     null
   );
@@ -17,6 +21,9 @@ export default function Calendar({ events }: CalendarProps) {
   return (
     <div className="calendar-container w-full h-full shadow-lg rounded-lg p-4 bg-white dark:bg-neutral-800">
       <FullCalendar
+      locales={[enLocale, viLocale]}
+      locale={t('language.english') === 'English' ? enLocale : viLocale}
+        themeSystem="bootstrap5"
         plugins={[dayGridPlugin]}
         initialView="dayGridMonth"
         events={events}

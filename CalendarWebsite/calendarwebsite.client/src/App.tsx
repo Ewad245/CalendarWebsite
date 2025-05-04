@@ -6,9 +6,11 @@ import UserSearch from "./components/UserSearch";
 import Calendar from "./components/Calendar";
 import Header from "./components/Header";
 import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
+import { useTranslation } from 'react-i18next';
 import AttendanceDataPage from "./pages/AttendanceDataPage";
 
 function CalendarPage() {
+  const { t } = useTranslation();
   const [userList, setUserList] = useState<UserInfo[]>([]);
   const [selectedUser, setSelectedUser] = useState<UserInfo | null>(null);
   const [events, setEvents] = useState<EventInput[]>([]);
@@ -21,10 +23,10 @@ function CalendarPage() {
         const data: UserInfo[] = await response.json();
         setUserList(data);
       } else {
-        console.error("Failed to fetch user list");
+        console.error(t('attendance.message.fetchError'));
       }
     } catch (error) {
-      console.error("Error fetching user list:", error);
+      console.error(`${t('attendance.message.fetchErrorDetails')}`, error);
     }
   }
 
@@ -39,7 +41,7 @@ function CalendarPage() {
         const calendarEvents = data.flatMap((user: User, index) => [
           {
             id: `checkin-${user.userId}-${index}`,
-            title: `${user.fullName} (Check In)`,
+            title: `${user.fullName} (${t('attendance.table.checkIn')})`,
             start: new Date(
               new Date(user.inAt).getTime() + utcOffset * 3600000
             ),
@@ -60,7 +62,7 @@ function CalendarPage() {
           },
           {
             id: `checkout-${user.userId}-${index}`,
-            title: `${user.fullName} (Check Out)`,
+            title: `${user.fullName} (${t('attendance.table.checkOut')})`,
             start: new Date(
               new Date(user.outAt).getTime() + utcOffset * 3600000
             ),

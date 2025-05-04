@@ -1,12 +1,12 @@
 import { useCombobox } from "downshift";
 import { UserInfo } from "../interfaces/type";
 import { Input } from "./ui/input";
-import { Button } from "./ui/button";
 import { Card, CardContent } from "./ui/card";
 import { Search, X } from "lucide-react";
 import { Avatar } from "./ui/avatar";
 import { Separator } from "./ui/separator";
 import ExcelExportButton from "./ExcelExportButton";
+import { useTranslation } from "react-i18next";
 
 interface UserSearchProps {
   userList: UserInfo[];
@@ -16,6 +16,7 @@ interface UserSearchProps {
   setInputValue: (value: string) => void;
   setEvents: (events: any[]) => void;
 }
+
 
 const normalizeString = (str: string) => {
   if (!str) return "";
@@ -120,6 +121,7 @@ export default function UserSearch({
       );
     });
   };
+  const { t } = useTranslation();
 
   const {
     isOpen,
@@ -162,7 +164,7 @@ export default function UserSearch({
                 <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-muted-foreground" />
                 <Input
                   {...getInputProps()}
-                  placeholder="Search for a user"
+                  placeholder={t('attendance.filters.selectUser')}
                   className="pl-9 pr-9 w-full"
                 />
                 {inputValue && (
@@ -209,7 +211,7 @@ export default function UserSearch({
                     ))}
                   {isOpen && filteredItems.length === 0 && inputValue && (
                     <div className="p-3 text-muted-foreground text-sm">
-                      No matching users found
+                      {t('common.loading')}
                     </div>
                   )}
                 </div>

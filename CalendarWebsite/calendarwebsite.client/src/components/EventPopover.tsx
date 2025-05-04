@@ -1,4 +1,5 @@
 import { EventContentArg } from "@fullcalendar/core";
+import { useTranslation } from 'react-i18next';
 
 interface EventPopoverProps {
   eventInfo: EventContentArg;
@@ -10,6 +11,7 @@ export default function EventPopover({
   onClose,
 }: EventPopoverProps) {
   const { type, status } = eventInfo.event.extendedProps;
+  const { t } = useTranslation();
 
   return (
     <div className="p-4 bg-neutral-50 dark:bg-neutral-800 rounded-lg shadow-lg max-w-xs transition-colors duration-200">
@@ -42,7 +44,7 @@ export default function EventPopover({
                 : "text-blue-700 dark:text-blue-400"
             }`}
           >
-            {status}
+            {status === "late" ? t("attendance.table.late") : t("attendance.table.early")}
           </span>
         </div>
       )}
@@ -66,7 +68,7 @@ export default function EventPopover({
                 : "text-blue-700 dark:text-blue-400"
             }`}
           >
-            {status}
+            {status === "late" ? t("attendance.table.late") : t("attendance.table.early")}
           </span>
         </div>
       )}
@@ -80,7 +82,7 @@ export default function EventPopover({
       </p>
       <p className="my-2 flex justify-between text-neutral-800 dark:text-neutral-100 text-sm sm:text-base">
         <strong className="text-neutral-900 dark:text-neutral-50">Type:</strong>{" "}
-        {type === "check-in" ? "Check In" : "Check Out"}
+        {type === "check-in" ? t("attendance.table.checkIn") : t("attendance.table.checkOut")}
       </p>
       {type === "check-in" && (
         <div
@@ -93,10 +95,10 @@ export default function EventPopover({
           }`}
         >
           {status === "late"
-            ? "Employee checked in late"
+            ? t("attendance.message.employeeCheckedInLate")
             : status === "early"
-            ? "Employee checked in early"
-            : "Employee checked in on time"}
+            ? t("attendance.message.employeeCheckedInEarly")
+            : t("attendance.message.employeeCheckedInOnTime")}
         </div>
       )}
       {type === "check-out" && (
@@ -110,10 +112,10 @@ export default function EventPopover({
           }`}
         >
           {status === "late"
-            ? "Employee checked out late"
+            ? t("attendance.message.employeeCheckedOutLate")
             : status === "early"
-            ? "Employee checked out early"
-            : "Employee checked out on time"}
+            ? t("attendance.message.employeeCheckedOutEarly")
+            : t("attendance.message.employeeCheckedOutOnTime")}
         </div>
       )}
     </div>

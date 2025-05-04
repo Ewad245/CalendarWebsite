@@ -64,7 +64,7 @@ export default defineConfig({
   server: isDevelopment
     ? {
         proxy: {
-          "^/api/DataOnly_APIaCheckIn": {
+          "^/api": {
             target,
             secure: false,
           },

@@ -8,20 +8,20 @@
     "net6.0-none": []
   },
   "packageFolders": {
-    "C:\\Users\\Admin\\.nuget\\packages\\": {}
+    "/Users/thomasjohnson/.nuget/packages/": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "G:\\Github Projects\\CalendarWebsite\\CalendarWebsite\\calendarwebsite.client\\calendarwebsite.client.esproj",
+      "projectUniqueName": "/Users/thomasjohnson/Documents/GitHub/CalendarWebsite/CalendarWebsite/calendarwebsite.client/calendarwebsite.client.esproj",
       "projectName": "calendarwebsite.client",
-      "projectPath": "G:\\Github Projects\\CalendarWebsite\\CalendarWebsite\\calendarwebsite.client\\calendarwebsite.client.esproj",
-      "packagesPath": "C:\\Users\\Admin\\.nuget\\packages\\",
-      "outputPath": "G:\\Github Projects\\CalendarWebsite\\CalendarWebsite\\calendarwebsite.client\\obj\\",
+      "projectPath": "/Users/thomasjohnson/Documents/GitHub/CalendarWebsite/CalendarWebsite/calendarwebsite.client/calendarwebsite.client.esproj",
+      "packagesPath": "/Users/thomasjohnson/.nuget/packages/",
+      "outputPath": "/Users/thomasjohnson/Documents/GitHub/CalendarWebsite/CalendarWebsite/calendarwebsite.client/obj/",
       "projectStyle": "PackageReference",
       "UsingMicrosoftNETSdk": false,
       "configFilePaths": [
-        "C:\\Users\\Admin\\AppData\\Roaming\\NuGet\\NuGet.Config"
+        "/Users/thomasjohnson/.nuget/NuGet/NuGet.Config"
       ],
       "originalTargetFrameworks": [
         "net6.0"

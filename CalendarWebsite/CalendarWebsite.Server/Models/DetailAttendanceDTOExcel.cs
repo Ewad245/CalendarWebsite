@@ -4,7 +4,7 @@ namespace CalendarWebsite.Server.Models;
 public class DetailAttendanceDTOExcel
 {
     public long RowNum { get; set; }
-    public DateTime WorkingDate { get; set; }
+    public DateTime? WorkingDate { get; set; }
     public DateTime? InAt { get; set; }
     public DateTime? OutAt { get; set; }
     public decimal? Method { get; set; }

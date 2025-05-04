@@ -37,11 +37,13 @@
     <PackageJsonDependenciesClsx Condition="$(PackageJsonDependenciesClsx) == ''">^2.1.1</PackageJsonDependenciesClsx>
     <PackageJsonDependenciesDateFns Condition="$(PackageJsonDependenciesDateFns) == ''">^3.6.0</PackageJsonDependenciesDateFns>
     <PackageJsonDependenciesDownshift Condition="$(PackageJsonDependenciesDownshift) == ''">^9.0.9</PackageJsonDependenciesDownshift>
+    <PackageJsonDependenciesI18next Condition="$(PackageJsonDependenciesI18next) == ''">^25.0.1</PackageJsonDependenciesI18next>
     <PackageJsonDependenciesLucideReact Condition="$(PackageJsonDependenciesLucideReact) == ''">^0.488.0</PackageJsonDependenciesLucideReact>
     <PackageJsonDependenciesReact Condition="$(PackageJsonDependenciesReact) == ''">^18.3.1</PackageJsonDependenciesReact>
     <PackageJsonDependenciesReactDayPicker Condition="$(PackageJsonDependenciesReactDayPicker) == ''">^9.6.7</PackageJsonDependenciesReactDayPicker>
     <PackageJsonDependenciesReactDom Condition="$(PackageJsonDependenciesReactDom) == ''">^18.3.1</PackageJsonDependenciesReactDom>
     <PackageJsonDependenciesReactHookForm Condition="$(PackageJsonDependenciesReactHookForm) == ''">^7.55.0</PackageJsonDependenciesReactHookForm>
+    <PackageJsonDependenciesReactI18next Condition="$(PackageJsonDependenciesReactI18next) == ''">^15.4.1</PackageJsonDependenciesReactI18next>
     <PackageJsonDependenciesReactRouterDom Condition="$(PackageJsonDependenciesReactRouterDom) == ''">^7.5.0</PackageJsonDependenciesReactRouterDom>
     <PackageJsonDependenciesReactTinyPopover Condition="$(PackageJsonDependenciesReactTinyPopover) == ''">^8.1.6</PackageJsonDependenciesReactTinyPopover>
     <PackageJsonDependenciesTailwindMerge Condition="$(PackageJsonDependenciesTailwindMerge) == ''">^3.2.0</PackageJsonDependenciesTailwindMerge>

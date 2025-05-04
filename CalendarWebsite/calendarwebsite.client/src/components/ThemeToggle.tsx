@@ -1,13 +1,6 @@
 import React from "react";
 import { useTheme } from "../contexts/ThemeContext";
 import { Button } from "./ui/button";
-import { Toggle } from "./ui/toggle";
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuTrigger,
-} from "./ui/dropdown-menu";
 import { Moon, Sun } from "lucide-react";
 
 const ThemeToggle: React.FC = () => {

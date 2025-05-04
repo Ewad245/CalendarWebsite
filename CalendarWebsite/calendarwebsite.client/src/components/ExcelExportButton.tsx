@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Button } from "./ui/button";
-import { FileSpreadsheet, Download, Loader2 } from "lucide-react";
+import { FileSpreadsheet, Loader2 } from "lucide-react";
 import { UserInfo } from "@/interfaces/type";
 
 interface ExcelExportButtonProps {
