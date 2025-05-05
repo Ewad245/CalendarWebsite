@@ -1,4 +1,5 @@
 import { fileURLToPath, URL } from "node:url";
+
 import { defineConfig } from "vite";
 import fs from "fs";
 import path from "path";
@@ -63,7 +64,7 @@ export default defineConfig({
   server: isDevelopment
     ? {
         proxy: {
-          "^/api/DataOnly_APIaCheckIn": {
+          "^/api": {
             target,
             secure: false,
           },
