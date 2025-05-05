@@ -31,7 +31,6 @@ import {
   DataGrid,
   GridColDef,
   GridRenderCellParams,
-  GridToolbar,
   GridToolbarContainer,
   GridToolbarColumnsButton,
   GridToolbarFilterButton,
@@ -102,6 +101,7 @@ export default function MaterialDataTable({
   });
   const [toDate, setToDate] = useState<Date | null>(() => new Date());
   const [searchInput, setSearchInput] = useState("");
+  // @ts-ignore
   const [filteredUserList, setFilteredUserList] = useState<UserInfo[]>([]);
   const [departments, setDepartments] = useState<Department[]>([]);
   const [positions, setPositions] = useState<Position[]>([]);
@@ -536,7 +536,7 @@ export default function MaterialDataTable({
   };
 
   //Theme for Material UI
-  const { isDarkMode, toggleTheme } = useTheme();
+  const { isDarkMode } = useTheme();
   const theme = useMemo(() => (isDarkMode ? 'dark' : 'light'), [isDarkMode]);
 
 

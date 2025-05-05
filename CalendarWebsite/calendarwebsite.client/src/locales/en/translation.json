@@ -1,9 +1,12 @@
 {
+  "maintitle": "Attendance View",
   "common": {
     "loading": "Loading...",
+    "exporting": "Exporting...",
     "reset": "Reset",
     "resetFilters": "Reset Filters",
-    "apply": "Apply"
+    "apply": "Apply",
+    "close": "Close"
   },
   "attendance": {
     "title": "Attendance Records",
@@ -20,7 +23,7 @@
       "title": "Filters"
     },
     "export": {
-      "excel": "Export to Excel",
+      "excel": "Export Excel",
       "tooltip": "Export filtered data to Excel",
       "error": "Failed to export data. Please try again."
     },
@@ -58,10 +61,17 @@
       "employeeCheckedIn": "Employee checked in",
       "employeeCheckedOut": "Employee checked out",
       "employeeAbsent": "Employee absent"
+    },
+    "label": {
+      "type": "Type",
+      "date": "Date",
+      "time": "Time"
     }
   },
   "navigation": {
-    "viewCalendar": "View Calendar"
+    "viewCalendar": "View Calendar",
+    "attendance": "Attendance Table",
+    "calendar": "Attendance Calendar"
   },
   "language": {
     "english": "English",

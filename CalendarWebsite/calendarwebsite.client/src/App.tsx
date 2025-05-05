@@ -5,9 +5,13 @@ import { EventInput } from "@fullcalendar/core";
 import UserSearch from "./components/UserSearch";
 import Calendar from "./components/Calendar";
 import Header from "./components/Header";
-import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
-import { useTranslation } from 'react-i18next';
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 import AttendanceDataPage from "./pages/AttendanceDataPage";
+import SidebarLayout from "./components/SidebarLayout";
+import { SidebarProvider, useSidebar } from "@/components/ui/sidebar";
+import { Button } from "@/components/ui/button";
+import { PanelLeftIcon } from "lucide-react";
 
 function CalendarPage() {
   const { t } = useTranslation();
@@ -23,10 +27,10 @@ function CalendarPage() {
         const data: UserInfo[] = await response.json();
         setUserList(data);
       } else {
-        console.error(t('attendance.message.fetchError'));
+        console.error(t("attendance.message.fetchError"));
       }
     } catch (error) {
-      console.error(`${t('attendance.message.fetchErrorDetails')}`, error);
+      console.error(`${t("attendance.message.fetchErrorDetails")}`, error);
     }
   }
 
@@ -41,7 +45,7 @@ function CalendarPage() {
         const calendarEvents = data.flatMap((user: User, index) => [
           {
             id: `checkin-${user.userId}-${index}`,
-            title: `${user.fullName} (${t('attendance.table.checkIn')})`,
+            title: `${user.fullName} (${t("attendance.table.checkIn")})`,
             start: new Date(
               new Date(user.inAt).getTime() + utcOffset * 3600000
             ),
@@ -57,12 +61,12 @@ function CalendarPage() {
             backgroundColor: user.lateIn
               ? "#ef4444" // red for late
               : user.earlyIn
-                ? "#22c55e" // green for early
-                : "#3b82f6", // blue for on-time
+              ? "#22c55e" // green for early
+              : "#3b82f6", // blue for on-time
           },
           {
             id: `checkout-${user.userId}-${index}`,
-            title: `${user.fullName} (${t('attendance.table.checkOut')})`,
+            title: `${user.fullName} (${t("attendance.table.checkOut")})`,
             start: new Date(
               new Date(user.outAt).getTime() + utcOffset * 3600000
             ),
@@ -75,15 +79,15 @@ function CalendarPage() {
               status: user.earlyOut
                 ? "early"
                 : user.lateOut
-                  ? "late"
-                  : "on-time",
+                ? "late"
+                : "on-time",
               data: user,
             },
             backgroundColor: user.earlyOut
               ? "#ef4444" // red for early
               : user.lateOut
-                ? "#22c55e" // green for late
-                : "#3b82f6", // blue for on-time
+              ? "#22c55e" // green for late
+              : "#3b82f6", // blue for on-time
           },
         ]);
 
@@ -110,13 +114,8 @@ function CalendarPage() {
 
   return (
     <div className="container mx-auto px-4 py-6 sm:py-8">
-      <div className="flex flex-col sm:flex-row justify-between items-center mb-6 sm:mb-8 gap-4">
+      <div className="mb-6 sm:mb-8">
         <Header />
-        <Link to="/attendance">
-          <button className="w-full sm:w-auto px-4 py-2 bg-primary text-primary-foreground rounded-md hover:bg-primary/90 transition-colors">
-            View Attendance Data
-          </button>
-        </Link>
       </div>
       {userList.length === 0 ? (
         <p className="italic text-gray-600 dark:text-neutral-50 text-center">
@@ -144,14 +143,37 @@ function CalendarPage() {
     </div>
   );
 }
+// Helper component to show the toggle button in the main content area
+function SidebarToggle() {
+  const { toggleSidebar } = useSidebar();
+
+  return (
+    <Button
+      variant="ghost"
+      size="icon"
+      onClick={toggleSidebar}
+    >
+      <PanelLeftIcon className="h-5 w-5" />
+      <span className="sr-only">Toggle Sidebar</span>
+    </Button>
+  );
+}
 
 function App() {
   return (
     <Router>
-      <Routes>
-        <Route path="/" element={<CalendarPage />} />
-        <Route path="/attendance" element={<AttendanceDataPage />} />
-      </Routes>
+      <SidebarProvider>
+        <SidebarLayout />
+        <main className="flex-1 overflow-auto p-4">
+          <div className="flex items-center mb-4">
+            <SidebarToggle />
+          </div>
+          <Routes>
+            <Route path="/" element={<CalendarPage />} />
+            <Route path="/attendance" element={<AttendanceDataPage />} />
+          </Routes>
+        </main>
+      </SidebarProvider>
     </Router>
   );
 }

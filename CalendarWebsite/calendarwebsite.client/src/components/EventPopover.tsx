@@ -18,6 +18,7 @@ export default function EventPopover({
       <button
         onClick={onClose}
         className="float-right text-neutral-500 dark:text-neutral-400 hover:text-neutral-700 dark:hover:text-neutral-200"
+        aria-label={t("common.close")}
       >
         ✕
       </button>
@@ -73,15 +74,15 @@ export default function EventPopover({
         </div>
       )}
       <p className="my-2 flex justify-between text-neutral-800 dark:text-neutral-100 text-sm sm:text-base">
-        <strong className="text-neutral-900 dark:text-neutral-50">Date:</strong>{" "}
+        <strong className="text-neutral-900 dark:text-neutral-50">{t("attendance.label.date")}:</strong>{" "}
         {new Date(eventInfo.event.start!).toLocaleDateString()}
       </p>
       <p className="my-2 flex justify-between text-neutral-800 dark:text-neutral-100 text-sm sm:text-base">
-        <strong className="text-neutral-900 dark:text-neutral-50">Time:</strong>{" "}
+        <strong className="text-neutral-900 dark:text-neutral-50">{t("attendance.label.time")}:</strong>{" "}
         {new Date(eventInfo.event.start!).toLocaleTimeString()}
       </p>
       <p className="my-2 flex justify-between text-neutral-800 dark:text-neutral-100 text-sm sm:text-base">
-        <strong className="text-neutral-900 dark:text-neutral-50">Type:</strong>{" "}
+        <strong className="text-neutral-900 dark:text-neutral-50">{t("attendance.label.type")}:</strong>{" "}
         {type === "check-in" ? t("attendance.table.checkIn") : t("attendance.table.checkOut")}
       </p>
       {type === "check-in" && (

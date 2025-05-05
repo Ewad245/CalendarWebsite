@@ -8,7 +8,7 @@ const LanguageSwitcher = () => {
   const { i18n, t } = useTranslation();
   const [language, setLanguage] = useState(i18n.language);
 
-  const { isDarkMode, toggleTheme } = useTheme();
+  const { isDarkMode } = useTheme();
   const theme = useMemo(() => (isDarkMode ? 'dark' : 'light'), [isDarkMode]);
   
 

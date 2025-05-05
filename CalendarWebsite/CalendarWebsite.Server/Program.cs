@@ -1,4 +1,3 @@
-
 using CalendarWebsite.Server.Data;
 using CalendarWebsite.Server.Repositories;
 using CalendarWebsite.Server.Services;
@@ -75,6 +74,9 @@ namespace CalendarWebsite.Server
             app.UseSwaggerUI(c => {
                 c.SwaggerEndpoint("/swagger/v1/swagger.json", "My API V1");
             });
+
+            // Add health check
+            app.MapGet("/health", () => Results.Ok(new { status = "healthy" }));
 
             app.MapFallbackToFile("/index.html");
 

@@ -2,6 +2,7 @@ import { useState } from "react";
 import { Button } from "./ui/button";
 import { FileSpreadsheet, Loader2 } from "lucide-react";
 import { UserInfo } from "@/interfaces/type";
+import { useTranslation } from "react-i18next";
 
 interface ExcelExportButtonProps {
   userData: UserInfo;
@@ -13,6 +14,7 @@ export default function ExcelExportButton({
   className,
 }: ExcelExportButtonProps) {
   const [isLoading, setIsLoading] = useState(false);
+  const { t } = useTranslation();
 
   const handleExportExcel = async () => {
     if (!userData.id) return;
@@ -75,12 +77,12 @@ export default function ExcelExportButton({
       {isLoading ? (
         <>
           <Loader2 className="animate-spin" />
-          Exporting...
+          {t("common.exporting")}
         </>
       ) : (
         <>
           <FileSpreadsheet />
-          Export Excel
+          {t("attendance.export.excel")}
         </>
       )}
     </Button>

@@ -1,9 +1,12 @@
 {
+  "maintitle": "Trang xem chuyên cần",
   "common": {
     "loading": "Đang tải...",
+    "exporting": "Đang xuất...",
     "reset": "Đặt lại",
     "resetFilters": "Đặt lại",
-    "apply": "Áp dụng"
+    "apply": "Áp dụng",
+    "close": "Đóng"
   },
   "attendance": {
     "title": "Hồ sơ chuyên cần",
@@ -58,10 +61,17 @@
       "employeeCheckedIn": "Nhân viên đã điểm danh",
       "employeeCheckedOut": "Nhân viên đã điểm danh",
       "employeeAbsent": "Nhân viên vắng mặt"
+    },
+    "label": {
+      "type": "Loại",
+      "date": "Ngày",
+      "time": "Thời gian"
     }
   },
   "navigation": {
-    "viewCalendar": "Xem lịch"
+    "viewCalendar": "Xem lịch",
+    "attendance": "Báo cáo chuyên cần",
+    "calendar": "Lịch chuyên cần"
   },
   "language": {
     "english": "Tiếng Anh",

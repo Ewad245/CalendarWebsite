@@ -47,7 +47,7 @@ public class ReportService : IReportService
         using var template = new XLTemplate(_templatePath);
         template.AddVariable("staff", staff); // Single staff object for {{staff.Name}}
         template.AddVariable("items", reportData); // List of check-in/check-out records
-        template.AddVariable("reportDate", DateTime.Now.ToString("MM/dd/yyyy"));
+        template.AddVariable("reportDate", DateTime.Now.ToString("dd/MM/yyyy"));
         template.Generate();
 
         // Save to memory stream
@@ -76,11 +76,11 @@ public class ReportService : IReportService
         var _templatePath = Path.Combine(Directory.GetCurrentDirectory(), "Templates", "TemplateCheckInOut2.xlsx");
         using var template = new XLTemplate(_templatePath);
         if (fromDate != null && toDate != null) {
-            template.AddVariable("fromDate", fromDate);
-            template.AddVariable("toDate", toDate);
+            template.AddVariable("fromDate", fromDate.Value.ToString("dd/MM/yyyy"));
+            template.AddVariable("toDate", toDate.Value.ToString("dd/MM/yyyy"));
         }
         template.AddVariable("items", reportData); // List of check-in/check-out records
-        template.AddVariable("reportDate", DateTime.Now.ToString("MM/dd/yyyy"));
+        template.AddVariable("reportDate", DateTime.Now.ToString("dd/MM/yyyy"));
         template.Generate();
         // Save to memory stream
         using var stream = new MemoryStream();
