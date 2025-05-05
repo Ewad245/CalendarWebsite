@@ -1,13 +1,13 @@
 {
   "Version": 1,
-  "Hash": "BJgsZ0KJ5BVH4ph6iAWPeYc7eoUPU+kcqPcIeQ08Kc4=",
+  "Hash": "WEie3YQ/+gEGve+np9/UMyHcqP1RvVMugFc+Gk+iO0U=",
   "Source": "CalendarWebsite.Server",
   "BasePath": "_content/CalendarWebsite.Server",
   "Mode": "Default",
   "ManifestType": "Build",
   "ReferencedProjectsConfiguration": [
     {
-      "Identity": "/Users/thomasjohnson/Documents/GitHub/CalendarWebsite/CalendarWebsite/calendarwebsite.client/calendarwebsite.client.esproj",
+      "Identity": "/Users/thomasjohnson/Documents/GitHub/CalendarWebsiteFork/calendarwebsite.client/calendarwebsite.client.esproj",
       "Version": 2,
       "Source": "calendarwebsite.client",
       "GetPublishAssetsTargets": "GetCurrentProjectPublishStaticWebAssetItems",
