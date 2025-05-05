@@ -1,0 +1,29 @@
+version: '3.8'
+
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "5194:5194"
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Production
+      - ASPNETCORE_URLS=http://+:5194
+    networks:
+      - app-network
+
+  frontend:
+    build:
+      context: ./calendarwebsite.client
+      dockerfile: Dockerfile
+    ports:
+      - "50857:50857"
+    depends_on:
+      - app
+    networks:
+      - app-network
+
+networks:
+  app-network:
+    driver: bridge 

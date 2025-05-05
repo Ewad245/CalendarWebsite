@@ -12,6 +12,7 @@ type ThemeContextType = {
 };
 
 const ThemeContext = createContext<ThemeContextType | undefined>(undefined);
+//const { materialUIThemeMode, setMode } = useColorScheme();
 
 export const useTheme = () => {
   const context = useContext(ThemeContext);
