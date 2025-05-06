@@ -32,4 +32,8 @@
     </ProjectReference>
   </ItemGroup>
 
+  <ItemGroup>
+    <Content Include="Templates/**/*" CopyToOutputDirectory="Always" />
+  </ItemGroup>
+
 </Project>
