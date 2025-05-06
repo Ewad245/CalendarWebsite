@@ -25,12 +25,12 @@ export default function SidebarLayout() {
               <img 
                 src={VNTTLogo} 
                 alt="VNTT Logo" 
-                className="h-8 w-auto object-contain" 
+                className="h-7 w-auto object-contain" 
               />
-              <h2 className={`text-lg font-semibold ${state === "collapsed" ? "hidden" : ""}`}>{t("maintitle")}</h2>
+              <h2 className={`text-base font-semibold ${state === "collapsed" ? "hidden" : ""}`}>{t("maintitle")}</h2>
             </div>
           </SidebarHeader>
-          <SidebarContent className="p-2">
+          <SidebarContent className="p-1">
             <SidebarMenu>
               <SidebarMenuItem>
                 <SidebarMenuButton

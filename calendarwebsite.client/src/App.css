@@ -3,7 +3,7 @@
 @custom-variant dark (&:where(.dark, .dark *));
 
 #root {
-    @apply max-w-7xl mx-auto p-8 text-center font-sans text-neutral-900 dark:text-neutral-100 transition-colors duration-200;
+    @apply w-full mx-auto text-center font-sans text-neutral-900 dark:text-neutral-100 transition-colors duration-200;
 }
 
 .app-container {

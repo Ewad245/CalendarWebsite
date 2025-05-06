@@ -114,8 +114,8 @@ function CalendarPage() {
   }, [selectedUser]);
 
   return (
-    <div className="container mx-auto px-4 py-6 sm:py-8">
-      <div className="mb-6 sm:mb-8">
+    <div className="container mx-auto px-2 py-3 sm:py-4">
+      <div className="mb-3 sm:mb-4">
         <Header />
       </div>
       {userList.length === 0 ? (
@@ -164,17 +164,19 @@ function App() {
   return (
     <Router>
       <SidebarProvider>
-        <SidebarLayout />
-        <main className="flex-1 overflow-auto p-4">
-          <div className="flex items-center mb-4">
-            <SidebarToggle />
-          </div>
-          <Routes>
-            <Route path="/" element={<CalendarPage />} />
-            <Route path="/attendance" element={<AttendanceDataPage />} />
-            <Route path="*" element={<NotFoundPage />} />
-          </Routes>
-        </main>
+        
+          <SidebarLayout />
+          <main className="flex-1 overflow-auto p-2 sm:p-3">
+            <div className="flex items-center mb-2">
+              <SidebarToggle />
+            </div>
+            <Routes>
+              <Route path="/" element={<CalendarPage />} />
+              <Route path="/attendance" element={<AttendanceDataPage />} />
+              <Route path="*" element={<NotFoundPage />} />
+            </Routes>
+          </main>
+        
       </SidebarProvider>
     </Router>
   );
