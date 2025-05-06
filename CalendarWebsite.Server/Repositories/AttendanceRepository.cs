@@ -15,21 +15,6 @@ namespace CalendarWebsite.Server.Repositories
         {
         }
 
-        public async Task<IEnumerable<CustomUserInfo>> GetUsersAsync()
-        {
-            string sql = @"
-            WITH RankedEmails AS (
-                SELECT *,
-                       ROW_NUMBER() OVER (PARTITION BY [p].Email ORDER BY [p].Id) AS rn
-                FROM [dbo].[PersonalProfile] as [p] WHERE [p].UserStatus <> -1 AND [p].IsDeleted = 0
-            )
-            SELECT Id, Email, FullName, DepartmentId, PositionId
-            FROM RankedEmails
-            WHERE rn = 1";
-            
-            return await _context.Set<CustomUserInfo>().FromSqlRaw(sql).ToListAsync();
-        }
-
         public async Task<IEnumerable<DetailAttendance>> GetAttendancesByUserIdAsync(string userId)
         {
             return await _context.Attendances.Where(w => w.UserId == userId).ToListAsync();

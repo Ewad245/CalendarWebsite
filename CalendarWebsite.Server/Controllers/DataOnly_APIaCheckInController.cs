@@ -12,18 +12,28 @@ namespace CalendarWebsite.Server.Controllers
     public class DataOnly_APIaCheckInController : ControllerBase
     {
         private readonly IAttendanceService _attendanceService;
+        private readonly IPersonalProfileService _personalProfileService;
 
-        public DataOnly_APIaCheckInController(IAttendanceService attendanceService)
+        public DataOnly_APIaCheckInController(IAttendanceService attendanceService, IPersonalProfileService personalProfileService)
         {
             _attendanceService = attendanceService;
+            _personalProfileService = personalProfileService;
         }
 
-        // GET: api/DataOnly_APIaCheckIn
+        // GET: api/DataOnly_APIaCheckIn?departmentId=123&positionId=123
         [HttpGet]
-        public async Task<IEnumerable<CustomUserInfo>> GetUsers()
+        public async Task<IEnumerable<CustomUserInfo>> GetUsers(
+            [FromQuery] long departmentId = -1,
+            [FromQuery] long positionId = -1)
         {
-            return await _attendanceService.GetUsersAsync();
+            if (departmentId == -1 && positionId == -1)
+            {
+                return await _personalProfileService.GetUsersAsync();
+            }
+
+            return await _personalProfileService.GetUsersByDepartmentIdOrPositionIdAsync(departmentId, positionId);
         }
+        
         
         // GET: api/DataOnly_APIaCheckIn/Bob@gmail.com
         // This uses Email as id

@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "/Users/thomasjohnson/Documents/GitHub/CalendarWebsiteFork/CalendarWebsite.Server/CalendarWebsite.Server.csproj": {}
+    "/Users/thomasjohnson/Documents/GitHub/CalendarWebsite/CalendarWebsite/CalendarWebsite.Server/CalendarWebsite.Server.csproj": {}
   },
   "projects": {
-    "/Users/thomasjohnson/Documents/GitHub/CalendarWebsiteFork/CalendarWebsite.Server/CalendarWebsite.Server.csproj": {
+    "/Users/thomasjohnson/Documents/GitHub/CalendarWebsite/CalendarWebsite/CalendarWebsite.Server/CalendarWebsite.Server.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "/Users/thomasjohnson/Documents/GitHub/CalendarWebsiteFork/CalendarWebsite.Server/CalendarWebsite.Server.csproj",
+        "projectUniqueName": "/Users/thomasjohnson/Documents/GitHub/CalendarWebsite/CalendarWebsite/CalendarWebsite.Server/CalendarWebsite.Server.csproj",
         "projectName": "CalendarWebsite.Server",
-        "projectPath": "/Users/thomasjohnson/Documents/GitHub/CalendarWebsiteFork/CalendarWebsite.Server/CalendarWebsite.Server.csproj",
+        "projectPath": "/Users/thomasjohnson/Documents/GitHub/CalendarWebsite/CalendarWebsite/CalendarWebsite.Server/CalendarWebsite.Server.csproj",
         "packagesPath": "/Users/thomasjohnson/.nuget/packages/",
-        "outputPath": "/Users/thomasjohnson/Documents/GitHub/CalendarWebsiteFork/CalendarWebsite.Server/obj/",
+        "outputPath": "/Users/thomasjohnson/Documents/GitHub/CalendarWebsite/CalendarWebsite/CalendarWebsite.Server/obj/",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "/Users/thomasjohnson/.nuget/NuGet/NuGet.Config"

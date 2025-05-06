@@ -27,12 +27,14 @@ namespace CalendarWebsite.Server
             builder.Services.AddScoped<IDepartmentRepository, DepartmentRepository>();
             builder.Services.AddScoped<IPositionRepository, PositionRepository>();
             builder.Services.AddScoped<IReportRepository, ReportRepository>();
+            builder.Services.AddScoped<IPersonalProfileRepository, PersonalProfileRepository>();
             
             // Register services
             builder.Services.AddScoped<IAttendanceService, AttendanceService>();
             builder.Services.AddScoped<IDepartmentService, DepartmentService>();
             builder.Services.AddScoped<IPositionService, PositionService>();
             builder.Services.AddScoped<IReportService, ReportService>();
+            builder.Services.AddScoped<IPersonalProfileService, PersonalProfileService>();
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen(c =>
             {
