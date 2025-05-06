@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "it1lq7H5eM4=",
+  "dgSpecHash": "rjDMos+SPzw=",
   "success": true,
-  "projectFilePath": "/Users/thomasjohnson/Documents/GitHub/CalendarWebsite/CalendarWebsite/CalendarWebsite.Server/CalendarWebsite.Server.csproj",
+  "projectFilePath": "/Users/thomasjohnson/Documents/GitHub/CalendarWebsiteFork/CalendarWebsite.Server/CalendarWebsite.Server.csproj",
   "expectedPackageFiles": [
     "/Users/thomasjohnson/.nuget/packages/azure.core/1.38.0/azure.core.1.38.0.nupkg.sha512",
     "/Users/thomasjohnson/.nuget/packages/azure.identity/1.11.4/azure.identity.1.11.4.nupkg.sha512",
