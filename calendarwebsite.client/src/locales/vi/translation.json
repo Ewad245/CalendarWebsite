@@ -76,5 +76,10 @@
   "language": {
     "english": "Tiếng Anh",
     "vietnamese": "Tiếng Việt"
+  },
+  "error": {
+    "pageNotFound": "Không Tìm Thấy Trang",
+    "invalidUrl": "Trang bạn đang tìm kiếm không tồn tại hoặc đã được di chuyển.",
+    "backToHome": "Trở Về Trang Chủ"
   }
 }
