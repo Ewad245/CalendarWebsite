@@ -13,11 +13,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "/Users/thomasjohnson/Documents/GitHub/CalendarWebsiteFork/calendarwebsite.client/calendarwebsite.client.esproj",
+      "projectUniqueName": "/Users/thomasjohnson/Documents/GitHub/CalendarWebsite/CalendarWebsite/calendarwebsite.client/calendarwebsite.client.esproj",
       "projectName": "calendarwebsite.client",
-      "projectPath": "/Users/thomasjohnson/Documents/GitHub/CalendarWebsiteFork/calendarwebsite.client/calendarwebsite.client.esproj",
+      "projectPath": "/Users/thomasjohnson/Documents/GitHub/CalendarWebsite/CalendarWebsite/calendarwebsite.client/calendarwebsite.client.esproj",
       "packagesPath": "/Users/thomasjohnson/.nuget/packages/",
-      "outputPath": "/Users/thomasjohnson/Documents/GitHub/CalendarWebsiteFork/calendarwebsite.client/obj/",
+      "outputPath": "/Users/thomasjohnson/Documents/GitHub/CalendarWebsite/CalendarWebsite/calendarwebsite.client/obj/",
       "projectStyle": "PackageReference",
       "UsingMicrosoftNETSdk": false,
       "configFilePaths": [

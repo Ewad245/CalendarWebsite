@@ -8,6 +8,7 @@ import Header from "./components/Header";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import AttendanceDataPage from "./pages/AttendanceDataPage";
+import NotFoundPage from "./pages/NotFoundPage";
 import SidebarLayout from "./components/SidebarLayout";
 import { SidebarProvider, useSidebar } from "@/components/ui/sidebar";
 import { Button } from "@/components/ui/button";
@@ -171,6 +172,7 @@ function App() {
           <Routes>
             <Route path="/" element={<CalendarPage />} />
             <Route path="/attendance" element={<AttendanceDataPage />} />
+            <Route path="*" element={<NotFoundPage />} />
           </Routes>
         </main>
       </SidebarProvider>
