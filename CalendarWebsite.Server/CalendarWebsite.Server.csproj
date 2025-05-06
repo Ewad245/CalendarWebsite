@@ -33,7 +33,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Content Include="Templates/**/*" CopyToOutputDirectory="Always" />
+    <Content Include="templates/**/*" CopyToOutputDirectory="Always" />
   </ItemGroup>
 
 </Project>

@@ -35,6 +35,7 @@ interface FilterSidebarProps {
   open: boolean;
   onClose: () => void;
   userList: UserInfo[];
+  filteredUserList?: UserInfo[]; // Add filtered user list as optional prop
   departments: Department[];
   positions: Position[];
   selectedUser: UserInfo | null;
@@ -57,6 +58,7 @@ export default function FilterSidebar({
   open,
   onClose,
   userList,
+  filteredUserList,
   departments,
   positions,
   selectedUser,
@@ -126,7 +128,7 @@ export default function FilterSidebar({
 
         {/* User Filter */}
         <Autocomplete
-          options={userList}
+          options={filteredUserList || userList}
           getOptionLabel={(option) =>
             `${option.fullName} (${option.email})`
           }

@@ -211,6 +211,41 @@ export default function MaterialDataTable({
       setFilteredUserList(filtered);
     }
   }, [searchInput, userList]);
+  
+  // Fetch filtered users when department or position changes
+  const fetchFilteredUsers = async () => {
+    try {
+      // Build the URL with department and position filters
+      let url = '/api/DataOnly_APIaCheckIn';
+      
+      // Add query parameters if either filter is selected
+      if (selectedDepartment || selectedPosition) {
+        url += '?';
+        
+        if (selectedDepartment) {
+          url += `departmentId=${selectedDepartment.id}`;
+          if (selectedPosition) {
+            url += '&';
+          }
+        }
+        
+        if (selectedPosition) {
+          url += `positionId=${selectedPosition.id}`;
+        }
+      }
+      
+      const response = await fetch(url);
+      if (response.ok) {
+        const data: UserInfo[] = await response.json();
+        // Update the userList with filtered data
+        setFilteredUserList(data);
+      } else {
+        console.error('Error fetching filtered users');
+      }
+    } catch (error) {
+      console.error('Error fetching filtered users:', error);
+    }
+  };
 
   // Fetch departments and positions on component mount
   useEffect(() => {
@@ -219,6 +254,16 @@ export default function MaterialDataTable({
     // Since we have default date values, we should fetch data on component mount
     fetchAttendanceData();
   }, []);
+  
+  // Fetch filtered users when department or position changes
+  useEffect(() => {
+    if (selectedDepartment || selectedPosition) {
+      fetchFilteredUsers();
+    } else {
+      // Reset to original user list when no filters are applied
+      setFilteredUserList(userList);
+    }
+  }, [selectedDepartment, selectedPosition, userList]);
 
   // Fetch attendance data when filters change
   useEffect(() => {
@@ -435,6 +480,8 @@ export default function MaterialDataTable({
     setToDate(new Date());
     setSearchInput("");
     setAttendanceData([]);
+    // Reset filtered user list to original user list
+    setFilteredUserList(userList);
   };
   
   const handleExportExcel = async () => {
@@ -550,6 +597,9 @@ export default function MaterialDataTable({
       page: 0, // Reset to first page when changing department
       pageSize: paginationModel.pageSize,
     });
+    
+    // Reset selected user when department changes
+    setSelectedUser(null);
   };
   
   const handlePositionSelect = (position: Position | null) => {
@@ -558,6 +608,9 @@ export default function MaterialDataTable({
       page: 0, // Reset to first page when changing position
       pageSize: paginationModel.pageSize,
     });
+    
+    // Reset selected user when position changes
+    setSelectedUser(null);
   };
 
   //Theme for Material UI
@@ -577,6 +630,7 @@ export default function MaterialDataTable({
         open={sidebarOpen}
         onClose={() => setSidebarOpen(false)}
         userList={userList}
+        filteredUserList={filteredUserList}
         departments={departments}
         positions={positions}
         selectedUser={selectedUser}
@@ -669,7 +723,7 @@ export default function MaterialDataTable({
             {/* User Filter */}
             <Box sx={{ minWidth: 200, flex: 1 }}>
               <Autocomplete
-                options={userList}
+                options={filteredUserList}
                 getOptionLabel={(option) =>
                   `${option.fullName} (${option.email})`
                 }
