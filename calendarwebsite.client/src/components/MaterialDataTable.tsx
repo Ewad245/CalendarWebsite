@@ -223,7 +223,7 @@ export default function MaterialDataTable({
     } else {
       fetchFilteredUsers();
     }
-  }, [searchInput, filteredUserList]);
+  }, [searchInput, userList]);
 
   // Fetch filtered users when department or position changes
   const fetchFilteredUsers = async () => {
@@ -730,7 +730,7 @@ export default function MaterialDataTable({
               sx={{ mb: 2 }}
             >
               {/* Department Filter */}
-              <Box sx={{ minWidth: 150, flex: 1 }}>
+              <Box sx={{ minWidth: 150, flex: 1.2 }}>
                 <Autocomplete
                   options={departments}
                   getOptionLabel={(option) => option.title || ""}
@@ -748,7 +748,7 @@ export default function MaterialDataTable({
               </Box>
 
               {/* Position Filter */}
-              <Box sx={{ minWidth: 150, flex: 1 }}>
+              <Box sx={{ minWidth: 150, flex: 1.2 }}>
                 <Autocomplete
                   options={positions}
                   getOptionLabel={(option) => option.title || ""}
@@ -766,7 +766,7 @@ export default function MaterialDataTable({
               </Box>
 
               {/* User Filter */}
-              <Box sx={{ minWidth: 200, flex: 1 }}>
+              <Box sx={{ minWidth: 200, flex: 1.2 }}>
                 <Autocomplete
                   options={filteredUserList}
                   getOptionLabel={(option) =>
@@ -788,6 +788,7 @@ export default function MaterialDataTable({
 
               {/* Date Range Filter */}
               <MultilingualLocalizationProvider>
+              <Box sx={{ minWidth: 130, maxWidth: 160, flex: 0.8 }}>
                 <DatePicker
                   label={t("attendance.filters.fromDate")}
                   value={fromDate}
@@ -804,9 +805,11 @@ export default function MaterialDataTable({
                     },
                   }}
                 />
+              </Box>
               </MultilingualLocalizationProvider>
 
               <MultilingualLocalizationProvider>
+              <Box sx={{ minWidth: 130, maxWidth: 160, flex: 0.8 }}>
                 <DatePicker
                   label={t("attendance.filters.toDate")}
                   value={toDate}
@@ -824,12 +827,13 @@ export default function MaterialDataTable({
                   }}
                   minDate={fromDate || undefined}
                 />
+                </Box>
               </MultilingualLocalizationProvider>
 
               <Button
                 variant="outlined"
                 onClick={handleResetFilters}
-                sx={{ height: 56 }}
+                sx={{ height: 56, maxWidth: 70 }}
               >
                 {t("common.resetFilters")}
               </Button>
