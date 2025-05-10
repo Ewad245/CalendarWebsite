@@ -211,6 +211,41 @@ export default function MaterialDataTable({
       setFilteredUserList(filtered);
     }
   }, [searchInput, userList]);
+  
+  // Fetch filtered users when department or position changes
+  const fetchFilteredUsers = async () => {
+    try {
+      // Build the URL with department and position filters
+      let url = '/api/DataOnly_APIaCheckIn';
+      
+      // Add query parameters if either filter is selected
+      if (selectedDepartment || selectedPosition) {
+        url += '?';
+        
+        if (selectedDepartment) {
+          url += `departmentId=${selectedDepartment.id}`;
+          if (selectedPosition) {
+            url += '&';
+          }
+        }
+        
+        if (selectedPosition) {
+          url += `positionId=${selectedPosition.id}`;
+        }
+      }
+      
+      const response = await fetch(url);
+      if (response.ok) {
+        const data: UserInfo[] = await response.json();
+        // Update the userList with filtered data
+        setFilteredUserList(data);
+      } else {
+        console.error('Error fetching filtered users');
+      }
+    } catch (error) {
+      console.error('Error fetching filtered users:', error);
+    }
+  };
 
   // Fetch departments and positions on component mount
   useEffect(() => {
@@ -219,6 +254,16 @@ export default function MaterialDataTable({
     // Since we have default date values, we should fetch data on component mount
     fetchAttendanceData();
   }, []);
+  
+  // Fetch filtered users when department or position changes
+  useEffect(() => {
+    if (selectedDepartment || selectedPosition) {
+      fetchFilteredUsers();
+    } else {
+      // Reset to original user list when no filters are applied
+      setFilteredUserList(userList);
+    }
+  }, [selectedDepartment, selectedPosition, userList]);
 
   // Fetch attendance data when filters change
   useEffect(() => {
@@ -435,6 +480,8 @@ export default function MaterialDataTable({
     setToDate(new Date());
     setSearchInput("");
     setAttendanceData([]);
+    // Reset filtered user list to original user list
+    setFilteredUserList(userList);
   };
   
   const handleExportExcel = async () => {
@@ -475,42 +522,67 @@ export default function MaterialDataTable({
       // Remove trailing '&' if exists
       url = url.endsWith('&') ? url.slice(0, -1) : url;
       
-      // Use fetch with blob response type to download the file
-      const response = await fetch(url, {
-        method: 'GET',
-      });
+      console.log('Requesting Excel export from URL:', url);
       
-      if (!response.ok) {
-        console.error(`Export failed with status: ${response.status}`);
-        alert(t('attendance.export.error'));
-        return;
-      }
-      
-      // Get the filename from the Content-Disposition header if available
-      const contentDisposition = response.headers.get('Content-Disposition');
-      let filename = 'attendance_report.xlsx';
-      
-      if (contentDisposition) {
-        const filenameMatch = contentDisposition.match(/filename[^;=\n]*=((['"]).*)\2|[^;\n]*/);
-        if (filenameMatch && filenameMatch[1]) {
-          filename = filenameMatch[1].replace(/['"]*/g, '');
+      // Try the standard approach first
+      try {
+        // Use fetch with blob response type to download the file
+        const response = await fetch(url, {
+          method: 'GET',
+          headers: {
+            'Accept': 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+            'Cache-Control': 'no-cache'
+          },
+          credentials: 'same-origin'
+        });
+        
+        if (!response.ok) {
+          throw new Error(`Export failed with status: ${response.status}`);
         }
+        
+        // Get the filename from the Content-Disposition header if available
+        const contentDisposition = response.headers.get('Content-Disposition');
+        console.log('Content-Disposition header:', contentDisposition);
+        let filename = 'attendance_report.xlsx';
+        
+        if (contentDisposition) {
+          const filenameMatch = contentDisposition.match(/filename[^;=\n]*=((['"]).*)\2|[^;\n]*/);
+          if (filenameMatch && filenameMatch[1]) {
+            filename = filenameMatch[1].replace(/['"]*/g, '');
+          }
+        }
+        
+        console.log('Using filename:', filename);
+        
+        // Convert response to blob
+        const blob = await response.blob();
+        console.log('Blob received:', blob.type, blob.size);
+        
+        // Create a download link and trigger download
+        const url2 = window.URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url2;
+        a.download = filename;
+        a.style.display = 'none';
+        document.body.appendChild(a);
+        a.click();
+        
+        // Cleanup
+        setTimeout(() => {
+          window.URL.revokeObjectURL(url2);
+          document.body.removeChild(a);
+        }, 100);
+        
+        return; // Exit if successful
+      } catch (innerError) {
+        console.error('Standard download approach failed:', innerError);
+        console.log('Trying alternative approach...');
       }
       
-      // Convert response to blob
-      const blob = await response.blob();
+      // Alternative approach: Open in new window/tab
+      // This can work better in some deployment environments
+      window.open(url, '_blank');
       
-      // Create a download link and trigger download
-      const url2 = window.URL.createObjectURL(blob);
-      const a = document.createElement('a');
-      a.href = url2;
-      a.download = filename;
-      document.body.appendChild(a);
-      a.click();
-      
-      // Cleanup
-      window.URL.revokeObjectURL(url2);
-      document.body.removeChild(a);
     } catch (error) {
       console.error('Error exporting Excel report:', error);
       alert(t('attendance.export.error'));
@@ -525,6 +597,9 @@ export default function MaterialDataTable({
       page: 0, // Reset to first page when changing department
       pageSize: paginationModel.pageSize,
     });
+    
+    // Reset selected user when department changes
+    setSelectedUser(null);
   };
   
   const handlePositionSelect = (position: Position | null) => {
@@ -533,6 +608,9 @@ export default function MaterialDataTable({
       page: 0, // Reset to first page when changing position
       pageSize: paginationModel.pageSize,
     });
+    
+    // Reset selected user when position changes
+    setSelectedUser(null);
   };
 
   //Theme for Material UI
@@ -552,6 +630,7 @@ export default function MaterialDataTable({
         open={sidebarOpen}
         onClose={() => setSidebarOpen(false)}
         userList={userList}
+        filteredUserList={filteredUserList}
         departments={departments}
         positions={positions}
         selectedUser={selectedUser}
@@ -644,7 +723,7 @@ export default function MaterialDataTable({
             {/* User Filter */}
             <Box sx={{ minWidth: 200, flex: 1 }}>
               <Autocomplete
-                options={userList}
+                options={filteredUserList}
                 getOptionLabel={(option) =>
                   `${option.fullName} (${option.email})`
                 }

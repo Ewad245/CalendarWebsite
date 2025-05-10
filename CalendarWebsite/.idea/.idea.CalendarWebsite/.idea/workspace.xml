@@ -13,8 +13,6 @@
   <component name="ChangeListManager">
     <list default="true" id="cc7a7cc3-0ee9-4079-b758-27a518faea18" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.CalendarWebsite/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.CalendarWebsite/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/CalendarWebsite.Server/Program.cs" beforeDir="false" afterPath="$PROJECT_DIR$/CalendarWebsite.Server/Program.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/CalendarWebsite.Server/Services/ReportService.cs" beforeDir="false" afterPath="$PROJECT_DIR$/CalendarWebsite.Server/Services/ReportService.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/CalendarWebsite.Server/bin/Debug/net9.0/CalendarWebsite.Server.dll" beforeDir="false" afterPath="$PROJECT_DIR$/CalendarWebsite.Server/bin/Debug/net9.0/CalendarWebsite.Server.dll" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/CalendarWebsite.Server/bin/Debug/net9.0/CalendarWebsite.Server.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/CalendarWebsite.Server/bin/Debug/net9.0/CalendarWebsite.Server.pdb" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/CalendarWebsite.Server/obj/Debug/net9.0/CalendarWebsite.Server.AssemblyInfo.cs" beforeDir="false" afterPath="$PROJECT_DIR$/CalendarWebsite.Server/obj/Debug/net9.0/CalendarWebsite.Server.AssemblyInfo.cs" afterDir="false" />
@@ -24,21 +22,6 @@
       <change beforePath="$PROJECT_DIR$/CalendarWebsite.Server/obj/Debug/net9.0/CalendarWebsite.Server.sourcelink.json" beforeDir="false" afterPath="$PROJECT_DIR$/CalendarWebsite.Server/obj/Debug/net9.0/CalendarWebsite.Server.sourcelink.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/CalendarWebsite.Server/obj/Debug/net9.0/ref/CalendarWebsite.Server.dll" beforeDir="false" afterPath="$PROJECT_DIR$/CalendarWebsite.Server/obj/Debug/net9.0/ref/CalendarWebsite.Server.dll" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/CalendarWebsite.Server/obj/Debug/net9.0/refint/CalendarWebsite.Server.dll" beforeDir="false" afterPath="$PROJECT_DIR$/CalendarWebsite.Server/obj/Debug/net9.0/refint/CalendarWebsite.Server.dll" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Dockerfile" beforeDir="false" afterPath="$PROJECT_DIR$/Dockerfile" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/calendarwebsite.client/obj/Debug/package.g.props" beforeDir="false" afterPath="$PROJECT_DIR$/calendarwebsite.client/obj/Debug/package.g.props" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/calendarwebsite.client/obj/rider.project.model.nuget.info" beforeDir="false" afterPath="$PROJECT_DIR$/calendarwebsite.client/obj/rider.project.model.nuget.info" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/calendarwebsite.client/obj/rider.project.restore.info" beforeDir="false" afterPath="$PROJECT_DIR$/calendarwebsite.client/obj/rider.project.restore.info" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/calendarwebsite.client/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/calendarwebsite.client/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/calendarwebsite.client/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/calendarwebsite.client/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/calendarwebsite.client/src/App.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/calendarwebsite.client/src/App.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/calendarwebsite.client/src/components/EventPopover.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/calendarwebsite.client/src/components/EventPopover.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/calendarwebsite.client/src/components/ExcelExportButton.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/calendarwebsite.client/src/components/ExcelExportButton.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/calendarwebsite.client/src/components/LanguageSwitcher.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/calendarwebsite.client/src/components/LanguageSwitcher.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/calendarwebsite.client/src/components/MaterialDataTable.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/calendarwebsite.client/src/components/MaterialDataTable.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/calendarwebsite.client/src/components/ui/calendar.tsx" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/calendarwebsite.client/src/locales/en/translation.json" beforeDir="false" afterPath="$PROJECT_DIR$/calendarwebsite.client/src/locales/en/translation.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/calendarwebsite.client/src/locales/vi/translation.json" beforeDir="false" afterPath="$PROJECT_DIR$/calendarwebsite.client/src/locales/vi/translation.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/calendarwebsite.client/src/pages/AttendanceDataPage.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/calendarwebsite.client/src/pages/AttendanceDataPage.tsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -173,7 +156,7 @@
       <workItem from="1745555602452" duration="114000" />
       <workItem from="1745555749948" duration="28005000" />
       <workItem from="1745893763305" duration="21138000" />
-      <workItem from="1746414674327" duration="8315000" />
+      <workItem from="1746414674327" duration="9925000" />
     </task>
     <servers />
   </component>

@@ -15,11 +15,6 @@ namespace CalendarWebsite.Server.Services
             _attendanceRepository = attendanceRepository;
         }
 
-        public async Task<IEnumerable<CustomUserInfo>> GetUsersAsync()
-        {
-            return await _attendanceRepository.GetUsersAsync();
-        }
-
         public async Task<IEnumerable<DetailAttendance>> GetAttendancesByUserIdAsync(string userId)
         {
             return await _attendanceRepository.GetAttendancesByUserIdAsync(userId);
@@ -62,6 +57,16 @@ namespace CalendarWebsite.Server.Services
         {
             return await _attendanceRepository.GetFilteredAttendancesAsync(
                 departmentId, positionId, userId, pageNumber, pageSize, fromDate, toDate);
+        }
+        
+        public async Task<IEnumerable<DetailAttendance>> GetAttendancesByUserIdDateRangeAsync(string userId, int month, int year)
+        {
+            return await _attendanceRepository.GetAttendancesByUserIdDateRangeAsync(userId, month, year);
+        }
+        
+        public async Task<IEnumerable<AttendanceWithAbsentDTO>> GetAttendanceWithAbsentByUserIdDateRangeAsync(string userId, int month, int year)
+        {
+            return await _attendanceRepository.GetAttendanceWithAbsentByUserIdDateRangeAsync(userId, month, year);
         }
     }
 }

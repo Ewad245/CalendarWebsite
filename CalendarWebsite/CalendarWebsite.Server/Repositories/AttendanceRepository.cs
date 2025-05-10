@@ -1,6 +1,5 @@
 using CalendarWebsite.Server.Data;
 using CalendarWebsite.Server.Models;
-using CalendarWebsite.Server.Data;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -15,21 +14,6 @@ namespace CalendarWebsite.Server.Repositories
         {
         }
 
-        public async Task<IEnumerable<CustomUserInfo>> GetUsersAsync()
-        {
-            string sql = @"
-            WITH RankedEmails AS (
-                SELECT *,
-                       ROW_NUMBER() OVER (PARTITION BY [p].Email ORDER BY [p].Id) AS rn
-                FROM [dbo].[PersonalProfile] as [p] WHERE [p].UserStatus <> -1 AND [p].IsDeleted = 0
-            )
-            SELECT Id, Email, FullName, DepartmentId, PositionId
-            FROM RankedEmails
-            WHERE rn = 1";
-            
-            return await _context.Set<CustomUserInfo>().FromSqlRaw(sql).ToListAsync();
-        }
-
         public async Task<IEnumerable<DetailAttendance>> GetAttendancesByUserIdAsync(string userId)
         {
             return await _context.Attendances.Where(w => w.UserId == userId).ToListAsync();
@@ -38,6 +22,75 @@ namespace CalendarWebsite.Server.Repositories
         public async Task<int> GetAttendanceCountByUserIdAsync(string userId)
         {
             return await _context.Attendances.CountAsync(w => w.UserId == userId);
+        }
+        
+        public async Task<IEnumerable<DetailAttendance>> GetAttendancesByUserIdDateRangeAsync(string userId, int month, int year)
+        {
+            // Calculate the first day of the specified month and year
+            var startDate = new DateTime(year, month, 1);
+            
+            // Calculate the first day of the next month
+            var endDate = startDate.AddMonths(1);
+            
+            // Adjust for UTC time (subtract 7 hours as mentioned in other methods)
+            // Since database stores UTC time, we need to adjust the dates for filtering
+            startDate = startDate.AddHours(-7);
+            endDate = endDate.AddHours(-7);
+            
+            // Query attendance records for the specified user within the date range
+            return await _context.Attendances
+                .Where(a => a.UserId == userId && a.At >= startDate && a.At < endDate)
+                .OrderBy(a => a.At)
+                .ToListAsync();
+        }
+        
+        public async Task<IEnumerable<AttendanceWithAbsentDTO>> GetAttendanceWithAbsentByUserIdDateRangeAsync(string userId, int month, int year)
+        {
+            // Get the actual attendance records first
+            var attendances = await GetAttendancesByUserIdDateRangeAsync(userId, month, year);
+            
+            // Convert to DTO objects
+            var attendanceDTOs = attendances.Select(AttendanceWithAbsentDTO.FromDetailAttendance).ToList();
+            
+            // Get user's full name from the first attendance record (if available)
+            string? fullName = attendances.FirstOrDefault()?.FullName ?? "Unknown";
+            
+            // Calculate the date range to check for absences
+            var startDate = new DateTime(year, month, 1);
+            var endDate = startDate.AddMonths(1).AddDays(-1); // Last day of the month
+            
+            // If the month is the current month, only calculate absences up to today
+            if (month == DateTime.Now.Month && year == DateTime.Now.Year)
+            {
+                endDate = DateTime.Now;
+            }
+            
+            // Create a dictionary of dates that have attendance records
+            var datesWithAttendance = new HashSet<DateTime>(
+                attendanceDTOs.Select(a => a.At?.Date ?? DateTime.MinValue)
+            );
+            
+            // Create a list to hold all records including absences
+            var result = new List<AttendanceWithAbsentDTO>(attendanceDTOs);
+            
+            // Loop through all days in the date range
+            for (var date = startDate; date <= endDate; date = date.AddDays(1))
+            {
+                // Skip weekends (Saturday and Sunday)
+                if (date.DayOfWeek == DayOfWeek.Saturday || date.DayOfWeek == DayOfWeek.Sunday)
+                {
+                    continue;
+                }
+                
+                // If no attendance record exists for this date, add an absent record
+                if (!datesWithAttendance.Contains(date.Date))
+                {
+                    result.Add(AttendanceWithAbsentDTO.CreateAbsentRecord(userId, fullName, date));
+                }
+            }
+            
+            // Return the combined results ordered by date
+            return result.OrderBy(a => a.At);
         }
 
         public async Task<PaginatedResult<DetailAttendance>> GetPaginatedAttendancesByUserIdAsync(

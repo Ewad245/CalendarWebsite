@@ -12,18 +12,28 @@ namespace CalendarWebsite.Server.Controllers
     public class DataOnly_APIaCheckInController : ControllerBase
     {
         private readonly IAttendanceService _attendanceService;
+        private readonly IPersonalProfileService _personalProfileService;
 
-        public DataOnly_APIaCheckInController(IAttendanceService attendanceService)
+        public DataOnly_APIaCheckInController(IAttendanceService attendanceService, IPersonalProfileService personalProfileService)
         {
             _attendanceService = attendanceService;
+            _personalProfileService = personalProfileService;
         }
 
-        // GET: api/DataOnly_APIaCheckIn
+        // GET: api/DataOnly_APIaCheckIn?departmentId=123&positionId=123
         [HttpGet]
-        public async Task<IEnumerable<CustomUserInfo>> GetUsers()
+        public async Task<IEnumerable<CustomUserInfo>> GetUsers(
+            [FromQuery] long departmentId = -1,
+            [FromQuery] long positionId = -1)
         {
-            return await _attendanceService.GetUsersAsync();
+            if (departmentId == -1 && positionId == -1)
+            {
+                return await _personalProfileService.GetUsersAsync();
+            }
+
+            return await _personalProfileService.GetUsersByDepartmentIdOrPositionIdAsync(departmentId, positionId);
         }
+        
         
         // GET: api/DataOnly_APIaCheckIn/Bob@gmail.com
         // This uses Email as id
@@ -78,6 +88,52 @@ namespace CalendarWebsite.Server.Controllers
                 pageNumber, pageSize, fromDate, toDate);
             
             return result;
+        }
+        
+        // GET: api/DataOnly_APIaCheckIn/month-year/Bob@gmail.com?month=1&year=2023
+        // Get attendance records with absences included for a specific user within a given month and year
+        [HttpGet("month-year/{id}")]
+        public async Task<ActionResult<IEnumerable<AttendanceWithAbsentDTO>>> GetAttendanceWithAbsentByUserIdMonthYear(
+            string id,
+            [FromQuery] int month,
+            [FromQuery] int year)
+        {
+            if (month < 1 || month > 12)
+            {
+                return BadRequest("Month must be between 1 and 12");
+            }
+            
+            if (year < 2000 || year > 2100)
+            {
+                return BadRequest("Year must be between 2000 and 2100");
+            }
+            
+            var attendances = await _attendanceService.GetAttendanceWithAbsentByUserIdDateRangeAsync(id, month, year);
+            
+            return Ok(attendances);
+        }
+
+        // GET: api/DataOnly_APIaCheckIn/date-range-no-absences/Bob@gmail.com?month=1&year=2023
+        // Get attendance records for a specific user within a given month and year
+        [HttpGet("date-range-no-absences/{id}")]
+        public async Task<ActionResult<IEnumerable<DetailAttendance>>> GetAttendancesByUserIdMonthYear(
+            string id,
+            [FromQuery] int month,
+            [FromQuery] int year)
+        {
+            if (month < 1 || month > 12)
+            {
+                return BadRequest("Month must be between 1 and 12");
+            }
+            
+            if (year < 2000 || year > 2100)
+            {
+                return BadRequest("Year must be between 2000 and 2100");
+            }
+            
+            var attendances = await _attendanceService.GetAttendancesByUserIdDateRangeAsync(id, month, year);
+            
+            return Ok(attendances);
         }
 
         
