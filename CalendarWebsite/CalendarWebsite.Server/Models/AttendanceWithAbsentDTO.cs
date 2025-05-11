@@ -19,6 +19,10 @@ namespace CalendarWebsite.Server.Models
         public int Day { get; set; }
         public int Month { get; set; }
         public int Year { get; set; }
+        public decimal? EarlyIn { get; set; }
+        public decimal? LateIn { get; set; }
+        public decimal? EarlyOut { get; set; }
+        public decimal? LateOut { get; set; }
         
         // Static method to create from DetailAttendance
         public static AttendanceWithAbsentDTO FromDetailAttendance(DetailAttendance attendance)
@@ -35,7 +39,11 @@ namespace CalendarWebsite.Server.Models
                 Day = attendance.At?.Day ?? 0,
                 Month = attendance.At?.Month ?? 0,
                 Year = attendance.At?.Year ?? 0,
-                DayOfWeek = attendance.At?.DayOfWeek ?? DayOfWeek.Sunday
+                DayOfWeek = attendance.At?.DayOfWeek ?? DayOfWeek.Sunday,
+                EarlyIn = attendance.EarlyIn,
+                LateIn = attendance.LateIn,
+                EarlyOut = attendance.EarlyOut,
+                LateOut = attendance.LateOut,
             };
         }
         

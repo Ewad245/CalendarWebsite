@@ -16,7 +16,15 @@ namespace CalendarWebsite.Server.Repositories
 
         public async Task<IEnumerable<DetailAttendance>> GetAttendancesByUserIdAsync(string userId)
         {
-            return await _context.Attendances.Where(w => w.UserId == userId).ToListAsync();
+            var attendances = await _context.Attendances.Where(w => w.UserId == userId).ToListAsync();
+            
+            // Convert UTC dates to UTC+7
+            foreach (var attendance in attendances)
+            {
+                ConvertUtcToUtcPlus7(attendance);
+            }
+            
+            return attendances;
         }
 
         public async Task<int> GetAttendanceCountByUserIdAsync(string userId)
@@ -38,15 +46,23 @@ namespace CalendarWebsite.Server.Repositories
             endDate = endDate.AddHours(-7);
             
             // Query attendance records for the specified user within the date range
-            return await _context.Attendances
+            var attendances = await _context.Attendances
                 .Where(a => a.UserId == userId && a.At >= startDate && a.At < endDate)
                 .OrderBy(a => a.At)
                 .ToListAsync();
+                
+            // Convert UTC dates to UTC+7
+            foreach (var attendance in attendances)
+            {
+                ConvertUtcToUtcPlus7(attendance);
+            }
+            
+            return attendances;
         }
         
         public async Task<IEnumerable<AttendanceWithAbsentDTO>> GetAttendanceWithAbsentByUserIdDateRangeAsync(string userId, int month, int year)
         {
-            // Get the actual attendance records first
+            // Get the actual attendance records first (already converted to UTC+7 in GetAttendancesByUserIdDateRangeAsync)
             var attendances = await GetAttendancesByUserIdDateRangeAsync(userId, month, year);
             
             // Convert to DTO objects
@@ -131,7 +147,15 @@ namespace CalendarWebsite.Server.Repositories
             query = query.OrderByDescending(a => a.At);
             
             // Use the pagination helper to create the paginated result
-            return await PaginationHelper.CreatePaginatedResultAsync(query, pageNumber, pageSize);
+            var result = await PaginationHelper.CreatePaginatedResultAsync(query, pageNumber, pageSize);
+            
+            // Convert UTC dates to UTC+7 for each item in the result
+            foreach (var attendance in result.Items)
+            {
+                ConvertUtcToUtcPlus7(attendance);
+            }
+            
+            return result;
         }
 
         public async Task<PaginatedResult<DetailAttendance>> GetAllPaginatedAttendancesAsync(
@@ -171,7 +195,15 @@ namespace CalendarWebsite.Server.Repositories
             query = query.OrderByDescending(a => a.At);
             
             // Use the pagination helper to create the paginated result
-            return await PaginationHelper.CreatePaginatedResultAsync(query, pageNumber, pageSize);
+            var result = await PaginationHelper.CreatePaginatedResultAsync(query, pageNumber, pageSize);
+            
+            // Convert UTC dates to UTC+7 for each item in the result
+            foreach (var attendance in result.Items)
+            {
+                ConvertUtcToUtcPlus7(attendance);
+            }
+            
+            return result;
         }
 
         public async Task<PaginatedResult<DetailAttendance>> GetFilteredAttendancesAsync(
@@ -249,7 +281,36 @@ namespace CalendarWebsite.Server.Repositories
             query = query.OrderByDescending(a => a.At);
             
             // Use the pagination helper to create the paginated result
-            return await PaginationHelper.CreatePaginatedResultAsync(query, pageNumber, pageSize);
+            var result = await PaginationHelper.CreatePaginatedResultAsync(query, pageNumber, pageSize);
+            
+            // Convert UTC dates to UTC+7 for each item in the result
+            foreach (var attendance in result.Items)
+            {
+                ConvertUtcToUtcPlus7(attendance);
+            }
+            
+            return result;
+        }
+        // Helper method to convert UTC dates to UTC+7
+        private void ConvertUtcToUtcPlus7(DetailAttendance attendance)
+        {
+            // Convert At date from UTC to UTC+7
+            if (attendance.At.HasValue)
+            {
+                attendance.At = attendance.At.Value.AddHours(7);
+            }
+            
+            // Convert InAt date from UTC to UTC+7
+            if (attendance.InAt.HasValue)
+            {
+                attendance.InAt = attendance.InAt.Value.AddHours(7);
+            }
+            
+            // Convert OutAt date from UTC to UTC+7
+            if (attendance.OutAt.HasValue)
+            {
+                attendance.OutAt = attendance.OutAt.Value.AddHours(7);
+            }
         }
     }
 }

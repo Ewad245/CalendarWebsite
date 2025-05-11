@@ -46,15 +46,14 @@ function CalendarPage() {
         month = now.getMonth() + 1;
         year = now.getFullYear();
       }
-      
+
       const endpoint = `/api/DataOnly_APIaCheckIn/month-year/${userId}?month=${month}&year=${year}`;
-      
+
       const response = await fetch(endpoint);
       if (response.ok) {
         const data = await response.json();
 
         // Transform attendance data to calendar events and adjust for UTC+7
-        const utcOffset = 7; // UTC+7 timezone offset
         const calendarEvents = data.flatMap((attendance: FullAttendance, index: number) => {
           // Handle absent records by creating an absence event
           if (attendance.isAbsent) {
@@ -75,20 +74,20 @@ function CalendarPage() {
               backgroundColor: "#ef4444", // red for absent
             }];
           }
-          
+
           // Only create events for records with check-in and check-out times
           if (!attendance.inAt || !attendance.outAt) {
             return [];
           }
-          
+
           return [
             {
               id: `checkin-${attendance.userId}-${index}`,
               title: `${attendance.fullName} (${t("attendance.table.checkIn")})`,
               start: new Date(
-                new Date(attendance.inAt).getTime() + utcOffset * 3600000
+                new Date(attendance.inAt).getTime()
               ),
-              end: new Date(new Date(attendance.inAt).getTime() + utcOffset * 3600000),
+              end: new Date(new Date(attendance.inAt).getTime()),
               allDay: false,
               display: "block",
               extendedProps: {
@@ -105,9 +104,9 @@ function CalendarPage() {
               id: `checkout-${attendance.userId}-${index}`,
               title: `${attendance.fullName} (${t("attendance.table.checkOut")})`,
               start: new Date(
-                new Date(attendance.outAt).getTime() + utcOffset * 3600000
+                new Date(attendance.outAt).getTime()
               ),
-              end: new Date(new Date(attendance.outAt).getTime() + utcOffset * 3600000),
+              end: new Date(new Date(attendance.outAt).getTime()),
               allDay: false,
               display: "block",
               extendedProps: {
@@ -131,15 +130,15 @@ function CalendarPage() {
       console.error("Error fetching user check-in data:", error);
     }
   }
-    // Function to get the current date from FullCalendar
-    const getCurrentCalendarDate = () => {
-      if (calendarRef.current) {
-        const calendarApi = calendarRef.current.getApi();
-        const currentDate = calendarApi.getDate(); // Get the current date
-        return currentDate; // Returns a JavaScript Date object
-      }
-      return null;
-    };
+  // Function to get the current date from FullCalendar
+  const getCurrentCalendarDate = () => {
+    if (calendarRef.current) {
+      const calendarApi = calendarRef.current.getApi();
+      const currentDate = calendarApi.getDate(); // Get the current date
+      return currentDate; // Returns a JavaScript Date object
+    }
+    return null;
+  };
 
   useEffect(() => {
     fetchUserList();
@@ -183,11 +182,11 @@ function CalendarPage() {
           </div>
           <div className="w-full max-w-5xl mx-auto">
             <Calendar
-              events={events} 
+              events={events}
               calendarRef={calendarRef}
               onDateRangeChange={(month, year) => {
                 if (selectedUser) {
-                  fetchUserCheckInData(selectedUser.email, month+2, year);
+                  fetchUserCheckInData(selectedUser.email, month + 2, year);
                 }
               }}
             />
@@ -217,19 +216,19 @@ function App() {
   return (
     <Router>
       <SidebarProvider>
-        
-          <SidebarLayout />
-          <main className="flex-1 overflow-auto p-2 sm:p-3">
-            <div className="flex items-center mb-2">
-              <SidebarToggle />
-            </div>
-            <Routes>
-              <Route path="/" element={<CalendarPage />} />
-              <Route path="/attendance" element={<AttendanceDataPage />} />
-              <Route path="*" element={<NotFoundPage />} />
-            </Routes>
-          </main>
-        
+
+        <SidebarLayout />
+        <main className="flex-1 overflow-auto p-2 sm:p-3">
+          <div className="flex items-center mb-2">
+            <SidebarToggle />
+          </div>
+          <Routes>
+            <Route path="/" element={<CalendarPage />} />
+            <Route path="/attendance" element={<AttendanceDataPage />} />
+            <Route path="*" element={<NotFoundPage />} />
+          </Routes>
+        </main>
+
       </SidebarProvider>
     </Router>
   );
