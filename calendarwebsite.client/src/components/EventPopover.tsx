@@ -77,13 +77,19 @@ export default function EventPopover({
         <strong className="text-neutral-900 dark:text-neutral-50">{t("attendance.label.date")}:</strong>{" "}
         {new Date(eventInfo.event.start!).toLocaleDateString()}
       </p>
-      <p className="my-2 flex justify-between text-neutral-800 dark:text-neutral-100 text-sm sm:text-base">
-        <strong className="text-neutral-900 dark:text-neutral-50">{t("attendance.label.time")}:</strong>{" "}
-        {new Date(eventInfo.event.start!).toLocaleTimeString()}
-      </p>
+      {type !== "absent" && (
+        <p className="my-2 flex justify-between text-neutral-800 dark:text-neutral-100 text-sm sm:text-base">
+          <strong className="text-neutral-900 dark:text-neutral-50">{t("attendance.label.time")}:</strong>{" "}
+          {new Date(eventInfo.event.start!).toLocaleTimeString()}
+        </p>
+      )}
       <p className="my-2 flex justify-between text-neutral-800 dark:text-neutral-100 text-sm sm:text-base">
         <strong className="text-neutral-900 dark:text-neutral-50">{t("attendance.label.type")}:</strong>{" "}
-        {type === "check-in" ? t("attendance.table.checkIn") : t("attendance.table.checkOut")}
+        {type === "check-in" 
+          ? t("attendance.table.checkIn") 
+          : type === "check-out" 
+            ? t("attendance.table.checkOut")
+            : t("attendance.table.absent")}
       </p>
       {type === "check-in" && (
         <div
@@ -117,6 +123,11 @@ export default function EventPopover({
             : status === "early"
             ? t("attendance.message.employeeCheckedOutEarly")
             : t("attendance.message.employeeCheckedOutOnTime")}
+        </div>
+      )}
+      {type === "absent" && (
+        <div className="mt-2.5 p-2 rounded text-xs sm:text-sm bg-red-100 text-red-800 dark:bg-red-900 dark:text-red-200">
+          {t("attendance.message.employeeAbsent")}
         </div>
       )}
     </div>

@@ -16,6 +16,20 @@ export type User = {
   data: string;
 };
 
+export type FullAttendance = {
+  id: number | null;
+  userId: string;
+  at: Date | null;
+  inAt: Date | null;
+  outAt: Date | null;
+  fullName: string | null;
+  isAbsent: boolean;
+  dayOfWeek: number;
+  day: number;
+  month: number;
+  year: number;
+}
+
 export type UserInfo = {
   id: number;
   email: string;

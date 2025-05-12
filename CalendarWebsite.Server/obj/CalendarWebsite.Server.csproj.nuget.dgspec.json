@@ -1,20 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "/Users/thomasjohnson/Documents/GitHub/CalendarWebsite/CalendarWebsite/CalendarWebsite.Server/CalendarWebsite.Server.csproj": {}
+    "G:\\Github Projects\\CalendarWebsite\\CalendarWebsite\\CalendarWebsite.Server\\CalendarWebsite.Server.csproj": {}
   },
   "projects": {
-    "/Users/thomasjohnson/Documents/GitHub/CalendarWebsite/CalendarWebsite/CalendarWebsite.Server/CalendarWebsite.Server.csproj": {
+    "G:\\Github Projects\\CalendarWebsite\\CalendarWebsite\\CalendarWebsite.Server\\CalendarWebsite.Server.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "/Users/thomasjohnson/Documents/GitHub/CalendarWebsite/CalendarWebsite/CalendarWebsite.Server/CalendarWebsite.Server.csproj",
+        "projectUniqueName": "G:\\Github Projects\\CalendarWebsite\\CalendarWebsite\\CalendarWebsite.Server\\CalendarWebsite.Server.csproj",
         "projectName": "CalendarWebsite.Server",
-        "projectPath": "/Users/thomasjohnson/Documents/GitHub/CalendarWebsite/CalendarWebsite/CalendarWebsite.Server/CalendarWebsite.Server.csproj",
-        "packagesPath": "/Users/thomasjohnson/.nuget/packages/",
-        "outputPath": "/Users/thomasjohnson/Documents/GitHub/CalendarWebsite/CalendarWebsite/CalendarWebsite.Server/obj/",
+        "projectPath": "G:\\Github Projects\\CalendarWebsite\\CalendarWebsite\\CalendarWebsite.Server\\CalendarWebsite.Server.csproj",
+        "packagesPath": "C:\\Users\\Admin\\.nuget\\packages\\",
+        "outputPath": "G:\\Github Projects\\CalendarWebsite\\CalendarWebsite\\CalendarWebsite.Server\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "/Users/thomasjohnson/.nuget/NuGet/NuGet.Config"
+          "C:\\Users\\Admin\\AppData\\Roaming\\NuGet\\NuGet.Config"
         ],
         "originalTargetFrameworks": [
           "net9.0"
@@ -102,7 +102,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "/Users/thomasjohnson/.dotnet/sdk/9.0.200/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Users\\Admin\\.dotnet\\sdk\\9.0.200/PortableRuntimeIdentifierGraph.json"
         }
       }
     }

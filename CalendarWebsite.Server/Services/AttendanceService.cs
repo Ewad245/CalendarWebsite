@@ -59,5 +59,14 @@ namespace CalendarWebsite.Server.Services
                 departmentId, positionId, userId, pageNumber, pageSize, fromDate, toDate);
         }
         
+        public async Task<IEnumerable<DetailAttendance>> GetAttendancesByUserIdDateRangeAsync(string userId, int month, int year)
+        {
+            return await _attendanceRepository.GetAttendancesByUserIdDateRangeAsync(userId, month, year);
+        }
+        
+        public async Task<IEnumerable<AttendanceWithAbsentDTO>> GetAttendanceWithAbsentByUserIdDateRangeAsync(string userId, int month, int year)
+        {
+            return await _attendanceRepository.GetAttendanceWithAbsentByUserIdDateRangeAsync(userId, month, year);
+        }
     }
 }
