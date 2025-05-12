@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Dapper;
 
 namespace CalendarWebsite.Server.Repositories
 {
@@ -107,6 +108,66 @@ namespace CalendarWebsite.Server.Repositories
             
             // Return the combined results ordered by date
             return result.OrderBy(a => a.At);
+        }
+
+        public async Task<IEnumerable<FullAttendanceDto>> GetFullAttendancesByUserIdDateRangeAsync(string userId, int month, int year)
+        {
+            var sql = @"
+SET DATEFIRST 7;
+
+WITH DateRange AS (
+    SELECT CAST(@StartDate AS DATE) AS WorkDate
+    UNION ALL
+    SELECT CAST(DATEADD(DAY, 1, WorkDate) AS DATE)
+    FROM DateRange
+    WHERE WorkDate < CAST(@EndDate AS DATE)
+)
+SELECT
+    e.FullName,
+    e.StaffId,
+    e.Email,
+    d.WorkDate,
+    CASE
+        WHEN a.at IS NOT NULL THEN 'Present'
+        WHEN lr.TuNgay IS NOT NULL AND d.WorkDate BETWEEN CAST(lr.TuNgay AT TIME ZONE 'UTC' AT TIME ZONE 'SE Asia Standard Time' AS DATE) AND CAST(lr.DenNgay AT TIME ZONE 'UTC' AT TIME ZONE 'SE Asia Standard Time' AS DATE) THEN 'On Leave'
+        ELSE 'Absent'
+    END AS AttendanceStatus,
+    lr.LoaiPhepNam AS TypeOfLeave,
+    lr.GhiChu AS Note,
+    CONVERT(DATETIME2, a.inAt AT TIME ZONE 'UTC' AT TIME ZONE 'SE Asia Standard Time') AS InAt,
+    CONVERT(DATETIME2, a.OutAt AT TIME ZONE 'UTC' AT TIME ZONE 'SE Asia Standard Time') AS OutAt,
+    a.Method,
+    a.[Check],
+    a.EarlyIn,
+    a.LateIn,
+    a.EarlyOut,
+    a.LateOut
+FROM
+    [dbo].[PersonalProfile] e
+    CROSS JOIN DateRange d
+    LEFT JOIN [Dynamic].[DataOnly_APIaCheckIn] a 
+        ON e.Email = a.userId 
+        AND CONVERT(DATE, a.at AT TIME ZONE 'UTC' AT TIME ZONE 'SE Asia Standard Time') = d.WorkDate
+    LEFT JOIN [Dynamic].[Data_HCQĐ07BM01] lr 
+        ON e.FullName = lr.NguoiDeNghi 
+        AND d.WorkDate BETWEEN CAST(lr.TuNgay AT TIME ZONE 'UTC' AT TIME ZONE 'SE Asia Standard Time' AS DATE) AND CAST(lr.DenNgay AT TIME ZONE 'UTC' AT TIME ZONE 'SE Asia Standard Time' AS DATE)
+WHERE
+    DATEPART(dw, d.WorkDate) NOT IN (1, 7) -- Exclude Sunday (1) and Saturday (7)
+    AND e.Email = @UserId
+ORDER BY
+    e.FullName, d.WorkDate;";
+            var startDate = new DateTime(year, month, 1);
+            DateTime? endDate = null;
+            if (month == DateTime.Now.Month && year == DateTime.Now.Year)
+            {
+                endDate = DateTime.Now;
+            }
+            else
+            {
+                endDate = startDate.AddMonths(1).AddDays(-1); // Last day of the month
+            }
+            var attendances = _context.Database.GetDbConnection().QueryAsync<FullAttendanceDto>(sql, new { StartDate = startDate, EndDate = endDate , UserId = userId});
+            return await attendances;
         }
 
         public async Task<PaginatedResult<DetailAttendance>> GetPaginatedAttendancesByUserIdAsync(

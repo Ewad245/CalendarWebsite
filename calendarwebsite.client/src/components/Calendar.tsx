@@ -1,12 +1,14 @@
 import FullCalendar from "@fullcalendar/react"; // Import FullCalendarRef
+import FullCalendarRef from "@fullcalendar/react"; // Import FullCalendarRef
 import dayGridPlugin from "@fullcalendar/daygrid";
 import { EventInput, EventContentArg } from "@fullcalendar/core";
 import { Popover } from "react-tiny-popover";
-import { useState, useMemo } from "react"; // Add useRef
+import { useState, useMemo, useRef } from "react"; // Add useRef
 import { useTranslation } from 'react-i18next';
 import EventPopover from "./EventPopover";
 import enLocale from '@fullcalendar/core/locales/en-gb';
 import viLocale from '@fullcalendar/core/locales/vi';
+import { UserInfo } from "@/interfaces/type";
 import { RefObject } from "@fullcalendar/core/preact.js";
 
 interface CalendarProps {
@@ -41,7 +43,7 @@ export default function Calendar({ events, calendarRef, onDateRangeChange }: Cal
           align="start"
         >
           <div
-            className={`fc-event-main-content fc-event-${status} cursor-pointer ${type === "absent" ? "bg-red-500 text-white" : ""}`}
+            className={`fc-event-main-content fc-event-${status} cursor-pointer ${type === "absent" ? "bg-red-500 text-white" : ""} ${type === "leave" ? "bg-amber-500 text-white" : ""}`}
             data-type={type}
             onClick={() =>
               setPopoverEvent(
@@ -59,7 +61,15 @@ export default function Calendar({ events, calendarRef, onDateRangeChange }: Cal
             )}
             {type === "absent" && (
               <div className="text-xs font-semibold mt-1">
-                {t("attendance.table.absent")}
+                {t("calendar.events.absent")}
+              </div>
+            )}
+            {type === "leave" && (
+              <div className="text-xs font-semibold mt-1">
+                {eventInfo.event.extendedProps.leaveType || t("calendar.events.leave")}
+                {eventInfo.event.extendedProps.note && (
+                  <div className="text-xs italic truncate max-w-[150px]">{eventInfo.event.extendedProps.note}</div>
+                )}
               </div>
             )}
           </div>
@@ -96,6 +106,12 @@ export default function Calendar({ events, calendarRef, onDateRangeChange }: Cal
       left: "prev,next today",
       center: "title",
       right: "dayGridMonth",
+    },
+    buttonText: {
+      today: t('calendar.navigation.today'),
+      month: t('calendar.views.month'),
+      week: t('calendar.views.week'),
+      day: t('calendar.views.day')
     },
     height: "auto",
     dayMaxEvents: window.innerWidth < 768 ? 2 : 4,

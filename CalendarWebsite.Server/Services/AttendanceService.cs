@@ -68,5 +68,10 @@ namespace CalendarWebsite.Server.Services
         {
             return await _attendanceRepository.GetAttendanceWithAbsentByUserIdDateRangeAsync(userId, month, year);
         }
+
+        public Task<IEnumerable<FullAttendanceDto>> GetFullAttendancesByUserIdDateRangeAsync(string userId, int month, int year)
+        {
+            return _attendanceRepository.GetFullAttendancesByUserIdDateRangeAsync(userId, month, year);
+        }
     }
 }

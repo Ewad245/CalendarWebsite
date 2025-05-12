@@ -1,3 +1,3 @@
 ﻿<Project>
-  <Import Project="..\build\CalendarWebsite.Server.props" />
+  <Import Project="../build/CalendarWebsite.Server.props" />
 </Project>
