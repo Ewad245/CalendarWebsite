@@ -17,17 +17,21 @@ export type User = {
 };
 
 export type FullAttendance = {
-  id: number | null;
-  userId: string;
-  at: Date | null;
-  inAt: Date | null;
-  outAt: Date | null;
-  fullName: string | null;
-  isAbsent: boolean;
-  dayOfWeek: number;
-  day: number;
-  month: number;
-  year: number;
+  fullName: string;
+  staffId: string;
+  email: string;
+  workDate: Date;
+  attendanceStatus: string;
+  typeOfLeave?: string | null;
+  note?: string | null;
+  inAt?: Date | null;
+  outAt?: Date | null;
+  method?: number | null;
+  check?: number | null;
+  earlyIn?: number | null;
+  lateIn?: number | null;
+  earlyOut?: number | null;
+  lateOut?: number | null;
 }
 
 export type UserInfo = {

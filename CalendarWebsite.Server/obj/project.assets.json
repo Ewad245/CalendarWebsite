@@ -95,6 +95,19 @@
           "lib/netstandard2.1/ClosedXML.Report.dll": {}
         }
       },
+      "Dapper/2.1.66": {
+        "type": "package",
+        "compile": {
+          "lib/net8.0/Dapper.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/net8.0/Dapper.dll": {
+            "related": ".xml"
+          }
+        }
+      },
       "DocumentFormat.OpenXml/3.1.1": {
         "type": "package",
         "dependencies": {
@@ -3210,6 +3223,25 @@
         "closedxml.report.nuspec",
         "lib/netstandard2.0/ClosedXML.Report.dll",
         "lib/netstandard2.1/ClosedXML.Report.dll"
+      ]
+    },
+    "Dapper/2.1.66": {
+      "sha512": "/q77jUgDOS+bzkmk3Vy9SiWMaetTw+NOoPAV0xPBsGVAyljd5S6P+4RUW7R3ZUGGr9lDRyPKgAMj2UAOwvqZYw==",
+      "type": "package",
+      "path": "dapper/2.1.66",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "Dapper.png",
+        "dapper.2.1.66.nupkg.sha512",
+        "dapper.nuspec",
+        "lib/net461/Dapper.dll",
+        "lib/net461/Dapper.xml",
+        "lib/net8.0/Dapper.dll",
+        "lib/net8.0/Dapper.xml",
+        "lib/netstandard2.0/Dapper.dll",
+        "lib/netstandard2.0/Dapper.xml",
+        "readme.md"
       ]
     },
     "DocumentFormat.OpenXml/3.1.1": {
@@ -8609,6 +8641,7 @@
     "net9.0": [
       "ClosedXML >= 0.105.0-rc",
       "ClosedXML.Report >= 0.2.12-rc",
+      "Dapper >= 2.1.66",
       "Microsoft.AspNetCore.OpenApi >= 9.0.0",
       "Microsoft.AspNetCore.SpaProxy >= 9.*-*",
       "Microsoft.EntityFrameworkCore.SqlServer >= 9.0.4",
@@ -8619,19 +8652,19 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\Admin\\.nuget\\packages\\": {}
+    "/Users/thomasjohnson/.nuget/packages/": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "G:\\Github Projects\\CalendarWebsite\\CalendarWebsite\\CalendarWebsite.Server\\CalendarWebsite.Server.csproj",
+      "projectUniqueName": "/Users/thomasjohnson/Documents/GitHub/CalendarWebsite/CalendarWebsite.Server/CalendarWebsite.Server.csproj",
       "projectName": "CalendarWebsite.Server",
-      "projectPath": "G:\\Github Projects\\CalendarWebsite\\CalendarWebsite\\CalendarWebsite.Server\\CalendarWebsite.Server.csproj",
-      "packagesPath": "C:\\Users\\Admin\\.nuget\\packages\\",
-      "outputPath": "G:\\Github Projects\\CalendarWebsite\\CalendarWebsite\\CalendarWebsite.Server\\obj\\",
+      "projectPath": "/Users/thomasjohnson/Documents/GitHub/CalendarWebsite/CalendarWebsite.Server/CalendarWebsite.Server.csproj",
+      "packagesPath": "/Users/thomasjohnson/.nuget/packages/",
+      "outputPath": "/Users/thomasjohnson/Documents/GitHub/CalendarWebsite/CalendarWebsite.Server/obj/",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "C:\\Users\\Admin\\AppData\\Roaming\\NuGet\\NuGet.Config"
+        "/Users/thomasjohnson/.nuget/NuGet/NuGet.Config"
       ],
       "originalTargetFrameworks": [
         "net9.0"
@@ -8668,6 +8701,10 @@
           "ClosedXML.Report": {
             "target": "Package",
             "version": "[0.2.12-rc, )"
+          },
+          "Dapper": {
+            "target": "Package",
+            "version": "[2.1.66, )"
           },
           "Microsoft.AspNetCore.OpenApi": {
             "target": "Package",
@@ -8719,7 +8756,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Users\\Admin\\.dotnet\\sdk\\9.0.200/PortableRuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "/Users/thomasjohnson/.dotnet/sdk/9.0.200/PortableRuntimeIdentifierGraph.json"
       }
     }
   }

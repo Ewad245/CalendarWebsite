@@ -12,6 +12,7 @@ import NotFoundPage from "./pages/NotFoundPage";
 import SidebarLayout from "./components/SidebarLayout";
 import { SidebarProvider, useSidebar } from "@/components/ui/sidebar";
 import { Button } from "@/components/ui/button";
+import getCurrentCalendarDate from "./components/Calendar";
 import { PanelLeftIcon } from "lucide-react";
 import FullCalendarRef from "@fullcalendar/react"; // Import FullCalendarRef
 
@@ -39,86 +40,124 @@ function CalendarPage() {
 
   async function fetchUserCheckInData(userId: string, month?: number, year?: number) {
     try {
-      // Always use the new API that includes absence information
+      // Use the new API that includes full attendance information
       if (!month || !year) {
         const now = new Date();
         month = now.getMonth() + 1;
         year = now.getFullYear();
       }
 
-      const endpoint = `/api/DataOnly_APIaCheckIn/month-year/${userId}?month=${month}&year=${year}`;
+      const endpoint = `/api/DataOnly_APIaCheckIn/date-range/${userId}?month=${month}&year=${year}`;
 
       const response = await fetch(endpoint);
       if (response.ok) {
         const data = await response.json();
 
-        // Transform attendance data to calendar events and adjust for UTC+7
+        // Transform attendance data to calendar events
         const calendarEvents = data.flatMap((attendance: FullAttendance, index: number) => {
-          // Handle absent records by creating an absence event
-          if (attendance.isAbsent) {
+          // Handle different attendance statuses
+          if (attendance.attendanceStatus === 'Absent') {
             // Create a single all-day event for absent days
-            const absentDate = new Date(attendance.year, attendance.month - 1, attendance.day);
+            const absentDate = new Date(attendance.workDate);
             return [{
-              id: `absent-${attendance.userId}-${index}`,
+              id: `absent-${attendance.email}-${index}`,
               title: `${attendance.fullName} (${t("attendance.table.absent")})`,
               start: absentDate,
               allDay: true,
               display: "block",
               extendedProps: {
-                userId: attendance.userId,
+                userId: attendance.email,
                 type: "absent",
                 status: "absent",
                 data: attendance,
               },
               backgroundColor: "#ef4444", // red for absent
             }];
-          }
+          } else if (attendance.attendanceStatus === 'On Leave') {
+            // Create a single all-day event for leave days
+            const leaveDate = new Date(attendance.workDate);
+            return [{
+              id: `leave-${attendance.email}-${index}`,
+              title: `${attendance.fullName} (${t("attendance.table.TypeOfLeave") || 'On Leave'})${attendance.typeOfLeave ? `: ${attendance.typeOfLeave}` : ''}`,
+              start: leaveDate,
+              allDay: true,
+              display: "block",
+              extendedProps: {
+                userId: attendance.email,
+                type: "leave",
+                status: "leave",
+                leaveType: attendance.typeOfLeave,
+                note: attendance.note,
+                data: attendance,
+              },
+              backgroundColor: "#f59e0b", // amber for leave
+            }];
+          } else if (attendance.attendanceStatus === 'Present') {
+            // Only create events for records with check-in and check-out times
+            if (!attendance.inAt || !attendance.outAt) {
+              return [];
+            }
 
-          // Only create events for records with check-in and check-out times
-          if (!attendance.inAt || !attendance.outAt) {
+            // Determine check-in status based on lateIn/earlyIn
+            let checkInStatus = "on-time";
+            let checkInColor = "#3b82f6"; // blue for on-time
+            
+            if (attendance.lateIn && attendance.lateIn > 0) {
+              checkInStatus = "late";
+              checkInColor = "#ef4444"; // red for late
+            } else if (attendance.earlyIn && attendance.earlyIn > 0) {
+              checkInStatus = "early";
+              checkInColor = "#10b981"; // green for early
+            }
+            
+            // Determine check-out status based on earlyOut/lateOut
+            let checkOutStatus = "on-time";
+            let checkOutColor = "#3b82f6"; // blue for on-time
+            
+            if (attendance.earlyOut && attendance.earlyOut > 0) {
+              checkOutStatus = "early";
+              checkOutColor = "#ef4444"; // red for early out
+            } else if (attendance.lateOut && attendance.lateOut > 0) {
+              checkOutStatus = "late";
+              checkOutColor = "#10b981"; // green for late out (overtime)
+            }
+
+            return [
+              {
+                id: `checkin-${attendance.email}-${index}`,
+                title: `${attendance.fullName} (${t("attendance.table.checkIn")})`,
+                start: new Date(attendance.inAt),
+                end: new Date(attendance.inAt),
+                allDay: false,
+                display: "block",
+                extendedProps: {
+                  userId: attendance.email,
+                  type: "check-in",
+                  status: checkInStatus,
+                  data: attendance,
+                },
+                backgroundColor: checkInColor,
+              },
+              {
+                id: `checkout-${attendance.email}-${index}`,
+                title: `${attendance.fullName} (${t("attendance.table.checkOut")})`,
+                start: new Date(attendance.outAt),
+                end: new Date(attendance.outAt),
+                allDay: false,
+                display: "block",
+                extendedProps: {
+                  userId: attendance.email,
+                  type: "check-out",
+                  status: checkOutStatus,
+                  data: attendance,
+                },
+                backgroundColor: checkOutColor,
+              },
+          ];
+          } else {
+            // Default case for any other attendance status
             return [];
           }
-
-          return [
-            {
-              id: `checkin-${attendance.userId}-${index}`,
-              title: `${attendance.fullName} (${t("attendance.table.checkIn")})`,
-              start: new Date(
-                new Date(attendance.inAt).getTime()
-              ),
-              end: new Date(new Date(attendance.inAt).getTime()),
-              allDay: false,
-              display: "block",
-              extendedProps: {
-                userId: attendance.userId,
-                type: "check-in",
-                // We don't have lateIn/earlyIn in the DTO, so we'll use on-time for now
-                // This would need to be updated if the DTO includes these properties
-                status: "on-time",
-                data: attendance,
-              },
-              backgroundColor: "#3b82f6", // blue for on-time
-            },
-            {
-              id: `checkout-${attendance.userId}-${index}`,
-              title: `${attendance.fullName} (${t("attendance.table.checkOut")})`,
-              start: new Date(
-                new Date(attendance.outAt).getTime()
-              ),
-              end: new Date(new Date(attendance.outAt).getTime()),
-              allDay: false,
-              display: "block",
-              extendedProps: {
-                userId: attendance.userId,
-                type: "check-out",
-                // We don't have earlyOut/lateOut in the DTO, so we'll use on-time for now
-                // This would need to be updated if the DTO includes these properties
-                status: "on-time",
-                data: attendance,
-              },
-              backgroundColor: "#3b82f6", // blue for on-time
-            },
-          ];
         });
 
         setEvents(calendarEvents);
@@ -185,6 +224,7 @@ function CalendarPage() {
               calendarRef={calendarRef}
               onDateRangeChange={(month, year) => {
                 if (selectedUser) {
+                  // Month from FullCalendar is 0-indexed, but our API expects 1-indexed
                   fetchUserCheckInData(selectedUser.email, month + 2, year);
                 }
               }}

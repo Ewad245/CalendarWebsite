@@ -44,7 +44,8 @@
       "late": "Muộn",
       "early": "Sớm",
       "onTime": "Đúng giờ",
-      "veryLate": "Rất muộn"
+      "veryLate": "Rất muộn",
+      "TypeOfLeave": "Loại nghỉ phép"
     },
     "message": {
       "noFilters": "Vui lòng chọn ít nhất một bộ lọc (phòng ban, vị trí, người dùng, hoặc khoảng thời gian) để xem dữ liệu chuyên cần",
@@ -81,5 +82,28 @@
     "pageNotFound": "Không Tìm Thấy Trang",
     "invalidUrl": "Trang bạn đang tìm kiếm không tồn tại hoặc đã được di chuyển.",
     "backToHome": "Trở Về Trang Chủ"
+  },
+  "calendar": {
+    "navigation": {
+      "today": "Hôm nay",
+      "prev": "Trước",
+      "next": "Tiếp"
+    },
+    "views": {
+      "month": "Tháng",
+      "week": "Tuần",
+      "day": "Ngày"
+    },
+    "events": {
+      "absent": "Vắng mặt",
+      "leave": "Nghỉ phép",
+      "present": "Có mặt"
+    },
+    "popover": {
+      "close": "Đóng",
+      "details": "Chi tiết sự kiện",
+      "time": "Thời gian",
+      "note": "Ghi chú"
+    }
   }
 }

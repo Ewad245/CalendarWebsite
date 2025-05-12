@@ -44,7 +44,8 @@
       "late": "Late",
       "early": "Early",
       "onTime": "On Time",
-      "veryLate": "Very Late"
+      "veryLate": "Very Late",
+      "TypeOfLeave": "Type Of Leave"
     },
     "message": {
       "noFilters": "Please select at least one filter (department, position, user, or date range) to view attendance data",
@@ -81,5 +82,28 @@
     "pageNotFound": "Page Not Found",
     "invalidUrl": "The page you are looking for doesn't exist or has been moved.",
     "backToHome": "Back to Home"
+  },
+  "calendar": {
+    "navigation": {
+      "today": "Today",
+      "prev": "Previous",
+      "next": "Next"
+    },
+    "views": {
+      "month": "Month",
+      "week": "Week",
+      "day": "Day"
+    },
+    "events": {
+      "absent": "Absent",
+      "leave": "On Leave",
+      "present": "Present"
+    },
+    "popover": {
+      "close": "Close",
+      "details": "Event Details",
+      "time": "Time",
+      "note": "Note"
+    }
   }
 }

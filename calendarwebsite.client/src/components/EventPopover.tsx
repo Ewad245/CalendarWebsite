@@ -18,7 +18,7 @@ export default function EventPopover({
       <button
         onClick={onClose}
         className="float-right text-neutral-500 dark:text-neutral-400 hover:text-neutral-700 dark:hover:text-neutral-200"
-        aria-label={t("common.close")}
+        aria-label={t("calendar.popover.close")}
       >
         ✕
       </button>
@@ -73,13 +73,21 @@ export default function EventPopover({
           </span>
         </div>
       )}
+      {type === "leave" && (
+        <div className="flex items-center mb-2">
+          <div className="w-2.5 h-2.5 rounded-full mr-2 bg-amber-600 dark:bg-amber-500"></div>
+          <span className="capitalize font-bold text-sm sm:text-base text-amber-700 dark:text-amber-400">
+            {t("calendar.events.leave")}
+          </span>
+        </div>
+      )}
       <p className="my-2 flex justify-between text-neutral-800 dark:text-neutral-100 text-sm sm:text-base">
-        <strong className="text-neutral-900 dark:text-neutral-50">{t("attendance.label.date")}:</strong>{" "}
+        <strong className="text-neutral-900 dark:text-neutral-50">{t("calendar.popover.details")}:</strong>{" "}
         {new Date(eventInfo.event.start!).toLocaleDateString()}
       </p>
       {type !== "absent" && (
         <p className="my-2 flex justify-between text-neutral-800 dark:text-neutral-100 text-sm sm:text-base">
-          <strong className="text-neutral-900 dark:text-neutral-50">{t("attendance.label.time")}:</strong>{" "}
+          <strong className="text-neutral-900 dark:text-neutral-50">{t("calendar.popover.time")}:</strong>{" "}
           {new Date(eventInfo.event.start!).toLocaleTimeString()}
         </p>
       )}
@@ -89,8 +97,24 @@ export default function EventPopover({
           ? t("attendance.table.checkIn") 
           : type === "check-out" 
             ? t("attendance.table.checkOut")
-            : t("attendance.table.absent")}
+            : type === "leave"
+              ? t("calendar.events.leave")
+              : t("calendar.events.absent")}
       </p>
+      {type === "leave" && eventInfo.event.extendedProps.leaveType && (
+        <p className="my-2 flex justify-between text-neutral-800 dark:text-neutral-100 text-sm sm:text-base">
+          <strong className="text-neutral-900 dark:text-neutral-50">{t("calendar.events.leave")}:</strong>{" "}
+          {eventInfo.event.extendedProps.leaveType}
+        </p>
+      )}
+      {type === "leave" && eventInfo.event.extendedProps.note && (
+        <div className="mt-2 p-2 bg-neutral-100 dark:bg-neutral-700 rounded text-sm">
+          <strong className="block mb-1 text-neutral-900 dark:text-neutral-50">{t("calendar.popover.note")}:</strong>
+          <p className="text-neutral-800 dark:text-neutral-200">
+            {eventInfo.event.extendedProps.note}
+          </p>
+        </div>
+      )}
       {type === "check-in" && (
         <div
           className={`mt-2.5 p-2 rounded text-xs sm:text-sm ${
@@ -127,7 +151,7 @@ export default function EventPopover({
       )}
       {type === "absent" && (
         <div className="mt-2.5 p-2 rounded text-xs sm:text-sm bg-red-100 text-red-800 dark:bg-red-900 dark:text-red-200">
-          {t("attendance.message.employeeAbsent")}
+          {t("calendar.events.absent")}
         </div>
       )}
     </div>

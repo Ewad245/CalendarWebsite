@@ -10,6 +10,7 @@
         "dependencies": {
           "ClosedXML": "0.105.0-rc",
           "ClosedXML.Report": "0.2.12-rc",
+          "Dapper": "2.1.66",
           "Microsoft.AspNetCore.OpenApi": "9.0.0",
           "Microsoft.AspNetCore.SpaProxy": "9.0.4",
           "Microsoft.EntityFrameworkCore.SqlServer": "9.0.4",
@@ -91,6 +92,14 @@
           "lib/netstandard2.1/ClosedXML.Report.dll": {
             "assemblyVersion": "1.0.0.0",
             "fileVersion": "1.0.0.0"
+          }
+        }
+      },
+      "Dapper/2.1.66": {
+        "runtime": {
+          "lib/net8.0/Dapper.dll": {
+            "assemblyVersion": "2.0.0.0",
+            "fileVersion": "2.1.66.48463"
           }
         }
       },
@@ -1255,22 +1264,22 @@
           "runtimes/win-arm/native/Microsoft.Data.SqlClient.SNI.dll": {
             "rid": "win-arm",
             "assetType": "native",
-            "fileVersion": "5.1.1.0"
+            "fileVersion": "0.0.0.0"
           },
           "runtimes/win-arm64/native/Microsoft.Data.SqlClient.SNI.dll": {
             "rid": "win-arm64",
             "assetType": "native",
-            "fileVersion": "5.1.1.0"
+            "fileVersion": "0.0.0.0"
           },
           "runtimes/win-x64/native/Microsoft.Data.SqlClient.SNI.dll": {
             "rid": "win-x64",
             "assetType": "native",
-            "fileVersion": "5.1.1.0"
+            "fileVersion": "0.0.0.0"
           },
           "runtimes/win-x86/native/Microsoft.Data.SqlClient.SNI.dll": {
             "rid": "win-x86",
             "assetType": "native",
-            "fileVersion": "5.1.1.0"
+            "fileVersion": "0.0.0.0"
           }
         }
       },
@@ -2291,6 +2300,13 @@
       "sha512": "sha512-WvuPmNvxhE2x95+bzs+ngK0btDNdKz0NpEf4URsLGv6s4i723lNVaPspNVAiPRqY3XUeMMn91nwWK2rcK4fjjA==",
       "path": "closedxml.report/0.2.12-rc",
       "hashPath": "closedxml.report.0.2.12-rc.nupkg.sha512"
+    },
+    "Dapper/2.1.66": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-/q77jUgDOS+bzkmk3Vy9SiWMaetTw+NOoPAV0xPBsGVAyljd5S6P+4RUW7R3ZUGGr9lDRyPKgAMj2UAOwvqZYw==",
+      "path": "dapper/2.1.66",
+      "hashPath": "dapper.2.1.66.nupkg.sha512"
     },
     "DocumentFormat.OpenXml/3.1.1": {
       "type": "package",
