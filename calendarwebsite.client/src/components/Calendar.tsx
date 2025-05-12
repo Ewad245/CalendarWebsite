@@ -1,14 +1,12 @@
 import FullCalendar from "@fullcalendar/react"; // Import FullCalendarRef
-import FullCalendarRef from "@fullcalendar/react"; // Import FullCalendarRef
 import dayGridPlugin from "@fullcalendar/daygrid";
 import { EventInput, EventContentArg } from "@fullcalendar/core";
 import { Popover } from "react-tiny-popover";
-import { useState, useMemo, useRef } from "react"; // Add useRef
+import { useState, useMemo } from "react"; // Add useRef
 import { useTranslation } from 'react-i18next';
 import EventPopover from "./EventPopover";
 import enLocale from '@fullcalendar/core/locales/en-gb';
 import viLocale from '@fullcalendar/core/locales/vi';
-import { UserInfo } from "@/interfaces/type";
 import { RefObject } from "@fullcalendar/core/preact.js";
 
 interface CalendarProps {
