@@ -20,4 +20,16 @@ export type UserInfo = {
   id: number;
   email: string;
   fullName: string;
+  departmentId: number;
+  positionId: number;
+};
+
+export type Department = {
+  id: number;
+  title: string;
+};
+
+export type Position = {
+  id: number;
+  title: string;
 };
