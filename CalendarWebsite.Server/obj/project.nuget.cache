@@ -1,14 +1,15 @@
 {
   "version": 2,
-  "dgSpecHash": "it1lq7H5eM4=",
+  "dgSpecHash": "/u/FboP3nLY=",
   "success": true,
-  "projectFilePath": "/Users/thomasjohnson/Documents/GitHub/CalendarWebsite/CalendarWebsite/CalendarWebsite.Server/CalendarWebsite.Server.csproj",
+  "projectFilePath": "/Users/thomasjohnson/Documents/GitHub/CalendarWebsite/CalendarWebsite.Server/CalendarWebsite.Server.csproj",
   "expectedPackageFiles": [
     "/Users/thomasjohnson/.nuget/packages/azure.core/1.38.0/azure.core.1.38.0.nupkg.sha512",
     "/Users/thomasjohnson/.nuget/packages/azure.identity/1.11.4/azure.identity.1.11.4.nupkg.sha512",
     "/Users/thomasjohnson/.nuget/packages/closedxml/0.105.0-rc/closedxml.0.105.0-rc.nupkg.sha512",
     "/Users/thomasjohnson/.nuget/packages/closedxml.parser/2.0.0-preview1/closedxml.parser.2.0.0-preview1.nupkg.sha512",
     "/Users/thomasjohnson/.nuget/packages/closedxml.report/0.2.12-rc/closedxml.report.0.2.12-rc.nupkg.sha512",
+    "/Users/thomasjohnson/.nuget/packages/dapper/2.1.66/dapper.2.1.66.nupkg.sha512",
     "/Users/thomasjohnson/.nuget/packages/documentformat.openxml/3.1.1/documentformat.openxml.3.1.1.nupkg.sha512",
     "/Users/thomasjohnson/.nuget/packages/documentformat.openxml.framework/3.1.1/documentformat.openxml.framework.3.1.1.nupkg.sha512",
     "/Users/thomasjohnson/.nuget/packages/excelnumberformat/1.1.0/excelnumberformat.1.1.0.nupkg.sha512",

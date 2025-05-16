@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "/Users/thomasjohnson/Documents/GitHub/CalendarWebsiteFork/calendarwebsite.client/calendarwebsite.client.esproj": {}
+    "/Users/thomasjohnson/Documents/GitHub/CalendarWebsite/calendarwebsite.client/calendarwebsite.client.esproj": {}
   },
   "projects": {
-    "/Users/thomasjohnson/Documents/GitHub/CalendarWebsiteFork/calendarwebsite.client/calendarwebsite.client.esproj": {
+    "/Users/thomasjohnson/Documents/GitHub/CalendarWebsite/calendarwebsite.client/calendarwebsite.client.esproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "/Users/thomasjohnson/Documents/GitHub/CalendarWebsiteFork/calendarwebsite.client/calendarwebsite.client.esproj",
+        "projectUniqueName": "/Users/thomasjohnson/Documents/GitHub/CalendarWebsite/calendarwebsite.client/calendarwebsite.client.esproj",
         "projectName": "calendarwebsite.client",
-        "projectPath": "/Users/thomasjohnson/Documents/GitHub/CalendarWebsiteFork/calendarwebsite.client/calendarwebsite.client.esproj",
+        "projectPath": "/Users/thomasjohnson/Documents/GitHub/CalendarWebsite/calendarwebsite.client/calendarwebsite.client.esproj",
         "packagesPath": "/Users/thomasjohnson/.nuget/packages/",
-        "outputPath": "/Users/thomasjohnson/Documents/GitHub/CalendarWebsiteFork/calendarwebsite.client/obj/",
+        "outputPath": "/Users/thomasjohnson/Documents/GitHub/CalendarWebsite/calendarwebsite.client/obj/",
         "projectStyle": "PackageReference",
         "UsingMicrosoftNETSdk": false,
         "configFilePaths": [

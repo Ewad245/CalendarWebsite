@@ -42,7 +42,7 @@ export default function AttendanceDataPage() {
         </div>
       ) : (
         <div className="min-h-screen py-6 flex flex-col items-center rounded-md shadow-sm">
-          <div className="container mx-auto px-4 max-w-6xl">
+          <div className="container mx-auto px-4 max-w-auto">
             <MaterialDataTable userList={userList} />
           </div>
         </div>
