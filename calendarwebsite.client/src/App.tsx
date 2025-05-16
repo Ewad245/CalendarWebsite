@@ -1,6 +1,6 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import "./App.css";
-import { User, UserInfo } from "./interfaces/type";
+import { FullAttendance, UserInfo } from "./interfaces/type";
 import { EventInput } from "@fullcalendar/core";
 import UserSearch from "./components/UserSearch";
 import Calendar from "./components/Calendar";
@@ -13,6 +13,7 @@ import SidebarLayout from "./components/SidebarLayout";
 import { SidebarProvider, useSidebar } from "@/components/ui/sidebar";
 import { Button } from "@/components/ui/button";
 import { PanelLeftIcon } from "lucide-react";
+import FullCalendarRef from "@fullcalendar/react"; // Import FullCalendarRef
 
 function CalendarPage() {
   const { t } = useTranslation();
@@ -20,6 +21,7 @@ function CalendarPage() {
   const [selectedUser, setSelectedUser] = useState<UserInfo | null>(null);
   const [events, setEvents] = useState<EventInput[]>([]);
   const [inputValue, setInputValue] = useState("");
+  const calendarRef = useRef<FullCalendarRef>(null);
 
   async function fetchUserList() {
     try {
@@ -35,62 +37,127 @@ function CalendarPage() {
     }
   }
 
-  async function fetchUserCheckInData(userId: string) {
+  async function fetchUserCheckInData(userId: string, month?: number, year?: number) {
     try {
-      const response = await fetch(`/api/DataOnly_APIaCheckIn/${userId}`);
-      if (response.ok) {
-        const data: User[] = await response.json();
+      // Use the new API that includes full attendance information
+      if (!month || !year) {
+        const now = new Date();
+        month = now.getMonth() + 1;
+        year = now.getFullYear();
+      }
 
-        // Transform check-in data to separate in/out calendar events and adjust for UTC+7
-        const utcOffset = 7; // UTC+7 timezone offset
-        const calendarEvents = data.flatMap((user: User, index) => [
-          {
-            id: `checkin-${user.userId}-${index}`,
-            title: `${user.fullName} (${t("attendance.table.checkIn")})`,
-            start: new Date(
-              new Date(user.inAt).getTime() + utcOffset * 3600000
-            ),
-            end: new Date(new Date(user.inAt).getTime() + utcOffset * 3600000),
-            allDay: false,
-            display: "block",
-            extendedProps: {
-              userId: user.userId,
-              type: "check-in",
-              status: user.lateIn ? "late" : user.earlyIn ? "early" : "on-time",
-              data: user,
-            },
-            backgroundColor: user.lateIn
-              ? "#ef4444" // red for late
-              : user.earlyIn
-              ? "#22c55e" // green for early
-              : "#3b82f6", // blue for on-time
-          },
-          {
-            id: `checkout-${user.userId}-${index}`,
-            title: `${user.fullName} (${t("attendance.table.checkOut")})`,
-            start: new Date(
-              new Date(user.outAt).getTime() + utcOffset * 3600000
-            ),
-            end: new Date(new Date(user.outAt).getTime() + utcOffset * 3600000),
-            allDay: false,
-            display: "block",
-            extendedProps: {
-              userId: user.userId,
-              type: "check-out",
-              status: user.earlyOut
-                ? "early"
-                : user.lateOut
-                ? "late"
-                : "on-time",
-              data: user,
-            },
-            backgroundColor: user.earlyOut
-              ? "#ef4444" // red for early
-              : user.lateOut
-              ? "#22c55e" // green for late
-              : "#3b82f6", // blue for on-time
-          },
-        ]);
+      const endpoint = `/api/DataOnly_APIaCheckIn/date-range/${userId}?month=${month}&year=${year}`;
+
+      const response = await fetch(endpoint);
+      if (response.ok) {
+        const data = await response.json();
+
+        // Transform attendance data to calendar events
+        const calendarEvents = data.flatMap((attendance: FullAttendance, index: number) => {
+          // Handle different attendance statuses
+          if (attendance.attendanceStatus === 'Absent') {
+            // Create a single all-day event for absent days
+            const absentDate = new Date(attendance.workDate);
+            return [{
+              id: `absent-${attendance.email}-${index}`,
+              title: `${attendance.fullName} (${t("attendance.table.absent")})`,
+              start: absentDate,
+              allDay: true,
+              display: "block",
+              extendedProps: {
+                userId: attendance.email,
+                type: "absent",
+                status: "absent",
+                data: attendance,
+              },
+              backgroundColor: "#ef4444", // red for absent
+            }];
+          } else if (attendance.attendanceStatus === 'On Leave') {
+            // Create a single all-day event for leave days
+            const leaveDate = new Date(attendance.workDate);
+            return [{
+              id: `leave-${attendance.email}-${index}`,
+              title: `${attendance.fullName} (${t("attendance.table.TypeOfLeave") || 'On Leave'})${attendance.typeOfLeave ? `: ${attendance.typeOfLeave}` : ''}`,
+              start: leaveDate,
+              allDay: true,
+              display: "block",
+              extendedProps: {
+                userId: attendance.email,
+                type: "leave",
+                status: "leave",
+                leaveType: attendance.typeOfLeave,
+                note: attendance.note,
+                data: attendance,
+              },
+              backgroundColor: "#f59e0b", // amber for leave
+            }];
+          } else if (attendance.attendanceStatus === 'Present') {
+            // Only create events for records with check-in and check-out times
+            if (!attendance.inAt || !attendance.outAt) {
+              return [];
+            }
+
+            // Determine check-in status based on lateIn/earlyIn
+            let checkInStatus = "on-time";
+            let checkInColor = "#3b82f6"; // blue for on-time
+            
+            if (attendance.lateIn && attendance.lateIn > 0) {
+              checkInStatus = "late";
+              checkInColor = "#ef4444"; // red for late
+            } else if (attendance.earlyIn && attendance.earlyIn > 0) {
+              checkInStatus = "early";
+              checkInColor = "#10b981"; // green for early
+            }
+            
+            // Determine check-out status based on earlyOut/lateOut
+            let checkOutStatus = "on-time";
+            let checkOutColor = "#3b82f6"; // blue for on-time
+            
+            if (attendance.earlyOut && attendance.earlyOut > 0) {
+              checkOutStatus = "early";
+              checkOutColor = "#ef4444"; // red for early out
+            } else if (attendance.lateOut && attendance.lateOut > 0) {
+              checkOutStatus = "late";
+              checkOutColor = "#10b981"; // green for late out (overtime)
+            }
+
+            return [
+              {
+                id: `checkin-${attendance.email}-${index}`,
+                title: `${attendance.fullName} (${t("attendance.table.checkIn")})`,
+                start: new Date(attendance.inAt),
+                end: new Date(attendance.inAt),
+                allDay: false,
+                display: "block",
+                extendedProps: {
+                  userId: attendance.email,
+                  type: "check-in",
+                  status: checkInStatus,
+                  data: attendance,
+                },
+                backgroundColor: checkInColor,
+              },
+              {
+                id: `checkout-${attendance.email}-${index}`,
+                title: `${attendance.fullName} (${t("attendance.table.checkOut")})`,
+                start: new Date(attendance.outAt),
+                end: new Date(attendance.outAt),
+                allDay: false,
+                display: "block",
+                extendedProps: {
+                  userId: attendance.email,
+                  type: "check-out",
+                  status: checkOutStatus,
+                  data: attendance,
+                },
+                backgroundColor: checkOutColor,
+              },
+          ];
+          } else {
+            // Default case for any other attendance status
+            return [];
+          }
+        });
 
         setEvents(calendarEvents);
       } else {
@@ -100,6 +167,15 @@ function CalendarPage() {
       console.error("Error fetching user check-in data:", error);
     }
   }
+  // Function to get the current date from FullCalendar
+  const getCurrentCalendarDate = () => {
+    if (calendarRef.current) {
+      const calendarApi = calendarRef.current.getApi();
+      const currentDate = calendarApi.getDate(); // Get the current date
+      return currentDate; // Returns a JavaScript Date object
+    }
+    return null;
+  };
 
   useEffect(() => {
     fetchUserList();
@@ -107,7 +183,12 @@ function CalendarPage() {
 
   useEffect(() => {
     if (selectedUser) {
-      fetchUserCheckInData(selectedUser.email);
+      const now = getCurrentCalendarDate();
+      if (!now) {
+        console.error("Failed to get current date from FullCalendar");
+        return;
+      }
+      fetchUserCheckInData(selectedUser.email, now.getMonth() + 1, now.getFullYear());
     } else {
       setEvents([]);
     }
@@ -137,7 +218,16 @@ function CalendarPage() {
             />
           </div>
           <div className="w-full max-w-5xl mx-auto">
-            <Calendar events={events} />
+            <Calendar
+              events={events}
+              calendarRef={calendarRef}
+              onDateRangeChange={(month, year) => {
+                if (selectedUser) {
+                  // Month from FullCalendar is 0-indexed, but our API expects 1-indexed
+                  fetchUserCheckInData(selectedUser.email, month + 2, year);
+                }
+              }}
+            />
           </div>
         </div>
       )}
@@ -164,19 +254,19 @@ function App() {
   return (
     <Router>
       <SidebarProvider>
-        
-          <SidebarLayout />
-          <main className="flex-1 overflow-auto p-2 sm:p-3">
-            <div className="flex items-center mb-2">
-              <SidebarToggle />
-            </div>
-            <Routes>
-              <Route path="/" element={<CalendarPage />} />
-              <Route path="/attendance" element={<AttendanceDataPage />} />
-              <Route path="*" element={<NotFoundPage />} />
-            </Routes>
-          </main>
-        
+
+        <SidebarLayout />
+        <main className="flex-1 overflow-auto p-2 sm:p-3">
+          <div className="flex items-center mb-2">
+            <SidebarToggle />
+          </div>
+          <Routes>
+            <Route path="/" element={<CalendarPage />} />
+            <Route path="/attendance" element={<AttendanceDataPage />} />
+            <Route path="*" element={<NotFoundPage />} />
+          </Routes>
+        </main>
+
       </SidebarProvider>
     </Router>
   );
