@@ -52,6 +52,7 @@
       "loadingData": "Loading user data...",
       "fetchError": "Failed to fetch user list",
       "fetchErrorDetails": "Error fetching user list:",
+      "employeeCheckedInEarly": "Employee checked in early",
       "employeeCheckedInLate": "Employee checked in late",
       "employeeCheckedOutEarly": "Employee checked out early",
       "employeeCheckedInOnTime": "Employee checked in on time",
