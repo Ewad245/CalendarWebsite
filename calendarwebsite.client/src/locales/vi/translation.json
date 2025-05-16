@@ -1,0 +1,110 @@
+{
+  "maintitle": "Trang xem chuyên cần",
+  "common": {
+    "loading": "Đang tải...",
+    "exporting": "Đang xuất...",
+    "reset": "Đặt lại",
+    "resetFilters": "Đặt lại",
+    "apply": "Áp dụng",
+    "close": "Đóng"
+  },
+  "attendance": {
+    "title": "Hồ sơ chuyên cần",
+    "subTitle": "Xem và Lọc danh sách hồ sơ chuyên cần",
+    "staffCheckIn": "Hồ sơ điểm danh nhân viên",
+    "filters": {
+      "department": "Phòng ban",
+      "position": "Vị trí",
+      "selectUser": "Chọn người dùng",
+      "fromDate": "Từ ngày",
+      "toDate": "Đến ngày",
+      "status": "Trạng thái",
+      "startDate": "Ngày bắt đầu",
+      "title": "Bộ lọc"
+    },
+    "export": {
+      "excel": "Xuất ra Excel",
+      "tooltip": "Xuất dữ liệu đã lọc ra Excel",
+      "error": "Không thể xuất dữ liệu. Vui lòng thử lại."
+    },
+    "table": {
+      "id": "ID",
+      "user": "Người dùng",
+      "checkIn": "Giờ vào",
+      "checkOut": "Giờ ra",
+      "status": "Trạng thái",
+      "workTime": "Thời gian làm việc",
+      "date": "Ngày",
+      "employeeName": "Tên nhân viên",
+      "department": "Phòng ban",
+      "checkInTime": "Thời gian điểm danh",
+      "minutes": "phút",
+      "present": "Có mặt",
+      "absent": "Vắng mặt",
+      "late": "Muộn",
+      "early": "Sớm",
+      "onTime": "Đúng giờ",
+      "veryLate": "Rất muộn",
+      "TypeOfLeave": "Loại nghỉ phép"
+    },
+    "message": {
+      "noFilters": "Vui lòng chọn ít nhất một bộ lọc (phòng ban, vị trí, người dùng, hoặc khoảng thời gian) để xem dữ liệu chuyên cần",
+      "loadingData": "Đang tải dữ liệu người dùng...",
+      "fetchError": "Không thể tải danh sách người dùng",
+      "fetchErrorDetails": "Lỗi khi tải danh sách người dùng:",
+      "employeeCheckedInEarly": "Nhân viên đã điểm danh sớm",
+      "employeeCheckedInLate": "Nhân viên đã điểm danh muộn",
+      "employeeCheckedOutEarly": "Nhân viên đã điểm danh sớm",
+      "employeeCheckedInOnTime": "Nhân viên đã điểm danh đúng giờ",
+      "employeeCheckedOutOnTime": "Nhân viên đã điểm danh đúng giờ",
+      "employeeCheckedInVeryLate": "Nhân viên đã điểm danh quá muộn",
+      "employeeCheckedOutLate": "Nhân viên đã điểm danh muộn",
+      "employeeCheckedOutVeryEarly": "Nhân viên đã điểm danh quá sớm",
+      "employeeCheckedIn": "Nhân viên đã điểm danh",
+      "employeeCheckedOut": "Nhân viên đã điểm danh",
+      "employeeAbsent": "Nhân viên vắng mặt"
+    },
+    "label": {
+      "type": "Loại",
+      "date": "Ngày",
+      "time": "Thời gian"
+    }
+  },
+  "navigation": {
+    "viewCalendar": "Xem lịch",
+    "attendance": "Báo cáo chuyên cần",
+    "calendar": "Lịch chuyên cần"
+  },
+  "language": {
+    "english": "Tiếng Anh",
+    "vietnamese": "Tiếng Việt"
+  },
+  "error": {
+    "pageNotFound": "Không Tìm Thấy Trang",
+    "invalidUrl": "Trang bạn đang tìm kiếm không tồn tại hoặc đã được di chuyển.",
+    "backToHome": "Trở Về Trang Chủ"
+  },
+  "calendar": {
+    "navigation": {
+      "today": "Hôm nay",
+      "prev": "Trước",
+      "next": "Tiếp"
+    },
+    "views": {
+      "month": "Tháng",
+      "week": "Tuần",
+      "day": "Ngày"
+    },
+    "events": {
+      "absent": "Vắng mặt",
+      "leave": "Nghỉ phép",
+      "present": "Có mặt"
+    },
+    "popover": {
+      "close": "Đóng",
+      "details": "Chi tiết sự kiện",
+      "time": "Thời gian",
+      "note": "Ghi chú"
+    }
+  }
+}
