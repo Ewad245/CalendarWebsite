@@ -1,0 +1,110 @@
+{
+  "maintitle": "Attendance View",
+  "common": {
+    "loading": "Loading...",
+    "exporting": "Exporting...",
+    "reset": "Reset",
+    "resetFilters": "Reset Filters",
+    "apply": "Apply",
+    "close": "Close"
+  },
+  "attendance": {
+    "title": "Attendance Records",
+    "subTitle": "View and Filter Attendance Records",
+    "staffCheckIn": "Staff Check-in Records",
+    "filters": {
+      "department": "Department",
+      "position": "Position",
+      "selectUser": "Select User",
+      "fromDate": "From Date",
+      "toDate": "To Date",
+      "status": "Status",
+      "startDate": "Start Date",
+      "title": "Filters"
+    },
+    "export": {
+      "excel": "Export Excel",
+      "tooltip": "Export filtered data to Excel",
+      "error": "Failed to export data. Please try again."
+    },
+    "table": {
+      "id": "ID",
+      "user": "User",
+      "checkIn": "Check In",
+      "checkOut": "Check Out",
+      "status": "Status",
+      "workTime": "Work Time",
+      "date": "Date",
+      "employeeName": "Employee Name",
+      "department": "Department",
+      "checkInTime": "Check-in Time",
+      "minutes": "minutes",
+      "present": "Present",
+      "absent": "Absent",
+      "late": "Late",
+      "early": "Early",
+      "onTime": "On Time",
+      "veryLate": "Very Late",
+      "TypeOfLeave": "Type Of Leave"
+    },
+    "message": {
+      "noFilters": "Please select at least one filter (department, position, user, or date range) to view attendance data",
+      "loadingData": "Loading user data...",
+      "fetchError": "Failed to fetch user list",
+      "fetchErrorDetails": "Error fetching user list:",
+      "employeeCheckedInEarly": "Employee checked in early",
+      "employeeCheckedInLate": "Employee checked in late",
+      "employeeCheckedOutEarly": "Employee checked out early",
+      "employeeCheckedInOnTime": "Employee checked in on time",
+      "employeeCheckedOutOnTime": "Employee checked out on time",
+      "employeeCheckedInVeryLate": "Employee checked in very late",
+      "employeeCheckedOutLate": "Employee checked out late",
+      "employeeCheckedOutVeryEarly": "Employee checked out very early",
+      "employeeCheckedIn": "Employee checked in",
+      "employeeCheckedOut": "Employee checked out",
+      "employeeAbsent": "Employee absent"
+    },
+    "label": {
+      "type": "Type",
+      "date": "Date",
+      "time": "Time"
+    }
+  },
+  "navigation": {
+    "viewCalendar": "View Calendar",
+    "attendance": "Attendance Table",
+    "calendar": "Attendance Calendar"
+  },
+  "language": {
+    "english": "English",
+    "vietnamese": "Vietnamese"
+  },
+  "error": {
+    "pageNotFound": "Page Not Found",
+    "invalidUrl": "The page you are looking for doesn't exist or has been moved.",
+    "backToHome": "Back to Home"
+  },
+  "calendar": {
+    "navigation": {
+      "today": "Today",
+      "prev": "Previous",
+      "next": "Next"
+    },
+    "views": {
+      "month": "Month",
+      "week": "Week",
+      "day": "Day"
+    },
+    "events": {
+      "absent": "Absent",
+      "leave": "On Leave",
+      "present": "Present"
+    },
+    "popover": {
+      "close": "Close",
+      "details": "Event Details",
+      "time": "Time",
+      "note": "Note"
+    }
+  }
+}
