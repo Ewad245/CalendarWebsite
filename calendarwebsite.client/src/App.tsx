@@ -12,7 +12,6 @@ import NotFoundPage from "./pages/NotFoundPage";
 import SidebarLayout from "./components/SidebarLayout";
 import { SidebarProvider, useSidebar } from "@/components/ui/sidebar";
 import { Button } from "@/components/ui/button";
-import getCurrentCalendarDate from "./components/Calendar";
 import { PanelLeftIcon } from "lucide-react";
 import FullCalendarRef from "@fullcalendar/react"; // Import FullCalendarRef
 
