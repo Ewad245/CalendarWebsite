@@ -41,6 +41,8 @@ namespace CalendarWebsite.Server
                 c.SwaggerDoc("v1", new OpenApiInfo() { Title = "My API", Version = "v1" });
             });
             
+            builder.Services.AddAutoMapper(typeof(Program));
+            
             builder.Services.AddCors(options =>
             {
                 options.AddPolicy("AllowAll",

@@ -8,11 +8,12 @@
     ".NETCoreApp,Version=v9.0": {
       "CalendarWebsite.Server/1.0.0": {
         "dependencies": {
+          "AutoMapper": "14.0.0",
           "ClosedXML": "0.105.0-rc",
           "ClosedXML.Report": "0.2.12-rc",
           "Dapper": "2.1.66",
           "Microsoft.AspNetCore.OpenApi": "9.0.0",
-          "Microsoft.AspNetCore.SpaProxy": "9.0.4",
+          "Microsoft.AspNetCore.SpaProxy": "9.0.5",
           "Microsoft.EntityFrameworkCore.SqlServer": "9.0.4",
           "Microsoft.EntityFrameworkCore.Tools": "9.0.0",
           "Microsoft.VisualStudio.Web.CodeGeneration.Design": "9.0.0",
@@ -21,6 +22,17 @@
         },
         "runtime": {
           "CalendarWebsite.Server.dll": {}
+        }
+      },
+      "AutoMapper/14.0.0": {
+        "dependencies": {
+          "Microsoft.Extensions.Options": "9.0.4"
+        },
+        "runtime": {
+          "lib/net8.0/AutoMapper.dll": {
+            "assemblyVersion": "14.0.0.0",
+            "fileVersion": "14.0.0.0"
+          }
         }
       },
       "Azure.Core/1.38.0": {
@@ -692,11 +704,11 @@
           }
         }
       },
-      "Microsoft.AspNetCore.SpaProxy/9.0.4": {
+      "Microsoft.AspNetCore.SpaProxy/9.0.5": {
         "runtime": {
           "lib/net9.0/Microsoft.AspNetCore.SpaProxy.dll": {
-            "assemblyVersion": "9.0.4.0",
-            "fileVersion": "9.0.425.16403"
+            "assemblyVersion": "9.0.5.0",
+            "fileVersion": "9.0.525.22904"
           }
         }
       },
@@ -2266,6 +2278,13 @@
       "serviceable": false,
       "sha512": ""
     },
+    "AutoMapper/14.0.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-OC+1neAPM4oCCqQj3g2GJ2shziNNhOkxmNB9cVS8jtx4JbgmRzLcUOxB9Tsz6cVPHugdkHgCaCrTjjSI0Z5sCQ==",
+      "path": "automapper/14.0.0",
+      "hashPath": "automapper.14.0.0.nupkg.sha512"
+    },
     "Azure.Core/1.38.0": {
       "type": "package",
       "serviceable": true,
@@ -2693,12 +2712,12 @@
       "path": "microsoft.aspnetcore.razor.language/6.0.24",
       "hashPath": "microsoft.aspnetcore.razor.language.6.0.24.nupkg.sha512"
     },
-    "Microsoft.AspNetCore.SpaProxy/9.0.4": {
+    "Microsoft.AspNetCore.SpaProxy/9.0.5": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-HOgobccKyqnbpliwlsgz9B7OP4vpqmTIMJM0Zc2t6XrYJV4MD0+4T+Yrs6muia5cXPXy2jsO/SjWoqqT1/mf8g==",
-      "path": "microsoft.aspnetcore.spaproxy/9.0.4",
-      "hashPath": "microsoft.aspnetcore.spaproxy.9.0.4.nupkg.sha512"
+      "sha512": "sha512-iVsR0q1BizeYqgLst1g0k/TWxNOOGf46Od/VEqZficzRGuxOwPrhSsS8aQa6RYi9X3d2SjuURI33Ddky9LuE/Q==",
+      "path": "microsoft.aspnetcore.spaproxy/9.0.5",
+      "hashPath": "microsoft.aspnetcore.spaproxy.9.0.5.nupkg.sha512"
     },
     "Microsoft.Bcl.AsyncInterfaces/7.0.0": {
       "type": "package",

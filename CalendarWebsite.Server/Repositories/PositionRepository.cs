@@ -13,14 +13,5 @@ namespace CalendarWebsite.Server.Repositories
         public PositionRepository(DatabaseContext context) : base(context)
         {
         }
-
-        public async Task<IEnumerable<PositionDto>> GetAllPositionsAsync()
-        {
-            return await _context.Positions.Select(o => new PositionDto()
-            {
-                Id = o.Id,
-                Title = o.Title,
-            }).ToListAsync();
-        }
     }
 }
