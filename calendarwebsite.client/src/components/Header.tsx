@@ -2,6 +2,7 @@ import ThemeToggle from "./ThemeToggle";
 import LanguageSwitcher from "./LanguageSwitcher";
 import { useTranslation } from 'react-i18next';
 import { Box } from '@mui/material';
+import LoginButton from "./LoginButton";
 
 export default function Header() {
   const { t } = useTranslation();
@@ -10,7 +11,10 @@ export default function Header() {
     <>
       <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', mb: 2 }}>
         <ThemeToggle />
-        <LanguageSwitcher />
+        <Box sx={{ display: 'flex', alignItems: 'center', gap: 2 }}>
+          <LoginButton />
+          <LanguageSwitcher />
+        </Box>
       </Box>
       <div className="max-w-7xl mx-auto">
         <h1

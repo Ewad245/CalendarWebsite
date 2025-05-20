@@ -5,8 +5,11 @@ using Microsoft.AspNetCore.Mvc;
 using CalendarWebsite.Server.Models;
 using CalendarWebsite.Server.Services;
 
+using Microsoft.AspNetCore.Authorization;
+
 namespace CalendarWebsite.Server.Controllers
 {
+    [Authorize]
     [Route("api/[controller]")]
     [ApiController]
     public class DataOnly_APIaCheckInController : ControllerBase
