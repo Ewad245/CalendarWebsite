@@ -8,12 +8,14 @@ import Header from "./components/Header";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import AttendanceDataPage from "./pages/AttendanceDataPage";
+import CustomWorkingTimePage from "./pages/CustomWorkingTimePage";
 import NotFoundPage from "./pages/NotFoundPage";
 import SidebarLayout from "./components/SidebarLayout";
 import { SidebarProvider, useSidebar } from "@/components/ui/sidebar";
 import { Button } from "@/components/ui/button";
 import { PanelLeftIcon } from "lucide-react";
 import FullCalendarRef from "@fullcalendar/react"; // Import FullCalendarRef
+import LoadingSpinner from "./components/loading-spinner";
 
 function CalendarPage() {
   const { t } = useTranslation();
@@ -21,9 +23,12 @@ function CalendarPage() {
   const [selectedUser, setSelectedUser] = useState<UserInfo | null>(null);
   const [events, setEvents] = useState<EventInput[]>([]);
   const [inputValue, setInputValue] = useState("");
+  const [loading, setLoading] = useState(true);
+  const [fetchingEvents, setFetchingEvents] = useState(false);
   const calendarRef = useRef<FullCalendarRef>(null);
 
   async function fetchUserList() {
+    setLoading(true);
     try {
       const response = await fetch("/api/DataOnly_APIaCheckIn");
       if (response.ok) {
@@ -34,10 +39,13 @@ function CalendarPage() {
       }
     } catch (error) {
       console.error(`${t("attendance.message.fetchErrorDetails")}`, error);
+    } finally {
+      setLoading(false);
     }
   }
 
   async function fetchUserCheckInData(userId: string, month?: number, year?: number) {
+    setFetchingEvents(true);
     try {
       // Use the new API that includes full attendance information
       if (!month || !year) {
@@ -165,10 +173,12 @@ function CalendarPage() {
       }
     } catch (error) {
       console.error("Error fetching user check-in data:", error);
+    } finally {
+      setFetchingEvents(false);
     }
   }
   // Function to get the current date from FullCalendar
-  const getCurrentCalendarDate = () => {
+  const getCurrentSelectCalendarDate = () => {
     if (calendarRef.current) {
       const calendarApi = calendarRef.current.getApi();
       const currentDate = calendarApi.getDate(); // Get the current date
@@ -183,12 +193,12 @@ function CalendarPage() {
 
   useEffect(() => {
     if (selectedUser) {
-      const now = getCurrentCalendarDate();
+      const now = getCurrentSelectCalendarDate();
       if (!now) {
         console.error("Failed to get current date from FullCalendar");
         return;
       }
-      fetchUserCheckInData(selectedUser.email, now.getMonth() + 1, now.getFullYear());
+      fetchUserCheckInData(selectedUser.email, now.getMonth() +1, now.getFullYear());
     } else {
       setEvents([]);
     }
@@ -199,25 +209,27 @@ function CalendarPage() {
       <div className="mb-3 sm:mb-4">
         <Header />
       </div>
-      {userList.length === 0 ? (
-        <p className="italic text-gray-600 dark:text-neutral-50 text-center">
-          <em>
-            Loading... Please refresh once the ASP.NET backend has started.
-          </em>
-        </p>
+      {loading ? (
+        <LoadingSpinner size="large" fullScreen={true} />
       ) : (
         <div className="flex flex-col gap-6 mb-4">
           <div className="w-full max-w-md mx-auto">
             <UserSearch
               userList={userList}
               selectedUser={selectedUser}
+              selectedDate={getCurrentSelectCalendarDate()}
               setSelectedUser={setSelectedUser}
               inputValue={inputValue}
               setInputValue={setInputValue}
               setEvents={setEvents}
             />
           </div>
-          <div className="w-full max-w-5xl mx-auto">
+          <div className="w-full max-w-5xl mx-auto relative">
+            {fetchingEvents && (
+              <div className="absolute inset-0 flex items-center justify-center bg-background/60 backdrop-blur-sm z-10 rounded-lg">
+                <LoadingSpinner size="medium" />
+              </div>
+            )}
             <Calendar
               events={events}
               calendarRef={calendarRef}
@@ -263,6 +275,7 @@ function App() {
           <Routes>
             <Route path="/" element={<CalendarPage />} />
             <Route path="/attendance" element={<AttendanceDataPage />} />
+            <Route path="/custom-working-time" element={<CustomWorkingTimePage />} />
             <Route path="*" element={<NotFoundPage />} />
           </Routes>
         </main>

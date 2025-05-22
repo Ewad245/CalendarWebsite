@@ -28,6 +28,8 @@ namespace CalendarWebsite.Server
             builder.Services.AddScoped<IPositionRepository, PositionRepository>();
             builder.Services.AddScoped<IReportRepository, ReportRepository>();
             builder.Services.AddScoped<IPersonalProfileRepository, PersonalProfileRepository>();
+            builder.Services.AddScoped<IWorkWeekRepository, WorkWeekRepository>();
+            builder.Services.AddScoped<ICustomWorkingTimeRepository, CustomWorkingTimeRepository>();
             
             // Register services
             builder.Services.AddScoped<IAttendanceService, AttendanceService>();
@@ -35,6 +37,9 @@ namespace CalendarWebsite.Server
             builder.Services.AddScoped<IPositionService, PositionService>();
             builder.Services.AddScoped<IReportService, ReportService>();
             builder.Services.AddScoped<IPersonalProfileService, PersonalProfileService>();
+            builder.Services.AddScoped<IWorkWeekService, WorkWeekService>();
+            builder.Services.AddScoped<ICustomWorkingTimeService, CustomWorkingTimeService>();
+            
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen(c =>
             {

@@ -203,6 +203,10 @@ FROM Calendar c
 ORDER BY c.AttendanceDate, s.PersonalProfileId;";
             var startDate = new DateTime(year, month, 1);
             DateTime? endDate = null;
+            if (month > DateTime.Now.Month && year >= DateTime.Now.Year)
+            {
+                return [];
+            }
             if (month == DateTime.Now.Month && year == DateTime.Now.Year)
             {
                 endDate = DateTime.Now;
@@ -321,18 +325,6 @@ ORDER BY c.AttendanceDate, s.PersonalProfileId;";
             DateTime? fromDate,
             DateTime? toDate)
         {
-            // Adjust fromDate and toDate to UTC if they have values
-            // Since database stores UTC time, we need to subtract 7 hours from the input dates for filtering
-            if (fromDate.HasValue)
-            {
-                fromDate = fromDate.Value.AddHours(-7);
-            }
-            
-            if (toDate.HasValue)
-            {
-                toDate = toDate.Value.AddHours(-7);
-            }
-
             // Get users matching department and position filters
             var userQuery = _context.Users.Select(p => new CustomUserInfo()
             {
@@ -354,48 +346,155 @@ ORDER BY c.AttendanceDate, s.PersonalProfileId;";
             }
             
             // Get the filtered user IDs (emails)
-            var filteredUserIds = await userQuery.Select(u => u.Email).ToListAsync();
-            
-            // Start with attendance records
-            var query = _context.Attendances.AsQueryable();
-            
-            // Apply user ID filter directly if provided
+            List<string> filteredUserIds;
             if (!string.IsNullOrEmpty(userId))
             {
-                query = query.Where(a => a.UserId == userId);
+                // If specific userId is provided, use only that
+                filteredUserIds = new List<string> { userId };
             }
-            // Otherwise, filter by the department/position filtered user IDs
             else if (departmentId.HasValue || positionId.HasValue)
             {
-                query = query.Where(a => filteredUserIds.Contains(a.UserId));
+                // Otherwise use the department/position filtered IDs
+                filteredUserIds = await userQuery.Select(u => u.Email).ToListAsync();
             }
-            
-            // Apply date filters if provided
-            if (fromDate.HasValue)
+            else
             {
-                query = query.Where(a => a.At >= fromDate.Value);
+                // If no filters, get all users
+                filteredUserIds = await userQuery.Select(u => u.Email).ToListAsync();
             }
             
-            if (toDate.HasValue)
-            {
-                // Include the entire day for the end date
-                var endDate = toDate.Value.Date.AddDays(1).AddTicks(-1);
-                query = query.Where(a => a.At <= endDate);
-            }
+            // Adjust fromDate and toDate to UTC if they have values
+            DateTime startDate = fromDate?.AddHours(-7) ?? DateTime.Now.AddMonths(-1).AddHours(-7);
+            DateTime endDate = toDate?.AddHours(-7).Date.AddDays(1).AddTicks(-1) ?? DateTime.Now.AddHours(-7);
             
-            // Order by date, most recent first
-            query = query.OrderByDescending(a => a.At);
+            // Calculate total count for pagination using SQL
+            var countSql = @"
+                SELECT COUNT(*)
+                FROM Dynamic.DataOnly_APIaCheckIn ci
+                WHERE (@UserId IS NULL OR ci.userId IN @UserIds)
+                AND ci.At >= @StartDate AND ci.At <= @EndDate";
+                
+            var totalCount = await _context.Database.GetDbConnection().ExecuteScalarAsync<int>(
+                countSql,
+                new { UserIds = filteredUserIds, StartDate = startDate, EndDate = endDate, UserId = userId });
             
-            // Use the pagination helper to create the paginated result
-            var result = await PaginationHelper.CreatePaginatedResultAsync(query, pageNumber, pageSize);
+            // Calculate pagination values
+            var totalPages = (int)Math.Ceiling(totalCount / (double)pageSize);
+            var skip = (pageNumber - 1) * pageSize;
+            
+            // SQL query to get paginated attendance records with proper ordering and calculate early/late values
+            var sql = @"
+                WITH Staff AS (
+                    -- Get all staff with custom working times
+                    SELECT pp.Id AS PersonalProfileId, pp.FullName, pp.Email as Email
+                    FROM PersonalProfile pp
+                    WHERE pp.Email IN @UserIds
+                ),
+                CustomSchedule AS (
+                    -- Get all the valid custom schedule for a person
+                    SELECT w.Title AS Title, cwt.MorningStart AS MorningStart, cwt.MorningEnd AS MorningEnd,
+                           cwt.AfternoonStart AS AfternoonStart, cwt.AfternoonEnd AS AfternoonEnd, cwt.PersonalProfileId AS PersonalProfileId
+                    FROM CustomWorkingTime cwt
+                    INNER JOIN Workweek w ON w.Id = cwt.WorkweekId
+                    WHERE w.IsDeleted = 0 AND cwt.IsDeleted = 0
+                )
+                SELECT
+    ci.Id,
+    ci.UserWorkflowId,
+    ci.UserId,
+    ci.Method,
+    ci.[Check],
+    -- Calculate EarlyIn based on custom schedule if available
+    CASE
+        WHEN sce.PersonalProfileId IS NOT NULL AND sce.Title = DATENAME(WEEKDAY, ci.At) THEN
+            CASE
+                WHEN CONVERT(TIME, ci.inAt AT TIME ZONE 'UTC' AT TIME ZONE 'SE Asia Standard Time') <
+                     DATEADD(MINUTE, sce.MorningStart * 60, CAST('00:00' AS TIME))
+                    THEN DATEDIFF(MINUTE,
+                                  CONVERT(TIME, ci.inAt AT TIME ZONE 'UTC' AT TIME ZONE 'SE Asia Standard Time'),
+                                  DATEADD(MINUTE, sce.MorningStart * 60, CAST('00:00' AS TIME)))
+                ELSE 0
+                END
+        ELSE ci.EarlyIn
+        END AS EarlyIn,
+    -- Calculate LateIn based on custom schedule if available
+    CASE
+        WHEN sce.PersonalProfileId IS NOT NULL AND sce.Title = DATENAME(WEEKDAY, ci.At) THEN
+            CASE
+                WHEN CONVERT(TIME, ci.inAt AT TIME ZONE 'UTC' AT TIME ZONE 'SE Asia Standard Time') >
+                     DATEADD(MINUTE, sce.MorningStart * 60, CAST('00:00' AS TIME))
+                    THEN DATEDIFF(MINUTE,
+                                  DATEADD(MINUTE, sce.MorningStart * 60, CAST('00:00' AS TIME)),
+                                  CONVERT(TIME, ci.inAt AT TIME ZONE 'UTC' AT TIME ZONE 'SE Asia Standard Time'))
+                ELSE 0
+                END
+        ELSE ci.LateIn
+        END AS LateIn,
+    -- Calculate EarlyOut based on custom schedule if available
+    CASE
+        WHEN sce.PersonalProfileId IS NOT NULL AND sce.Title = DATENAME(WEEKDAY, ci.At) THEN
+            CASE
+                WHEN CONVERT(TIME, ci.outAt AT TIME ZONE 'UTC' AT TIME ZONE 'SE Asia Standard Time') <
+                     DATEADD(MINUTE, sce.AfternoonEnd * 60, CAST('00:00' AS TIME))
+                    THEN DATEDIFF(MINUTE,
+                                  CONVERT(TIME, ci.outAt AT TIME ZONE 'UTC' AT TIME ZONE 'SE Asia Standard Time'),
+                                  DATEADD(MINUTE, sce.AfternoonEnd * 60, CAST('00:00' AS TIME)))
+                ELSE 0
+                END
+        ELSE ci.EarlyOut
+        END AS EarlyOut,
+    -- Calculate LateOut based on custom schedule if available
+    CASE
+        WHEN sce.PersonalProfileId IS NOT NULL AND sce.Title = DATENAME(WEEKDAY, ci.At) THEN
+            CASE
+                WHEN CONVERT(TIME, ci.outAt AT TIME ZONE 'UTC' AT TIME ZONE 'SE Asia Standard Time') >
+                     DATEADD(MINUTE, sce.AfternoonEnd * 60, CAST('00:00' AS TIME))
+                    THEN DATEDIFF(MINUTE,
+                                  DATEADD(MINUTE, sce.AfternoonEnd * 60, CAST('00:00' AS TIME)),
+                                  CONVERT(TIME, ci.outAt AT TIME ZONE 'UTC' AT TIME ZONE 'SE Asia Standard Time'))
+                ELSE 0
+                END
+        ELSE ci.LateOut
+        END AS LateOut,
+    CONVERT(DATETIME2, ci.inAt AT TIME ZONE 'UTC' AT TIME ZONE 'SE Asia Standard Time') AS inAt,
+    CONVERT(DATETIME2, ci.outAt AT TIME ZONE 'UTC' AT TIME ZONE 'SE Asia Standard Time') AS outAt,
+    ci.Wt,
+    CONVERT(DATETIME2, ci.At AT TIME ZONE 'UTC' AT TIME ZONE 'SE Asia Standard Time') AS At,
+    ci.FullName,
+    ci.Data
+                FROM Dynamic.DataOnly_APIaCheckIn ci
+                INNER JOIN Staff s ON ci.UserId = s.Email
+                LEFT JOIN CustomSchedule sce ON sce.PersonalProfileId = s.PersonalProfileId AND sce.Title = DATENAME(WEEKDAY, ci.At)
+                WHERE (@UserId IS NULL OR ci.userId IN @UserIds)
+                AND CONVERT(DATETIME2, ci.At AT TIME ZONE 'UTC' AT TIME ZONE 'SE Asia Standard Time') >= @StartDate
+                AND CONVERT(DATETIME2, ci.At AT TIME ZONE 'UTC' AT TIME ZONE 'SE Asia Standard Time') <= @EndDate
+                ORDER BY CONVERT(DATETIME2, ci.At AT TIME ZONE 'UTC' AT TIME ZONE 'SE Asia Standard Time') DESC
+                OFFSET @Skip ROWS
+                FETCH NEXT @PageSize ROWS ONLY";
+            
+            var attendances = await _context.Database.GetDbConnection().QueryAsync<DetailAttendance>(
+                sql,
+                new { 
+                    UserIds = filteredUserIds, 
+                    StartDate = startDate, 
+                    EndDate = endDate, 
+                    UserId = userId,
+                    Skip = skip,
+                    PageSize = pageSize
+                });
             
             // Convert UTC dates to UTC+7 for each item in the result
-            foreach (var attendance in result.Items)
-            {
-                ConvertUtcToUtcPlus7(attendance);
-            }
+            var items = attendances.ToList();
             
-            return result;
+            // Create and return the paginated result
+            return new PaginatedResult<DetailAttendance>
+            {
+                Items = items,
+                PageNumber = pageNumber,
+                PageSize = pageSize,
+                TotalCount = totalCount,
+                TotalPages = totalPages
+            };
         }
         // Helper method to convert UTC dates to UTC+7
         private void ConvertUtcToUtcPlus7(DetailAttendance attendance)
