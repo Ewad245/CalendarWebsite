@@ -3,6 +3,7 @@ import { UserInfo } from "../interfaces/type";
 import Header from "../components/Header";
 import MaterialDataTable from "@/components/MaterialDataTable";
 import { useTranslation } from 'react-i18next';
+import LoadingSpinner from "@/components/loading-spinner";
 
 export default function AttendanceDataPage() {
   const [userList, setUserList] = useState<UserInfo[]>([]);
@@ -37,9 +38,7 @@ export default function AttendanceDataPage() {
       </div>
 
       {loading ? (
-        <div className="flex justify-center items-center h-64">
-          <p className="text-lg">{t('attendance.message.loadingData')}</p>
-        </div>
+        <LoadingSpinner size="large" fullScreen={true} text={t('attendance.message.loadingData')} />
       ) : (
         <div className="min-h-screen py-6 flex flex-col items-center rounded-md shadow-sm">
           <div className="container mx-auto px-4 max-w-auto">

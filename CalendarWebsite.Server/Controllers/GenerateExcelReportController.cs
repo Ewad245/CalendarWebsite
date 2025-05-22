@@ -17,11 +17,13 @@ namespace CalendarWebsite.Server.Controllers;
         
         //GET: api/GenerateExcelReport/generate-checkinout-report/1
         [HttpGet("generate-checkinout-report/{staffId}")]
-        public async Task<IActionResult> GenerateCheckInOutReport(int staffId)
+        public async Task<IActionResult> GenerateCheckInOutReport(int staffId,
+        [FromQuery] int month,
+        [FromQuery] int year)
         {
             try
             {
-                var (fileContents, fileName) = await _reportService.GenerateCheckInOutReportAsync(staffId);
+                var (fileContents, fileName) = await _reportService.GenerateCheckInOutReportAsync(staffId, month, year);
                 return File(fileContents, "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", fileName);
             }
             catch (KeyNotFoundException ex)

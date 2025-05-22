@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace CalendarWebsite.Server.Repositories;
 
-public class PersonalProfileRepository : GenericRepository<UserInfo>, IPersonalProfileRepository
+public class PersonalProfileRepository : GenericRepository<PersonalProfile>, IPersonalProfileRepository
 {
     public PersonalProfileRepository(DatabaseContext context) : base(context)
     {
@@ -27,7 +27,7 @@ public class PersonalProfileRepository : GenericRepository<UserInfo>, IPersonalP
 
     public async Task<IEnumerable<CustomUserInfo>> GetUsersByDepartmentIdOrPositionIdAsync(long departmentId, long positionId)
     {
-        var query = _context.Set<UserInfo>().Select(u => new CustomUserInfo()
+        var query = _context.Set<PersonalProfile>().Select(u => new CustomUserInfo()
         {
             Id = u.Id,
             Email = u.Email,

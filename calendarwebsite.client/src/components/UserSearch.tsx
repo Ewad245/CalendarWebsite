@@ -11,6 +11,7 @@ import { useTranslation } from "react-i18next";
 interface UserSearchProps {
   userList: UserInfo[];
   selectedUser: UserInfo | null;
+  selectedDate?: Date | null;
   setSelectedUser: (user: UserInfo | null) => void;
   inputValue: string;
   setInputValue: (value: string) => void;
@@ -99,6 +100,7 @@ const normalizeString = (str: string) => {
 export default function UserSearch({
   userList,
   selectedUser,
+  selectedDate,
   setSelectedUser,
   inputValue,
   setInputValue,
