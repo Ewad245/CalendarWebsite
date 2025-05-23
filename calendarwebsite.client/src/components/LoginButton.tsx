@@ -1,6 +1,6 @@
 import { useAuth } from '@/contexts/AuthContext';
 import { Button } from '@/components/ui/button';
-import { LogIn, LogOut, User } from 'lucide-react';
+import { LogIn, LogOut } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 
 export default function LoginButton() {
