@@ -1,4 +1,10 @@
-import { createContext, useContext, useState, useEffect, ReactNode } from 'react';
+import {
+  createContext,
+  useContext,
+  useState,
+  useEffect,
+  ReactNode,
+} from "react";
 
 interface AuthContextType {
   isAuthenticated: boolean;
@@ -27,10 +33,10 @@ export function AuthProvider({ children }: AuthProviderProps) {
       try {
         setLoading(true);
         // Call API endpoint to check authentication status
-        const response = await fetch('/api/auth/user', {
-          credentials: 'include' // Important for cookies
+        const response = await fetch("/api/auth/user", {
+          credentials: "include", // Important for cookies
         });
-        
+
         if (response.ok) {
           const userData = await response.json();
           setUser(userData);
@@ -41,8 +47,8 @@ export function AuthProvider({ children }: AuthProviderProps) {
           setUser(null);
         }
       } catch (err) {
-        console.error('Authentication check failed:', err);
-        setError('Failed to verify authentication status');
+        console.error("Authentication check failed:", err);
+        setError("Failed to verify authentication status");
         setIsAuthenticated(false);
       } finally {
         setLoading(false);
@@ -54,26 +60,26 @@ export function AuthProvider({ children }: AuthProviderProps) {
 
   const login = () => {
     // Redirect to the server's login endpoint
-    window.location.href = '/api/auth/login';
+    window.location.href = "/api/auth/login";
   };
 
   const logout = async () => {
     try {
       // Call logout endpoint
-      await fetch('/api/auth/logout', {
-        method: 'POST',
-        credentials: 'include'
+      await fetch("/api/auth/logout", {
+        method: "POST",
+        credentials: "include",
       });
-      
+
       // Clear local auth state
       setIsAuthenticated(false);
       setUser(null);
-      
+
       // Redirect to home page
-      window.location.href = '/';
+      window.location.href = "/";
     } catch (err) {
-      console.error('Logout failed:', err);
-      setError('Failed to logout');
+      console.error("Logout failed:", err);
+      setError("Failed to logout");
     }
   };
 
@@ -83,7 +89,7 @@ export function AuthProvider({ children }: AuthProviderProps) {
     login,
     logout,
     loading,
-    error
+    error,
   };
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
@@ -92,7 +98,7 @@ export function AuthProvider({ children }: AuthProviderProps) {
 export function useAuth() {
   const context = useContext(AuthContext);
   if (context === undefined) {
-    throw new Error('useAuth must be used within an AuthProvider');
+    throw new Error("useAuth must be used within an AuthProvider");
   }
   return context;
 }
