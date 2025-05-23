@@ -52,6 +52,7 @@
       "loadingData": "Đang tải dữ liệu người dùng...",
       "fetchError": "Không thể tải danh sách người dùng",
       "fetchErrorDetails": "Lỗi khi tải danh sách người dùng:",
+      "employeeCheckedInEarly": "Nhân viên đã điểm danh sớm",
       "employeeCheckedInLate": "Nhân viên đã điểm danh muộn",
       "employeeCheckedOutEarly": "Nhân viên đã điểm danh sớm",
       "employeeCheckedInOnTime": "Nhân viên đã điểm danh đúng giờ",
