@@ -57,15 +57,15 @@ function CalendarPage() {
           // Handle different attendance statuses
           if (attendance.attendanceStatus === 'Absent') {
             // Create a single all-day event for absent days
-            const absentDate = new Date(attendance.workDate);
+            const absentDate = new Date(attendance.attendanceDate);
             return [{
-              id: `absent-${attendance.email}-${index}`,
-              title: `${attendance.fullName} (${t("attendance.table.absent")})`,
+              id: `absent-${userId}-${index}`,
+              title: `${attendance.staffName} (${t("attendance.table.absent")})`,
               start: absentDate,
               allDay: true,
               display: "block",
               extendedProps: {
-                userId: attendance.email,
+                userId: userId,
                 type: "absent",
                 status: "absent",
                 data: attendance,
@@ -74,15 +74,15 @@ function CalendarPage() {
             }];
           } else if (attendance.attendanceStatus === 'On Leave') {
             // Create a single all-day event for leave days
-            const leaveDate = new Date(attendance.workDate);
+            const leaveDate = new Date(attendance.attendanceDate);
             return [{
-              id: `leave-${attendance.email}-${index}`,
-              title: `${attendance.fullName} (${t("attendance.table.TypeOfLeave") || 'On Leave'})${attendance.typeOfLeave ? `: ${attendance.typeOfLeave}` : ''}`,
+              id: `leave-${userId}-${index}`,
+              title: `${attendance.staffName} (${t("attendance.table.TypeOfLeave") || 'On Leave'})${attendance.typeOfLeave ? `: ${attendance.typeOfLeave}` : ''}`,
               start: leaveDate,
               allDay: true,
               display: "block",
               extendedProps: {
-                userId: attendance.email,
+                userId: userId,
                 type: "leave",
                 status: "leave",
                 leaveType: attendance.typeOfLeave,
@@ -93,44 +93,44 @@ function CalendarPage() {
             }];
           } else if (attendance.attendanceStatus === 'Present') {
             // Only create events for records with check-in and check-out times
-            if (!attendance.inAt || !attendance.outAt) {
+            if (!attendance.checkInTime || !attendance.checkOutTime) {
               return [];
             }
 
-            // Determine check-in status based on lateIn/earlyIn
+            // Determine check-in status based on checkInStatus
             let checkInStatus = "on-time";
             let checkInColor = "#3b82f6"; // blue for on-time
             
-            if (attendance.lateIn && attendance.lateIn > 0) {
+            if (attendance.checkInStatus === 'Late In') {
               checkInStatus = "late";
               checkInColor = "#ef4444"; // red for late
-            } else if (attendance.earlyIn && attendance.earlyIn > 0) {
+            } else if (attendance.checkInStatus === 'Early In') {
               checkInStatus = "early";
               checkInColor = "#10b981"; // green for early
             }
             
-            // Determine check-out status based on earlyOut/lateOut
+            // Determine check-out status based on checkOutStatus
             let checkOutStatus = "on-time";
             let checkOutColor = "#3b82f6"; // blue for on-time
             
-            if (attendance.earlyOut && attendance.earlyOut > 0) {
+            if (attendance.checkOutStatus === 'Early Out') {
               checkOutStatus = "early";
               checkOutColor = "#ef4444"; // red for early out
-            } else if (attendance.lateOut && attendance.lateOut > 0) {
+            } else if (attendance.checkOutStatus === 'Late Out') {
               checkOutStatus = "late";
               checkOutColor = "#10b981"; // green for late out (overtime)
             }
 
             return [
               {
-                id: `checkin-${attendance.email}-${index}`,
-                title: `${attendance.fullName} (${t("attendance.table.checkIn")})`,
-                start: new Date(attendance.inAt),
-                end: new Date(attendance.inAt),
+                id: `checkin-${userId}-${index}`,
+                title: `${attendance.staffName} (${t("attendance.table.checkIn")})`,
+                start: new Date(attendance.checkInTime),
+                end: new Date(attendance.checkInTime),
                 allDay: false,
                 display: "block",
                 extendedProps: {
-                  userId: attendance.email,
+                  userId: userId,
                   type: "check-in",
                   status: checkInStatus,
                   data: attendance,
@@ -138,14 +138,14 @@ function CalendarPage() {
                 backgroundColor: checkInColor,
               },
               {
-                id: `checkout-${attendance.email}-${index}`,
-                title: `${attendance.fullName} (${t("attendance.table.checkOut")})`,
-                start: new Date(attendance.outAt),
-                end: new Date(attendance.outAt),
+                id: `checkout-${userId}-${index}`,
+                title: `${attendance.staffName} (${t("attendance.table.checkOut")})`,
+                start: new Date(attendance.checkOutTime),
+                end: new Date(attendance.checkOutTime),
                 allDay: false,
                 display: "block",
                 extendedProps: {
-                  userId: attendance.email,
+                  userId: userId,
                   type: "check-out",
                   status: checkOutStatus,
                   data: attendance,

@@ -113,49 +113,94 @@ namespace CalendarWebsite.Server.Repositories
         public async Task<IEnumerable<FullAttendanceDto>> GetFullAttendancesByUserIdDateRangeAsync(string userId, int month, int year)
         {
             var sql = @"
-SET DATEFIRST 7;
-
-WITH DateRange AS (
-    SELECT CAST(@StartDate AS DATE) AS WorkDate
-    UNION ALL
-    SELECT CAST(DATEADD(DAY, 1, WorkDate) AS DATE)
-    FROM DateRange
-    WHERE WorkDate < CAST(@EndDate AS DATE)
-)
+WITH Calendar AS (
+    -- Generate a list of dates in the range
+    SELECT CAST(DATEADD(DAY, number, @StartDate) AS DATE) AS AttendanceDate,
+        DATENAME(WEEKDAY, DATEADD(DAY, number, @StartDate)) AS Weekday
+    FROM master.dbo.spt_values
+    WHERE type = 'P'
+      AND DATEADD(DAY, number, @StartDate) <= @EndDate
+),
+     Staff AS (
+         -- Get all staff with custom working times
+         SELECT pp.Id AS PersonalProfileId, pp.FullName, pp.Email as Email
+         FROM PersonalProfile pp
+         WHERE pp.Email = @UserId
+     ),
+    CustomSchedule AS (
+        -- Get all the valid custom schedule for a person
+        SELECT w.Title AS Title, cwt.MorningStart AS MorningStart, cwt.MorningEnd AS MorningEnd,
+               cwt.AfternoonStart AS AfternoonStart, cwt.AfternoonEnd AS AfternoonEnd, cwt.PersonalProfileId AS PersonalProfileId
+        from CustomWorkingTime cwt
+        inner join Workweek w on w.Id = cwt.WorkweekId
+        where w.IsDeleted = 0 AND cwt.IsDeleted = 0
+    )
 SELECT
-    e.FullName,
-    e.StaffId,
-    e.Email,
-    d.WorkDate,
-    CASE
-        WHEN a.at IS NOT NULL THEN 'Present'
-        WHEN lr.TuNgay IS NOT NULL AND d.WorkDate BETWEEN CAST(lr.TuNgay AT TIME ZONE 'UTC' AT TIME ZONE 'SE Asia Standard Time' AS DATE) AND CAST(lr.DenNgay AT TIME ZONE 'UTC' AT TIME ZONE 'SE Asia Standard Time' AS DATE) THEN 'On Leave'
-        ELSE 'Absent'
-    END AS AttendanceStatus,
-    lr.LoaiPhepNam AS TypeOfLeave,
+    c.AttendanceDate,
+    s.PersonalProfileId,
+    s.FullName AS StaffName,
+    lr.LoaiPhepNam as TypeOfLeave,
     lr.GhiChu AS Note,
-    CONVERT(DATETIME2, a.inAt AT TIME ZONE 'UTC' AT TIME ZONE 'SE Asia Standard Time') AS InAt,
-    CONVERT(DATETIME2, a.OutAt AT TIME ZONE 'UTC' AT TIME ZONE 'SE Asia Standard Time') AS OutAt,
-    a.Method,
-    a.[Check],
-    a.EarlyIn,
-    a.LateIn,
-    a.EarlyOut,
-    a.LateOut
-FROM
-    [dbo].[PersonalProfile] e
-    CROSS JOIN DateRange d
-    LEFT JOIN [Dynamic].[DataOnly_APIaCheckIn] a 
-        ON e.Email = a.userId 
-        AND CONVERT(DATE, a.at AT TIME ZONE 'UTC' AT TIME ZONE 'SE Asia Standard Time') = d.WorkDate
-    LEFT JOIN [Dynamic].[Data_HCQĐ07BM01] lr 
-        ON e.FullName = lr.NguoiDeNghi 
-        AND d.WorkDate BETWEEN CAST(lr.TuNgay AT TIME ZONE 'UTC' AT TIME ZONE 'SE Asia Standard Time' AS DATE) AND CAST(lr.DenNgay AT TIME ZONE 'UTC' AT TIME ZONE 'SE Asia Standard Time' AS DATE)
-WHERE
-    DATEPART(dw, d.WorkDate) NOT IN (1, 7) -- Exclude Sunday (1) and Saturday (7)
-    AND e.Email = @UserId
-ORDER BY
-    e.FullName, d.WorkDate;";
+    c.Weekday,
+    DATEADD(MINUTE, sce.MorningStart * 60, CAST('00:00' AS TIME)) as CustomInTime,
+    DATEADD(MINUTE, sce.AfternoonEnd * 60, CAST('00:00' AS TIME)) as CustomOutTime,
+    CONVERT(DATETIME2, ci.inAt AT TIME ZONE 'UTC' AT TIME ZONE 'SE Asia Standard Time') AS CheckInTime,
+    CONVERT(DATETIME2, ci.outAt AT TIME ZONE 'UTC' AT TIME ZONE 'SE Asia Standard Time') AS CheckOutTime,
+    CASE
+        WHEN lr.UserWorkflowId IS NOT NULL THEN 'On Leave'
+        WHEN ci.inAt IS NULL AND ci.outAt IS NULL THEN 'Absent'
+        ELSE 'Present'
+        END AS AttendanceStatus,
+    CASE
+        WHEN ci.inAt IS NULL THEN NULL
+        WHEN sce.PersonalProfileId IS NOT NULL AND sce.Title = c.Weekday THEN
+            CASE
+                WHEN CONVERT(TIME, ci.inAt AT TIME ZONE 'UTC' AT TIME ZONE 'SE Asia Standard Time') > DATEADD(MINUTE, sce.MorningStart * 60, CAST('00:00' AS TIME))
+                    THEN 'Late In'
+                WHEN CONVERT(TIME, ci.inAt AT TIME ZONE 'UTC' AT TIME ZONE 'SE Asia Standard Time') < DATEADD(MINUTE, sce.MorningStart * 60, CAST('00:00' AS TIME))
+                    THEN 'Early In'
+                ELSE 'On Time'
+                END
+        ELSE
+            CASE
+                WHEN ci.lateIn > 0 THEN 'Late In'
+                WHEN ci.earlyIn > 0 THEN 'Early In'
+                WHEN (ci.earlyIn = 0 AND ci.lateIn = 0) THEN 'On Time'
+                ELSE 'On Time'
+                END
+        END AS CheckInStatus,
+    CASE
+        WHEN ci.outAt IS NULL THEN NULL
+        WHEN sce.PersonalProfileId IS NOT NULL AND sce.Title = c.Weekday THEN
+            CASE
+                WHEN CONVERT(TIME, ci.outAt AT TIME ZONE 'UTC' AT TIME ZONE 'SE Asia Standard Time') < DATEADD(MINUTE, sce.AfternoonEnd * 60, CAST('00:00' AS TIME))
+                    THEN 'Early Out'
+                WHEN CONVERT(TIME, ci.outAt AT TIME ZONE 'UTC' AT TIME ZONE 'SE Asia Standard Time') > DATEADD(MINUTE, sce.AfternoonEnd * 60, CAST('00:00' AS TIME))
+                    THEN 'Late Out'
+                ELSE 'On Time'
+                END
+        ELSE
+            CASE
+                WHEN ci.earlyOut > 0 THEN 'Early Out'
+                WHEN ci.lateOut > 0 Then 'Late Out'
+                WHEN (ci.earlyOut = 0 AND ci.lateOut = 0) THEN 'On Time'
+                ELSE 'On Time'
+                END
+        END AS CheckOutStatus
+FROM Calendar c
+         CROSS JOIN Staff s
+         LEFT JOIN Dynamic.DataOnly_APIaCheckIn ci
+                   ON s.Email = ci.userId
+                       AND CONVERT(DATE, ci.inAt AT TIME ZONE 'UTC' AT TIME ZONE 'SE Asia Standard Time') = c.AttendanceDate
+         LEFT JOIN Dynamic.Data_HCQĐ07BM01 lr
+                   ON s.FullName = lr.NguoiDeNghi
+                       AND c.AttendanceDate BETWEEN CONVERT(DATE, lr.TuNgay AT TIME ZONE 'UTC' AT TIME ZONE 'SE Asia Standard Time')
+                            AND CONVERT(DATE, lr.DenNgay AT TIME ZONE 'UTC' AT TIME ZONE 'SE Asia Standard Time')
+         LEFT JOIN CustomSchedule AS sce
+                    On sce.PersonalProfileId = s.PersonalProfileId
+                    AND sce.Title = c.Weekday
+    WHERE DATEPART(dw, c.AttendanceDate) NOT IN (1, 7)
+ORDER BY c.AttendanceDate, s.PersonalProfileId;";
             var startDate = new DateTime(year, month, 1);
             DateTime? endDate = null;
             if (month == DateTime.Now.Month && year == DateTime.Now.Year)
