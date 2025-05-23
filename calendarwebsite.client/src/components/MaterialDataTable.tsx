@@ -170,7 +170,7 @@ export default function MaterialDataTable({
       flex: 0.5,
       minWidth: 80,
       valueGetter: (_value, row) => {
-        return row.check === 1 ? t('attendance.table.present') : t('attendance.table.absent');
+        return row.check === 2 ? t('attendance.table.present') : t('attendance.table.absent');
       },
     },
     {

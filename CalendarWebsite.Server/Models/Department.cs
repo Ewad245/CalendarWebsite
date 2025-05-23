@@ -7,7 +7,7 @@ namespace CalendarWebsite.Server.Models;
 public class Department
 {
     [Key]
-    public int Id { get; set; }
+    public long Id { get; set; }
     
     public string Title { get; set; }
     
@@ -15,11 +15,11 @@ public class Department
 
     public string? Description { get; set; }
 
-    public int? ParentId { get; set; }
+    public long? ParentId { get; set; }
     
     public string? ChartCode { get; set; }
 
-    public int? ManagerId { get; set; }
+    public long? ManagerId { get; set; }
 
     public int? DeptLevel { get; set; }
     
@@ -33,7 +33,7 @@ public class Department
     
     public string? SiteName { get; set; }
 
-    public int Order { get; set; }
+    public int? Order { get; set; }
     
     public string? CreatedBy { get; set; }
 
@@ -43,7 +43,7 @@ public class Department
     
     public string? ModifiedBy { get; set; }
 
-    public bool IsDeleted { get; set; }
+    public bool? IsDeleted { get; set; }
     
     public string? TitleEN { get; set; }
 

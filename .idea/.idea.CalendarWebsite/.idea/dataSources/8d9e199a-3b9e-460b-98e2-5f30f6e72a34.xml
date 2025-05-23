@@ -27183,6 +27183,7 @@
       <DataRetentionPeriod>-1</DataRetentionPeriod>
       <ModifiedTimestamp>2025-04-15.21:59:20.637</ModifiedTimestamp>
       <ObjectId>645577338</ObjectId>
+      <Outdated>1</Outdated>
       <LedgerViewId>0</LedgerViewId>
       <LobDataSpaceId>1</LobDataSpaceId>
     </table>

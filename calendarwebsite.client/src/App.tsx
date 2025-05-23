@@ -9,11 +9,14 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import AttendanceDataPage from "./pages/AttendanceDataPage";
 import NotFoundPage from "./pages/NotFoundPage";
+import LoginPage from "./pages/LoginPage";
 import SidebarLayout from "./components/SidebarLayout";
 import { SidebarProvider, useSidebar } from "@/components/ui/sidebar";
 import { Button } from "@/components/ui/button";
 import { PanelLeftIcon } from "lucide-react";
 import FullCalendarRef from "@fullcalendar/react"; // Import FullCalendarRef
+import ProtectedRoute from "./components/ProtectedRoute";
+import { useAuth } from "./contexts/AuthContext";
 
 function CalendarPage() {
   const { t } = useTranslation();
@@ -25,7 +28,9 @@ function CalendarPage() {
 
   async function fetchUserList() {
     try {
-      const response = await fetch("/api/DataOnly_APIaCheckIn");
+      const response = await fetch("/api/DataOnly_APIaCheckIn", {
+        credentials: 'include' // Include cookies for authentication
+      });
       if (response.ok) {
         const data: UserInfo[] = await response.json();
         setUserList(data);
@@ -48,7 +53,9 @@ function CalendarPage() {
 
       const endpoint = `/api/DataOnly_APIaCheckIn/date-range/${userId}?month=${month}&year=${year}`;
 
-      const response = await fetch(endpoint);
+      const response = await fetch(endpoint, {
+        credentials: 'include' // Include cookies for authentication
+      });
       if (response.ok) {
         const data = await response.json();
 
@@ -251,22 +258,33 @@ function SidebarToggle() {
 }
 
 function App() {
+  const { isAuthenticated, loading } = useAuth();
+
   return (
     <Router>
       <SidebarProvider>
-
-        <SidebarLayout />
-        <main className="flex-1 overflow-auto p-2 sm:p-3">
-          <div className="flex items-center mb-2">
-            <SidebarToggle />
-          </div>
+        {isAuthenticated && <SidebarLayout />}
+        <main className={`${isAuthenticated ? 'flex-1' : 'w-full'} overflow-auto p-2 sm:p-3`}>
+          {isAuthenticated && (
+            <div className="flex items-center mb-2">
+              <SidebarToggle />
+            </div>
+          )}
           <Routes>
-            <Route path="/" element={<CalendarPage />} />
-            <Route path="/attendance" element={<AttendanceDataPage />} />
+            <Route path="/login" element={<LoginPage />} />
+            <Route path="/" element={
+              <ProtectedRoute>
+                <CalendarPage />
+              </ProtectedRoute>
+            } />
+            <Route path="/attendance" element={
+              <ProtectedRoute>
+                <AttendanceDataPage />
+              </ProtectedRoute>
+            } />
             <Route path="*" element={<NotFoundPage />} />
           </Routes>
         </main>
-
       </SidebarProvider>
     </Router>
   );

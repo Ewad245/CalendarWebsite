@@ -6,6 +6,5 @@ namespace CalendarWebsite.Server.Repositories
 {
     public interface IDepartmentRepository : IGenericRepository<Department>
     {
-        Task<IEnumerable<DepartmentDto>> GetAllDepartmentsAsync();
     }
 }

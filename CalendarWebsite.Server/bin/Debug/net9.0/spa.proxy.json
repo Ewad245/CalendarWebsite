@@ -1,6 +1,6 @@
 {
 "SpaProxyServer": {
-"ServerUrl": "https://localhost:50857",
+"ServerUrl": "https://localhost:44356",
 "RedirectUrl": "",
 "LaunchCommand": "npm run dev",
 "WorkingDirectory": "/Users/thomasjohnson/Documents/GitHub/CalendarWebsite/CalendarWebsite.Server/../calendarwebsite.client",
