@@ -258,6 +258,7 @@ function SidebarToggle() {
 }
 
 function App() {
+  // @ts-ignore
   const { isAuthenticated, loading } = useAuth();
 
   return (
