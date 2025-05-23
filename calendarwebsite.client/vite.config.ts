@@ -51,7 +51,7 @@ const target = env.ASPNETCORE_HTTPS_PORT
   ? `https://localhost:${env.ASPNETCORE_HTTPS_PORT}`
   : env.ASPNETCORE_URLS
   ? env.ASPNETCORE_URLS.split(";")[0]
-  : "https://localhost:5194";
+  : "https://localhost:44357";
 
 // https://vitejs.dev/config/
 export default defineConfig({
@@ -69,7 +69,7 @@ export default defineConfig({
             secure: false,
           },
         },
-        port: 50857,
+        port: 44356,
         https: {
           key: fs.readFileSync(keyFilePath),
           cert: fs.readFileSync(certFilePath),
