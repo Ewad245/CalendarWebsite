@@ -46,7 +46,7 @@ namespace CalendarWebsite.Server
                 options.RequireHttpsMetadata = authConfig.RequireHttpsMetadata;
                 options.SaveTokens = authConfig.SaveTokens;
                 options.GetClaimsFromUserInfoEndpoint = authConfig.GetClaimsFromUserInfoEndpoint;
-                options.CallbackPath = "/connect/authorize/callback";
+                options.CallbackPath = "/signin-oidc";
                 options.SignedOutCallbackPath = "/signout-callback-oidc";
                 options.RemoteSignOutPath = "/signout-oidc";
 
