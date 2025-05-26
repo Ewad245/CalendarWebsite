@@ -33,7 +33,8 @@ namespace CalendarWebsite.Server
             })
             .AddCookie(CookieAuthenticationDefaults.AuthenticationScheme, options =>
             {
-                options.Cookie.SameSite = SameSiteMode.Lax;
+                options.Cookie.Name = "CalendarWebsite.Server.Auth";
+                options.Cookie.SameSite = SameSiteMode.None;
                 options.Cookie.SecurePolicy = CookieSecurePolicy.Always;
                 options.Cookie.IsEssential = true;
             })
@@ -46,26 +47,35 @@ namespace CalendarWebsite.Server
                 options.RequireHttpsMetadata = authConfig.RequireHttpsMetadata;
                 options.SaveTokens = authConfig.SaveTokens;
                 options.GetClaimsFromUserInfoEndpoint = authConfig.GetClaimsFromUserInfoEndpoint;
-                options.CallbackPath = "/signin-oidc";
+                /*options.CallbackPath = "/signin-oidc";
                 options.SignedOutCallbackPath = "/signout-callback-oidc";
-                options.RemoteSignOutPath = "/signout-oidc";
+                options.RemoteSignOutPath = "/signout-oidc";*/
 
-                options.Scope.Clear();
-                foreach (var scope in authConfig.Scope.Split(' '))
-                {
-                    options.Scope.Add(scope);
-                }
+                options.Scope.Add("openid");
+                options.Scope.Add("profile");
+                options.Scope.Add("email");
 
                 options.TokenValidationParameters = new()
                 {
                     NameClaimType = "name",
-                    RoleClaimType = "role",
                     ValidateIssuer = true,
                     ValidIssuer = authConfig.Authority
                 };
+                options.NonceCookie.SecurePolicy = CookieSecurePolicy.Always;
+                options.CorrelationCookie.SecurePolicy = CookieSecurePolicy.Always;
 
                 options.Events = new OpenIdConnectEvents
                 {
+                    OnRedirectToIdentityProvider = context =>
+                    {
+                        Console.WriteLine($"Redirecting to IdP with ReturnUrl: {context.Properties.RedirectUri}");
+                        return Task.CompletedTask;
+                    },
+                    OnTokenValidated = context =>
+                    {
+                        Console.WriteLine($"Token validated, redirecting to: {context.Properties.RedirectUri}");
+                        return Task.CompletedTask;
+                    },
                     OnRedirectToIdentityProviderForSignOut = context =>
                     {
                         context.ProtocolMessage.PostLogoutRedirectUri = context.HttpContext.Request.Scheme + "://" + context.HttpContext.Request.Host + "/signout-callback-oidc";
@@ -140,25 +150,27 @@ namespace CalendarWebsite.Server
                 options.AddPolicy("AllowAll",
                     policy =>
                     {
-                        policy.AllowAnyOrigin()
+                        policy.WithOrigins(
+                                "https://localhost:44356",
+                                "https://identity.vntts.vn")
                             .AllowAnyMethod()
-                            .AllowAnyHeader();
+                            .AllowAnyHeader()
+                            .AllowCredentials();
                     });
             });
 
             var app = builder.Build();
-
-            app.UseCors("AllowSpecific");
+            
+            app.UseCors("AllowAll");
             app.UseDefaultFiles();
             app.MapStaticAssets();
+            app.UseHttpsRedirection();
 
             if (app.Environment.IsDevelopment())
             {
                 app.MapScalarApiReference();
                 app.MapOpenApi();
             }
-
-            app.UseHttpsRedirection();
             app.UseAuthentication();
             app.UseAuthorization();
             app.MapControllers();
