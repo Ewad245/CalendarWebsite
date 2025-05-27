@@ -5,6 +5,7 @@ using CalendarWebsite.Server.Services;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authentication.OpenIdConnect;
+using Microsoft.AspNetCore.HttpOverrides;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
@@ -21,6 +22,17 @@ namespace CalendarWebsite.Server
 
             // Add services to the container
             builder.Services.AddControllers();
+            // Configure forwarded headers BEFORE authentication
+            builder.Services.Configure<ForwardedHeadersOptions>(options =>
+            {
+                options.ForwardedHeaders = ForwardedHeaders.XForwardedFor | 
+                                           ForwardedHeaders.XForwardedProto | 
+                                           ForwardedHeaders.XForwardedHost;
+    
+                // Trust all proxies (for cloud platforms like Render)
+                options.KnownNetworks.Clear();
+                options.KnownProxies.Clear();
+            });
             builder.Services.AddOpenApi();
 
             // Configure authentication
@@ -97,6 +109,10 @@ namespace CalendarWebsite.Server
                 {
                     OnRedirectToIdentityProvider = context =>
                     {
+                        if (context.Request.Headers.ContainsKey("X-Forwarded-Proto"))
+                        {
+                            context.ProtocolMessage.RedirectUri = context.ProtocolMessage.RedirectUri.Replace("http://", "https://");
+                        }
                         Console.WriteLine($"Redirecting to IdP with ReturnUrl: {context.Properties.RedirectUri}");
                         return Task.CompletedTask;
                     },
@@ -190,7 +206,8 @@ namespace CalendarWebsite.Server
             });
 
             var app = builder.Build();
-            
+            // Use forwarded headers FIRST - this is critical
+            app.UseForwardedHeaders();
             app.UseCors("CorsPolicy");
             app.UseDefaultFiles();
             app.MapStaticAssets();
