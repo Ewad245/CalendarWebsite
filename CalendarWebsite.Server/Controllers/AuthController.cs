@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Authentication.OpenIdConnect;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;
+using Microsoft.AspNetCore.Identity;
 
 namespace CalendarWebsite.Server.Controllers
 {
@@ -21,16 +22,31 @@ namespace CalendarWebsite.Server.Controllers
         [HttpGet("login")]
         public IActionResult Login(string returnUrl = "/")
         {
-            return Challenge(new AuthenticationProperties { RedirectUri = returnUrl }, OpenIdConnectDefaults.AuthenticationScheme);
+            return Challenge(new AuthenticationProperties { RedirectUri = returnUrl },CookieAuthenticationDefaults.AuthenticationScheme,
+                IdentityConstants.ApplicationScheme);
         }
-
-        [HttpPost("logout")]
-        public IActionResult Logout()
+        
+        [AllowAnonymous]
+        [HttpGet("logout")]
+        public async Task<IActionResult> Logout()
         {
-            return SignOut(
-                new AuthenticationProperties { RedirectUri = "/" },
+            var callbackUrl = "/";
+            
+            if (User?.Identity != null && User?.Identity.IsAuthenticated == true)
+            {
+                // Sign out from both cookie authentication and OpenID Connect
+                return SignOut(new AuthenticationProperties
+                {
+                    RedirectUri = callbackUrl
+                },
                 CookieAuthenticationDefaults.AuthenticationScheme,
-                OpenIdConnectDefaults.AuthenticationScheme);
+                IdentityConstants.ApplicationScheme);
+            }
+            else
+            {
+                // User is not authenticated, just redirect to home
+                return Redirect(callbackUrl);
+            }
         }
 
         [HttpGet("user")]

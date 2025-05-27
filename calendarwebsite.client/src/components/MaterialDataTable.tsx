@@ -287,7 +287,9 @@ export default function MaterialDataTable({
 
   const fetchDepartments = async () => {
     try {
-      const response = await fetch('/api/Department');
+      const response = await fetch('/api/Department', {
+        credentials: "include", // Important for cookies
+      });
       if (response.ok) {
         const data = await response.json();
         console.log(data);
@@ -300,7 +302,9 @@ export default function MaterialDataTable({
 
   const fetchPositions = async () => {
     try {
-      const response = await fetch('/api/Position');
+      const response = await fetch('/api/Position', {
+        credentials: "include", // Important for cookies
+      });
       if (response.ok) {
         const data = await response.json();
         setPositions(data);
@@ -343,7 +347,9 @@ export default function MaterialDataTable({
         url += `&toDate=${format(toDate, "yyyy-MM-dd")}`;
       }
 
-      const response = await fetch(url);
+      const response = await fetch(url, {
+        credentials: "include", // Important for cookies
+      });
 
       if (response.ok) {
         const data: PaginatedResult<DetailAttendance> = await response.json();
