@@ -65,18 +65,12 @@ export function AuthProvider({ children }: AuthProviderProps) {
 
   const logout = async () => {
     try {
-      // Call logout endpoint
-      await fetch("/api/auth/logout", {
-        method: "POST",
-        credentials: "include",
-      });
-
-      // Clear local auth state
+      // Clear local state first
       setIsAuthenticated(false);
       setUser(null);
-
-      // Redirect to home page
-      window.location.href = "/";
+      
+      // Redirect to logout endpoint - this will handle the OpenID Connect logout flow
+      window.location.href = "/api/auth/logout";
     } catch (err) {
       console.error("Logout failed:", err);
       setError("Failed to logout");

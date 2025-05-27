@@ -2,3 +2,4 @@ D:/GitHub/CalendarWebsite/CalendarWebsite/calendarwebsite.client/obj/Debug/calen
 /Users/thomasjohnson/Documents/GitHub/CalendarWebsite/CalendarWebsite/calendarwebsite.client/obj/Debug/calendarwebsite.client.esproj.CoreCompileInputs.cache
 G:/Github Projects/CalendarWebsite/CalendarWebsite/calendarwebsite.client/obj/Debug/calendarwebsite.client.esproj.CoreCompileInputs.cache
 /Users/thomasjohnson/Documents/GitHub/CalendarWebsite/calendarwebsite.client/obj/Debug/calendarwebsite.client.esproj.CoreCompileInputs.cache
+/Users/thomasjohnson/Documents/GitHub/CalendarWebsiteFork/calendarwebsite.client/obj/Debug/calendarwebsite.client.esproj.CoreCompileInputs.cache

@@ -5,6 +5,7 @@ using CalendarWebsite.Server.Services;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authentication.OpenIdConnect;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
@@ -29,16 +30,44 @@ namespace CalendarWebsite.Server
             builder.Services.AddAuthentication(options =>
             {
                 options.DefaultScheme = CookieAuthenticationDefaults.AuthenticationScheme;
-                options.DefaultChallengeScheme = OpenIdConnectDefaults.AuthenticationScheme;
+                options.DefaultChallengeScheme = IdentityConstants.ApplicationScheme;
             })
             .AddCookie(CookieAuthenticationDefaults.AuthenticationScheme, options =>
             {
-                options.Cookie.Name = "CalendarWebsite.Server.Auth";
-                options.Cookie.SameSite = SameSiteMode.None;
-                options.Cookie.SecurePolicy = CookieSecurePolicy.Always;
+                options.ExpireTimeSpan = TimeSpan.FromDays(30);
+                options.Cookie.Name = "AttendanceView.Auth";
+                options.SlidingExpiration = true;
                 options.Cookie.IsEssential = true;
+                options.Cookie.SameSite = Microsoft.AspNetCore.Http.SameSiteMode.None;
+                options.Cookie.HttpOnly = true;
+                options.Cookie.SecurePolicy = CookieSecurePolicy.Always;
+                options.Events.OnSigningIn = (context) =>
+                {
+                    context.CookieOptions.Expires = DateTimeOffset.UtcNow.AddDays(30);
+                    return Task.CompletedTask;
+                };
+
+                options.Events.OnSigningOut = context =>
+                {
+                    var cookieNames = new[] { "AttendanceView.Auth", "AttendanceView.AuthC1", "AttendanceView.AuthC2" };
+                    var cookieOptions = new CookieOptions
+                    {
+                        Expires = DateTime.Now.AddDays(-1),
+                        Path = "/",
+                        Secure = true,
+                        HttpOnly = true,
+                        SameSite = SameSiteMode.None,
+                        Domain = context.HttpContext.Request.Host.Host
+                    };
+                    foreach (var cookieName in cookieNames)
+                    {
+                        context.HttpContext.Response.Cookies.Delete(cookieName, cookieOptions);
+                    }
+
+                    return Task.CompletedTask;
+                };
             })
-            .AddOpenIdConnect(OpenIdConnectDefaults.AuthenticationScheme, options =>
+            .AddOpenIdConnect(IdentityConstants.ApplicationScheme, options =>
             {
                 options.Authority = authConfig.Authority;
                 options.ClientId = authConfig.ClientId;
@@ -144,24 +173,25 @@ namespace CalendarWebsite.Server
             });
 
             builder.Services.AddAutoMapper(typeof(Program));
-
+            
+            var allowedDomainSuffix = "https://*.vntts.vn";
             builder.Services.AddCors(options =>
             {
-                options.AddPolicy("AllowAll",
-                    policy =>
-                    {
-                        policy.WithOrigins(
-                                "https://localhost:44356",
-                                "https://identity.vntts.vn")
-                            .AllowAnyMethod()
-                            .AllowAnyHeader()
-                            .AllowCredentials();
-                    });
+                options.AddPolicy("CorsPolicy",
+                    builder => builder.AllowAnyMethod()
+                        .AllowAnyHeader()
+                        .WithOrigins(
+                            "https://localhost:44356",
+                            "https://localhost:44357",
+                            "https://identity.vntts.vn"
+                        )
+                        .SetIsOriginAllowedToAllowWildcardSubdomains()
+                        .AllowCredentials());
             });
 
             var app = builder.Build();
             
-            app.UseCors("AllowAll");
+            app.UseCors("CorsPolicy");
             app.UseDefaultFiles();
             app.MapStaticAssets();
             app.UseHttpsRedirection();
@@ -171,8 +201,11 @@ namespace CalendarWebsite.Server
                 app.MapScalarApiReference();
                 app.MapOpenApi();
             }
+            
+            app.UseRouting();
             app.UseAuthentication();
             app.UseAuthorization();
+            app.UseSpaAuthentication();
             app.MapControllers();
             app.UseSwagger();
             app.UseSwaggerUI(c =>
@@ -184,9 +217,11 @@ namespace CalendarWebsite.Server
             });
 
             app.MapGet("/health", () => Results.Ok(new { status = "healthy" }));
-            app.MapFallbackToFile("/index.html");
+            app.MapFallbackToFile("/");
 
             app.Run();
+            
+            
         }
     }
 }

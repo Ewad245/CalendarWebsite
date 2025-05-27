@@ -1460,3 +1460,8 @@ G:/Github Projects/CalendarWebsite/CalendarWebsite/CalendarWebsite.Server/bin/De
 /Users/thomasjohnson/Documents/GitHub/CalendarWebsiteFork/CalendarWebsite.Server/obj/Debug/net9.0/CalendarWebsite.Server.pdb
 /Users/thomasjohnson/Documents/GitHub/CalendarWebsiteFork/CalendarWebsite.Server/obj/Debug/net9.0/CalendarWebsite.Server.genruntimeconfig.cache
 /Users/thomasjohnson/Documents/GitHub/CalendarWebsiteFork/CalendarWebsite.Server/obj/Debug/net9.0/ref/CalendarWebsite.Server.dll
+/Users/thomasjohnson/Documents/GitHub/CalendarWebsiteFork/CalendarWebsite.Server/bin/Debug/net9.0/CalendarWebsite.Server.staticwebassets.runtime.json
+/Users/thomasjohnson/Documents/GitHub/CalendarWebsiteFork/CalendarWebsite.Server/obj/Debug/net9.0/compressed/2vay0mz8sa-zshll5hg09.gz
+/Users/thomasjohnson/Documents/GitHub/CalendarWebsiteFork/CalendarWebsite.Server/obj/Debug/net9.0/compressed/9171txbcef-69kjnsiwqx.gz
+/Users/thomasjohnson/Documents/GitHub/CalendarWebsiteFork/CalendarWebsite.Server/obj/Debug/net9.0/compressed/4x1o8rbyr4-7x2m0t0zep.gz
+/Users/thomasjohnson/Documents/GitHub/CalendarWebsiteFork/CalendarWebsite.Server/obj/Debug/net9.0/compressed/9n9umewjrj-avaogkp7sz.gz
