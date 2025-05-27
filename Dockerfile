@@ -18,6 +18,15 @@ RUN npm run build
 
 # Backend build stage
 FROM mcr.microsoft.com/dotnet/sdk:9.0 AS backend-build
+
+# Install Node.js in the backend build stage
+RUN apt-get update && \
+    apt-get install -y curl && \
+    curl -fsSL https://deb.nodesource.com/setup_20.x | bash - && \
+    apt-get install -y nodejs && \
+    apt-get clean && \
+    rm -rf /var/lib/apt/lists/*
+
 WORKDIR /src
 
 # Copy project files first for better caching
@@ -36,9 +45,9 @@ COPY --from=frontend-build /app/dist CalendarWebsite.Server/wwwroot/
 
 WORKDIR "/src/CalendarWebsite.Server"
 
-# Build and publish the backend
-RUN dotnet build "CalendarWebsite.Server.csproj" -c Release -o /app/build && \
-    dotnet publish "CalendarWebsite.Server.csproj" -c Release -o /app/publish /p:UseAppHost=false
+# Build and publish the backend (skip frontend build since we already have it)
+RUN dotnet build "CalendarWebsite.Server.csproj" -c Release -o /app/build --property:SpaProxyServerUrl="" --property:BuildReactApp=false && \
+    dotnet publish "CalendarWebsite.Server.csproj" -c Release -o /app/publish /p:UseAppHost=false --property:SpaProxyServerUrl="" --property:BuildReactApp=false
 
 # Final runtime stage
 FROM mcr.microsoft.com/dotnet/aspnet:9.0 AS final
