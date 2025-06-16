@@ -463,7 +463,7 @@ ORDER BY c.AttendanceDate, s.PersonalProfileId;";
     ci.FullName,
     ci.Data
                 FROM Dynamic.DataOnly_APIaCheckIn ci
-                LEFT JOIN Staff s ON ci.UserId = s.Email
+                INNER JOIN Staff s ON ci.UserId = s.Email
                 LEFT JOIN CustomSchedule sce ON sce.PersonalProfileId = s.PersonalProfileId AND sce.Title = DATENAME(WEEKDAY, ci.At)
                 WHERE (@UserId IS NULL OR ci.userId IN @UserIds)
                 AND CONVERT(DATETIME2, ci.At AT TIME ZONE 'UTC' AT TIME ZONE 'SE Asia Standard Time') >= @StartDate

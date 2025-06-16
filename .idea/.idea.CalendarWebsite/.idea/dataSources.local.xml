@@ -11,8 +11,22 @@
       <auth-provider>no-auth</auth-provider>
       <schema-mapping>
         <introspection-scope>
-          <node kind="database" qname="@">
-            <node kind="schema" qname="@" />
+          <node negative="1">
+            <node kind="database" qname="@">
+              <node kind="schema" qname="@" />
+            </node>
+            <node kind="database" qname="master">
+              <node kind="schema">
+                <name qname="@" />
+                <name qname="dbo" />
+              </node>
+            </node>
+            <node kind="database" qname="WorkFlow193">
+              <node kind="schema">
+                <name qname="Dynamic" />
+                <name qname="Trigger" />
+              </node>
+            </node>
           </node>
         </introspection-scope>
       </schema-mapping>
