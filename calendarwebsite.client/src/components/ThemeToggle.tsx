@@ -7,7 +7,7 @@ const ThemeToggle: React.FC = () => {
   const { isDarkMode, toggleTheme } = useTheme();
 
   return (
-    <div className="fixed top-4 right-4">
+    <div>
       <Button
         variant="outline"
         size="icon"

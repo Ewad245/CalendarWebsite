@@ -6,7 +6,9 @@
     "reset": "Reset",
     "resetFilters": "Reset Filters",
     "apply": "Apply",
-    "close": "Close"
+    "close": "Close",
+    "save": "Save",
+    "cancel": "Cancel"
   },
   "attendance": {
     "title": "Attendance Records",
@@ -73,7 +75,8 @@
   "navigation": {
     "viewCalendar": "View Calendar",
     "attendance": "Attendance Table",
-    "calendar": "Attendance Calendar"
+    "calendar": "Attendance Calendar",
+    "customWorkingTime": "Custom Working Times"
   },
   "language": {
     "english": "English",
@@ -105,6 +108,34 @@
       "details": "Event Details",
       "time": "Time",
       "note": "Note"
+    }
+  },
+  "customWorkingTime": {
+    "title": "Custom Working Times",
+    "addNew": "Add New",
+    "createTitle": "Create Custom Working Time",
+    "editTitle": "Edit Custom Working Time",
+    "delete": "Delete",
+    "edit": "Edit",
+    "noData": "No custom working times found",
+    "table": {
+      "id": "ID",
+      "workWeek": "Work Week",
+      "user": "User",
+      "morningStart": "Morning Start",
+      "morningEnd": "Morning End",
+      "afternoonStart": "Afternoon Start",
+      "afternoonEnd": "Afternoon End",
+      "actions": "Actions"
+    },
+    "form": {
+      "workWeek": "Work Week",
+      "user": "User",
+      "morningHours": "Morning Hours",
+      "afternoonHours": "Afternoon Hours",
+      "start": "Start",
+      "end": "End",
+      "timeFormat": "Enter time in 24-hour format (e.g., 9.5 for 9:30)"
     }
   }
 }

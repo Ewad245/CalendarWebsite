@@ -14,7 +14,7 @@ public interface IReportService
     /// </summary>
     /// <param name="staffId">The ID of the staff member</param>
     /// <returns>The Excel report file as an ActionResult</returns>
-    Task<(byte[] FileContents, string FileName)> GenerateCheckInOutReportAsync(int staffId);
+    Task<(byte[] FileContents, string FileName)> GenerateCheckInOutReportAsync(int staffId, int month, int year);
     
     /// <summary>
     /// Gets filtered attendance records without pagination

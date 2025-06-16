@@ -49,3 +49,23 @@ export type Position = {
   id: number;
   title: string;
 };
+
+export interface CustomWorkingTime {
+  id: number;
+  workweekId: number;
+  workWeekTitle: string;
+  personalProfileId: number;
+  personalProfileName: string;
+  morningStart: number | null;
+  morningEnd: number | null;
+  afternoonStart: number | null;
+  afternoonEnd: number | null;
+  isDeleted: boolean;
+}
+
+export interface WorkWeek {
+  id: number;
+  title: string;
+  isFullTime: boolean;
+  isDeleted: boolean;
+}

@@ -41,6 +41,7 @@ import {
 import { useTheme } from "@/contexts/ThemeContext";
 import { enUS, viVN } from '@mui/x-data-grid/locales'
 import FilterSidebar from "./FilterSidebar";
+import LoadingSpinner from "./loading-spinner";
 
 interface DetailAttendance {
   id: number;
@@ -835,7 +836,7 @@ export default function MaterialDataTable({
                               color="primary"
                               onClick={handleExportExcel}
                               disabled={exportLoading || (!selectedUser && !selectedDepartment && !selectedPosition && !fromDate && !toDate)}
-                              startIcon={exportLoading ? <CircularProgress size={20} color="inherit" /> : <FileDownloadIcon />}
+                              startIcon={exportLoading ? <LoadingSpinner size="small" /> : <FileDownloadIcon />}
                               size="small"
                             >
                               {t('attendance.export.excel')}
@@ -845,6 +846,7 @@ export default function MaterialDataTable({
                       </GridToolbarContainer>
                     );
                   },
+                  loadingOverlay: () => <LoadingSpinner size="medium" />,
                 }}
                 slotProps={{
                   toolbar: {

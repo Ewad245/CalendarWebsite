@@ -6,7 +6,9 @@
     "reset": "Đặt lại",
     "resetFilters": "Đặt lại",
     "apply": "Áp dụng",
-    "close": "Đóng"
+    "close": "Đóng",
+    "save": "Lưu",
+    "cancel": "Hủy"
   },
   "attendance": {
     "title": "Hồ sơ chuyên cần",
@@ -73,7 +75,8 @@
   "navigation": {
     "viewCalendar": "Xem lịch",
     "attendance": "Báo cáo chuyên cần",
-    "calendar": "Lịch chuyên cần"
+    "calendar": "Lịch chuyên cần",
+    "customWorkingTime": "Thời gian làm việc tùy chỉnh"
   },
   "language": {
     "english": "Tiếng Anh",
@@ -105,6 +108,34 @@
       "details": "Chi tiết sự kiện",
       "time": "Thời gian",
       "note": "Ghi chú"
+    }
+  },
+  "customWorkingTime": {
+    "title": "Thời gian làm việc tùy chỉnh",
+    "addNew": "Thêm mới",
+    "createTitle": "Tạo thời gian làm việc tùy chỉnh",
+    "editTitle": "Chỉnh sửa thời gian làm việc tùy chỉnh",
+    "delete": "Xóa",
+    "edit": "Sửa",
+    "noData": "Không tìm thấy thời gian làm việc tùy chỉnh",
+    "table": {
+      "id": "ID",
+      "workWeek": "Tuần làm việc",
+      "user": "Người dùng",
+      "morningStart": "Bắt đầu buổi sáng",
+      "morningEnd": "Kết thúc buổi sáng",
+      "afternoonStart": "Bắt đầu buổi chiều",
+      "afternoonEnd": "Kết thúc buổi chiều",
+      "actions": "Thao tác"
+    },
+    "form": {
+      "workWeek": "Tuần làm việc",
+      "user": "Người dùng",
+      "morningHours": "Giờ làm việc buổi sáng",
+      "afternoonHours": "Giờ làm việc buổi chiều",
+      "start": "Bắt đầu",
+      "end": "Kết thúc",
+      "timeFormat": "Nhập thời gian theo định dạng 24 giờ (ví dụ: 9.5 cho 9:30)"
     }
   }
 }

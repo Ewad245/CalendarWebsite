@@ -6,11 +6,13 @@ import { useTranslation } from "react-i18next";
 
 interface ExcelExportButtonProps {
   userData: UserInfo;
+  selectedDate?: Date | null;
   className?: string;
 }
 
 export default function ExcelExportButton({
   userData,
+  selectedDate,
   className,
 }: ExcelExportButtonProps) {
   const [isLoading, setIsLoading] = useState(false);
@@ -18,6 +20,8 @@ export default function ExcelExportButton({
 
   const handleExportExcel = async () => {
     if (!userData.id) return;
+    let correctedSelectedMonth = selectedDate?.getMonth() || new Date().getMonth() +1;
+    let correctedSelectedYear = selectedDate?.getFullYear() || new Date().getFullYear();
 
     setIsLoading(true);
     console.log(`Starting Excel export for user ID: ${userData.id}`);
@@ -26,8 +30,9 @@ export default function ExcelExportButton({
       // Standard approach with enhanced headers
       try {
         console.log('Attempting primary download method...');
+        const firstUrl = `/api/GenerateExcelReport/generate-checkinout-report/${userData.id}?month=${correctedSelectedMonth}&year=${correctedSelectedYear}`;
         const response = await fetch(
-          `/api/GenerateExcelReport/generate-checkinout-report/${userData.id}`,
+          firstUrl,
           {
             method: "GET",
             headers: {
@@ -93,7 +98,7 @@ export default function ExcelExportButton({
       // Fallback approach: direct window open
       // This can work better in some environments where the fetch API has issues
       console.log('Using fallback download method (window.open)');
-      const fallbackUrl = `/api/GenerateExcelReport/generate-checkinout-report/${userData.id}`;
+      const fallbackUrl = `/api/GenerateExcelReport/generate-checkinout-report/${userData.id}?month=${correctedSelectedMonth}&year=${correctedSelectedYear}`;
       window.open(fallbackUrl, '_blank');
       
     } catch (error) {
