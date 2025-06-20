@@ -14,7 +14,7 @@
           "Dapper": "2.1.66",
           "Microsoft.AspNetCore.Authentication.OpenIdConnect": "9.0.5",
           "Microsoft.AspNetCore.OpenApi": "9.0.0",
-          "Microsoft.AspNetCore.SpaProxy": "9.0.5",
+          "Microsoft.AspNetCore.SpaProxy": "9.0.6",
           "Microsoft.EntityFrameworkCore.SqlServer": "9.0.4",
           "Microsoft.EntityFrameworkCore.Tools": "9.0.0",
           "Microsoft.VisualStudio.Web.CodeGeneration.Design": "9.0.0",
@@ -716,11 +716,11 @@
           }
         }
       },
-      "Microsoft.AspNetCore.SpaProxy/9.0.5": {
+      "Microsoft.AspNetCore.SpaProxy/9.0.6": {
         "runtime": {
           "lib/net9.0/Microsoft.AspNetCore.SpaProxy.dll": {
-            "assemblyVersion": "9.0.5.0",
-            "fileVersion": "9.0.525.22904"
+            "assemblyVersion": "9.0.6.0",
+            "fileVersion": "9.0.625.26701"
           }
         }
       },
@@ -2133,14 +2133,7 @@
         }
       },
       "System.Diagnostics.EventLog/8.0.0": {},
-      "System.Formats.Asn1/9.0.4": {
-        "runtime": {
-          "lib/net9.0/System.Formats.Asn1.dll": {
-            "assemblyVersion": "9.0.0.0",
-            "fileVersion": "9.0.425.16305"
-          }
-        }
-      },
+      "System.Formats.Asn1/9.0.4": {},
       "System.IdentityModel.Tokens.Jwt/8.0.1": {
         "dependencies": {
           "Microsoft.IdentityModel.JsonWebTokens": "8.0.1",
@@ -2250,14 +2243,7 @@
           "System.Runtime.CompilerServices.Unsafe": "6.0.0"
         }
       },
-      "System.Text.Json/9.0.4": {
-        "runtime": {
-          "lib/net9.0/System.Text.Json.dll": {
-            "assemblyVersion": "9.0.0.0",
-            "fileVersion": "9.0.425.16305"
-          }
-        }
-      },
+      "System.Text.Json/9.0.4": {},
       "System.Threading.Channels/7.0.0": {},
       "System.Threading.Tasks.Dataflow/8.0.0": {},
       "System.Threading.Tasks.Extensions/4.5.4": {}
@@ -2710,12 +2696,12 @@
       "path": "microsoft.aspnetcore.razor.language/6.0.24",
       "hashPath": "microsoft.aspnetcore.razor.language.6.0.24.nupkg.sha512"
     },
-    "Microsoft.AspNetCore.SpaProxy/9.0.5": {
+    "Microsoft.AspNetCore.SpaProxy/9.0.6": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-iVsR0q1BizeYqgLst1g0k/TWxNOOGf46Od/VEqZficzRGuxOwPrhSsS8aQa6RYi9X3d2SjuURI33Ddky9LuE/Q==",
-      "path": "microsoft.aspnetcore.spaproxy/9.0.5",
-      "hashPath": "microsoft.aspnetcore.spaproxy.9.0.5.nupkg.sha512"
+      "sha512": "sha512-8eqqxeHechUxhNN4+u63DP4TenA9QpsC21os76e+RA5AUC4OziLa7UNYOUs+ftp37ZkYdQVOavSIEC4abuIWow==",
+      "path": "microsoft.aspnetcore.spaproxy/9.0.6",
+      "hashPath": "microsoft.aspnetcore.spaproxy.9.0.6.nupkg.sha512"
     },
     "Microsoft.Bcl.AsyncInterfaces/7.0.0": {
       "type": "package",

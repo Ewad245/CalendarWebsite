@@ -1,4 +1,14 @@
 {
+  "auth": {
+    "login": "Đăng nhập",
+    "logout": "Đăng xuất",
+    "welcome": "Xin chào",
+    "welcomeMessage": "Chào mừng đến với trang web lịch",
+    "loginPrompt": "Vui lòng đăng nhập để tiếp tục",
+    "loginWithIdentityServer": "Đăng nhập với Identity Server",
+    "authenticating": "Đang xác thực",
+    "secureLogin": "Được bảo mật bởi Identity Server"
+  },
   "maintitle": "Trang xem chuyên cần",
   "common": {
     "loading": "Đang tải...",
