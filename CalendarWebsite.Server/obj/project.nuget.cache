@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "gPvbvzpQuzw=",
+  "dgSpecHash": "AfqbtaGCNjA=",
   "success": true,
   "projectFilePath": "/Users/thomasjohnson/Documents/GitHub/CalendarWebsiteFork/CalendarWebsite.Server/CalendarWebsite.Server.csproj",
   "expectedPackageFiles": [
@@ -67,7 +67,7 @@
     "/Users/thomasjohnson/.nuget/packages/microsoft.aspnetcore.authentication.openidconnect/9.0.5/microsoft.aspnetcore.authentication.openidconnect.9.0.5.nupkg.sha512",
     "/Users/thomasjohnson/.nuget/packages/microsoft.aspnetcore.openapi/9.0.0/microsoft.aspnetcore.openapi.9.0.0.nupkg.sha512",
     "/Users/thomasjohnson/.nuget/packages/microsoft.aspnetcore.razor.language/6.0.24/microsoft.aspnetcore.razor.language.6.0.24.nupkg.sha512",
-    "/Users/thomasjohnson/.nuget/packages/microsoft.aspnetcore.spaproxy/9.0.5/microsoft.aspnetcore.spaproxy.9.0.5.nupkg.sha512",
+    "/Users/thomasjohnson/.nuget/packages/microsoft.aspnetcore.spaproxy/9.0.6/microsoft.aspnetcore.spaproxy.9.0.6.nupkg.sha512",
     "/Users/thomasjohnson/.nuget/packages/microsoft.bcl.asyncinterfaces/7.0.0/microsoft.bcl.asyncinterfaces.7.0.0.nupkg.sha512",
     "/Users/thomasjohnson/.nuget/packages/microsoft.build/17.10.4/microsoft.build.17.10.4.nupkg.sha512",
     "/Users/thomasjohnson/.nuget/packages/microsoft.build.framework/17.10.4/microsoft.build.framework.17.10.4.nupkg.sha512",

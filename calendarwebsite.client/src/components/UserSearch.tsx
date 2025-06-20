@@ -18,7 +18,6 @@ interface UserSearchProps {
   setEvents: (events: any[]) => void;
 }
 
-
 const normalizeString = (str: string) => {
   if (!str) return "";
 
@@ -100,7 +99,7 @@ const normalizeString = (str: string) => {
 export default function UserSearch({
   userList,
   selectedUser,
-  selectedDate,
+  selectedDate: _selectedDate,
   setSelectedUser,
   inputValue,
   setInputValue,
@@ -166,7 +165,7 @@ export default function UserSearch({
                 <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-muted-foreground" />
                 <Input
                   {...getInputProps()}
-                  placeholder={t('attendance.filters.selectUser')}
+                  placeholder={t("attendance.filters.selectUser")}
                   className="pl-9 pr-9 w-full"
                 />
                 {inputValue && (
@@ -213,7 +212,7 @@ export default function UserSearch({
                     ))}
                   {isOpen && filteredItems.length === 0 && inputValue && (
                     <div className="p-3 text-muted-foreground text-sm">
-                      {t('common.loading')}
+                      {t("common.loading")}
                     </div>
                   )}
                 </div>

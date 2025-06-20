@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "Fjxhe0PHBqKaCJEnFRKE4/jTQLFkU2eexoV9XsNy6V4=",
+  "Hash": "O1iz1rNEjG/me/r+ZPPi0KTt5mOZd14VZnaV7NIwY14=",
   "Source": "CalendarWebsite.Server",
   "BasePath": "_content/CalendarWebsite.Server",
   "Mode": "Default",
@@ -29,48 +29,6 @@
   ],
   "Assets": [
     {
-      "Identity": "/Users/thomasjohnson/Documents/GitHub/CalendarWebsiteFork/CalendarWebsite.Server/obj/Debug/net9.0/compressed/2vay0mz8sa-zshll5hg09.gz",
-      "SourceId": "CalendarWebsite.Server",
-      "SourceType": "Discovered",
-      "ContentRoot": "/Users/thomasjohnson/Documents/GitHub/CalendarWebsiteFork/CalendarWebsite.Server/obj/Debug/net9.0/compressed/",
-      "BasePath": "_content/CalendarWebsite.Server",
-      "RelativePath": "assets/index-D4iZaHOq#[.{fingerprint=zshll5hg09}]?.css.gz",
-      "AssetKind": "All",
-      "AssetMode": "All",
-      "AssetRole": "Alternative",
-      "AssetMergeBehavior": "",
-      "AssetMergeSource": "",
-      "RelatedAsset": "/Users/thomasjohnson/Documents/GitHub/CalendarWebsiteFork/CalendarWebsite.Server/wwwroot/assets/index-D4iZaHOq.css",
-      "AssetTraitName": "Content-Encoding",
-      "AssetTraitValue": "gzip",
-      "Fingerprint": "z21i9nxjo3",
-      "Integrity": "BfXD/uomdg2g6VDH2j8NzrUK9l4ZLSy89BIm71JmCZI=",
-      "CopyToOutputDirectory": "Never",
-      "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "/Users/thomasjohnson/Documents/GitHub/CalendarWebsiteFork/CalendarWebsite.Server/wwwroot/assets/index-D4iZaHOq.css"
-    },
-    {
-      "Identity": "/Users/thomasjohnson/Documents/GitHub/CalendarWebsiteFork/CalendarWebsite.Server/obj/Debug/net9.0/compressed/4x1o8rbyr4-7x2m0t0zep.gz",
-      "SourceId": "CalendarWebsite.Server",
-      "SourceType": "Discovered",
-      "ContentRoot": "/Users/thomasjohnson/Documents/GitHub/CalendarWebsiteFork/CalendarWebsite.Server/obj/Debug/net9.0/compressed/",
-      "BasePath": "_content/CalendarWebsite.Server",
-      "RelativePath": "assets/index-CvRo0prG#[.{fingerprint=7x2m0t0zep}]?.js.gz",
-      "AssetKind": "All",
-      "AssetMode": "All",
-      "AssetRole": "Alternative",
-      "AssetMergeBehavior": "",
-      "AssetMergeSource": "",
-      "RelatedAsset": "/Users/thomasjohnson/Documents/GitHub/CalendarWebsiteFork/CalendarWebsite.Server/wwwroot/assets/index-CvRo0prG.js",
-      "AssetTraitName": "Content-Encoding",
-      "AssetTraitValue": "gzip",
-      "Fingerprint": "pvzwtg5cy9",
-      "Integrity": "W7WaqoCpFLvWspTOG5Jqb4VK+K2vfSXqh5MTdJEEl8o=",
-      "CopyToOutputDirectory": "Never",
-      "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "/Users/thomasjohnson/Documents/GitHub/CalendarWebsiteFork/CalendarWebsite.Server/wwwroot/assets/index-CvRo0prG.js"
-    },
-    {
       "Identity": "/Users/thomasjohnson/Documents/GitHub/CalendarWebsiteFork/CalendarWebsite.Server/obj/Debug/net9.0/compressed/9171txbcef-69kjnsiwqx.gz",
       "SourceId": "CalendarWebsite.Server",
       "SourceType": "Discovered",
@@ -92,12 +50,12 @@
       "OriginalItemSpec": "/Users/thomasjohnson/Documents/GitHub/CalendarWebsiteFork/CalendarWebsite.Server/wwwroot/vite.svg"
     },
     {
-      "Identity": "/Users/thomasjohnson/Documents/GitHub/CalendarWebsiteFork/CalendarWebsite.Server/obj/Debug/net9.0/compressed/9n9umewjrj-avaogkp7sz.gz",
+      "Identity": "/Users/thomasjohnson/Documents/GitHub/CalendarWebsiteFork/CalendarWebsite.Server/obj/Debug/net9.0/compressed/9n9umewjrj-hi2ylp8lw7.gz",
       "SourceId": "CalendarWebsite.Server",
       "SourceType": "Discovered",
       "ContentRoot": "/Users/thomasjohnson/Documents/GitHub/CalendarWebsiteFork/CalendarWebsite.Server/obj/Debug/net9.0/compressed/",
       "BasePath": "_content/CalendarWebsite.Server",
-      "RelativePath": "index#[.{fingerprint=avaogkp7sz}]?.html.gz",
+      "RelativePath": "index#[.{fingerprint=hi2ylp8lw7}]?.html.gz",
       "AssetKind": "All",
       "AssetMode": "All",
       "AssetRole": "Alternative",
@@ -106,40 +64,61 @@
       "RelatedAsset": "/Users/thomasjohnson/Documents/GitHub/CalendarWebsiteFork/CalendarWebsite.Server/wwwroot/index.html",
       "AssetTraitName": "Content-Encoding",
       "AssetTraitValue": "gzip",
-      "Fingerprint": "jov8gym1ha",
-      "Integrity": "Y8o8Bg+gZ25306erfQPVvnn3/q8oewuj5Noo4qbc+80=",
+      "Fingerprint": "kf9shithy1",
+      "Integrity": "QJgLI6lZusGHTjnLJPtveqw+XVccE1tmxubI7hn3Ns8=",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "/Users/thomasjohnson/Documents/GitHub/CalendarWebsiteFork/CalendarWebsite.Server/wwwroot/index.html"
     },
     {
-      "Identity": "/Users/thomasjohnson/Documents/GitHub/CalendarWebsiteFork/CalendarWebsite.Server/wwwroot/assets/index-CvRo0prG.js",
+      "Identity": "/Users/thomasjohnson/Documents/GitHub/CalendarWebsiteFork/CalendarWebsite.Server/obj/Debug/net9.0/compressed/iuq58lgsw7-6msgk6v1zd.gz",
       "SourceId": "CalendarWebsite.Server",
       "SourceType": "Discovered",
-      "ContentRoot": "/Users/thomasjohnson/Documents/GitHub/CalendarWebsiteFork/CalendarWebsite.Server/wwwroot/",
+      "ContentRoot": "/Users/thomasjohnson/Documents/GitHub/CalendarWebsiteFork/CalendarWebsite.Server/obj/Debug/net9.0/compressed/",
       "BasePath": "_content/CalendarWebsite.Server",
-      "RelativePath": "assets/index-CvRo0prG#[.{fingerprint}]?.js",
+      "RelativePath": "assets/index-CYgMd_hN#[.{fingerprint=6msgk6v1zd}]?.js.gz",
       "AssetKind": "All",
       "AssetMode": "All",
-      "AssetRole": "Primary",
+      "AssetRole": "Alternative",
       "AssetMergeBehavior": "",
       "AssetMergeSource": "",
-      "RelatedAsset": "",
-      "AssetTraitName": "",
-      "AssetTraitValue": "",
-      "Fingerprint": "7x2m0t0zep",
-      "Integrity": "SwwJRe3AO5MFBPvshfVV+3yMgxZ1YsBpUY6JmrLrfmI=",
+      "RelatedAsset": "/Users/thomasjohnson/Documents/GitHub/CalendarWebsiteFork/CalendarWebsite.Server/wwwroot/assets/index-CYgMd_hN.js",
+      "AssetTraitName": "Content-Encoding",
+      "AssetTraitValue": "gzip",
+      "Fingerprint": "fmv79szj57",
+      "Integrity": "1yTVYbiJchx6vsM1sNq7wRwzIDD5xbzqUZ/bPfyfuUw=",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot/assets/index-CvRo0prG.js"
+      "OriginalItemSpec": "/Users/thomasjohnson/Documents/GitHub/CalendarWebsiteFork/CalendarWebsite.Server/wwwroot/assets/index-CYgMd_hN.js"
     },
     {
-      "Identity": "/Users/thomasjohnson/Documents/GitHub/CalendarWebsiteFork/CalendarWebsite.Server/wwwroot/assets/index-D4iZaHOq.css",
+      "Identity": "/Users/thomasjohnson/Documents/GitHub/CalendarWebsiteFork/CalendarWebsite.Server/obj/Debug/net9.0/compressed/xr45ieh6n9-9fca5hhygy.gz",
+      "SourceId": "CalendarWebsite.Server",
+      "SourceType": "Discovered",
+      "ContentRoot": "/Users/thomasjohnson/Documents/GitHub/CalendarWebsiteFork/CalendarWebsite.Server/obj/Debug/net9.0/compressed/",
+      "BasePath": "_content/CalendarWebsite.Server",
+      "RelativePath": "assets/index-Bzt5TfKa#[.{fingerprint=9fca5hhygy}]?.css.gz",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Alternative",
+      "AssetMergeBehavior": "",
+      "AssetMergeSource": "",
+      "RelatedAsset": "/Users/thomasjohnson/Documents/GitHub/CalendarWebsiteFork/CalendarWebsite.Server/wwwroot/assets/index-Bzt5TfKa.css",
+      "AssetTraitName": "Content-Encoding",
+      "AssetTraitValue": "gzip",
+      "Fingerprint": "gm01fva4qc",
+      "Integrity": "aKQEDP58qzRqPXAj0xMk6gGyI5QbT7hI9NgHSjdtOQc=",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "/Users/thomasjohnson/Documents/GitHub/CalendarWebsiteFork/CalendarWebsite.Server/wwwroot/assets/index-Bzt5TfKa.css"
+    },
+    {
+      "Identity": "/Users/thomasjohnson/Documents/GitHub/CalendarWebsiteFork/CalendarWebsite.Server/wwwroot/assets/index-Bzt5TfKa.css",
       "SourceId": "CalendarWebsite.Server",
       "SourceType": "Discovered",
       "ContentRoot": "/Users/thomasjohnson/Documents/GitHub/CalendarWebsiteFork/CalendarWebsite.Server/wwwroot/",
       "BasePath": "_content/CalendarWebsite.Server",
-      "RelativePath": "assets/index-D4iZaHOq#[.{fingerprint}]?.css",
+      "RelativePath": "assets/index-Bzt5TfKa#[.{fingerprint}]?.css",
       "AssetKind": "All",
       "AssetMode": "All",
       "AssetRole": "Primary",
@@ -148,11 +127,32 @@
       "RelatedAsset": "",
       "AssetTraitName": "",
       "AssetTraitValue": "",
-      "Fingerprint": "zshll5hg09",
-      "Integrity": "Y8aGRvENr/lTtf+DwcSZa8nXqZnac+Vcc5/hU3Sgd98=",
+      "Fingerprint": "9fca5hhygy",
+      "Integrity": "mwnH5VPFJ071rsxa3AZRx1kZDApltBRTahqpp5XOLIw=",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot/assets/index-D4iZaHOq.css"
+      "OriginalItemSpec": "wwwroot/assets/index-Bzt5TfKa.css"
+    },
+    {
+      "Identity": "/Users/thomasjohnson/Documents/GitHub/CalendarWebsiteFork/CalendarWebsite.Server/wwwroot/assets/index-CYgMd_hN.js",
+      "SourceId": "CalendarWebsite.Server",
+      "SourceType": "Discovered",
+      "ContentRoot": "/Users/thomasjohnson/Documents/GitHub/CalendarWebsiteFork/CalendarWebsite.Server/wwwroot/",
+      "BasePath": "_content/CalendarWebsite.Server",
+      "RelativePath": "assets/index-CYgMd_hN#[.{fingerprint}]?.js",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "Fingerprint": "6msgk6v1zd",
+      "Integrity": "Im974x4YS+fx3w4BM6OPJ0PATGPaOiIA6D5+WkxrMDs=",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot/assets/index-CYgMd_hN.js"
     },
     {
       "Identity": "/Users/thomasjohnson/Documents/GitHub/CalendarWebsiteFork/CalendarWebsite.Server/wwwroot/assets/VNTTLogo-DG9eiTv9.png",
@@ -190,8 +190,8 @@
       "RelatedAsset": "",
       "AssetTraitName": "",
       "AssetTraitValue": "",
-      "Fingerprint": "avaogkp7sz",
-      "Integrity": "Bn1EEEeCfyolN9qf3jSE3aVCxQE8yMiq9CuVCziVzUY=",
+      "Fingerprint": "hi2ylp8lw7",
+      "Integrity": "OTrM0eYsgIEFK31kJLcZ44tgt4oXpFBToYzLsVUjfB8=",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot/index.html"
@@ -220,13 +220,13 @@
   ],
   "Endpoints": [
     {
-      "Route": "assets/index-CvRo0prG.7x2m0t0zep.js",
-      "AssetFile": "/Users/thomasjohnson/Documents/GitHub/CalendarWebsiteFork/CalendarWebsite.Server/obj/Debug/net9.0/compressed/4x1o8rbyr4-7x2m0t0zep.gz",
+      "Route": "assets/index-Bzt5TfKa.9fca5hhygy.css",
+      "AssetFile": "/Users/thomasjohnson/Documents/GitHub/CalendarWebsiteFork/CalendarWebsite.Server/obj/Debug/net9.0/compressed/xr45ieh6n9-9fca5hhygy.gz",
       "Selectors": [
         {
           "Name": "Content-Encoding",
           "Value": "gzip",
-          "Quality": "0.000002106083"
+          "Quality": "0.000045819015"
         }
       ],
       "ResponseHeaders": [
@@ -236,15 +236,15 @@
         },
         {
           "Name": "Content-Length",
-          "Value": "474814"
+          "Value": "21824"
         },
         {
           "Name": "ETag",
-          "Value": "\"W7WaqoCpFLvWspTOG5Jqb4VK+K2vfSXqh5MTdJEEl8o=\""
+          "Value": "\"aKQEDP58qzRqPXAj0xMk6gGyI5QbT7hI9NgHSjdtOQc=\""
         },
         {
           "Name": "Last-Modified",
-          "Value": "Tue, 27 May 2025 05:52:40 GMT"
+          "Value": "Mon, 16 Jun 2025 06:39:34 GMT"
         },
         {
           "Name": "Cache-Control",
@@ -260,31 +260,31 @@
         },
         {
           "Name": "Content-Type",
-          "Value": "text/javascript"
+          "Value": "text/css"
         },
         {
           "Name": "ETag",
-          "Value": "W/\"SwwJRe3AO5MFBPvshfVV+3yMgxZ1YsBpUY6JmrLrfmI=\""
+          "Value": "W/\"mwnH5VPFJ071rsxa3AZRx1kZDApltBRTahqpp5XOLIw=\""
         }
       ],
       "EndpointProperties": [
         {
           "Name": "fingerprint",
-          "Value": "7x2m0t0zep"
+          "Value": "9fca5hhygy"
         },
         {
           "Name": "label",
-          "Value": "assets/index-CvRo0prG.js"
+          "Value": "assets/index-Bzt5TfKa.css"
         },
         {
           "Name": "integrity",
-          "Value": "sha256-SwwJRe3AO5MFBPvshfVV+3yMgxZ1YsBpUY6JmrLrfmI="
+          "Value": "sha256-mwnH5VPFJ071rsxa3AZRx1kZDApltBRTahqpp5XOLIw="
         }
       ]
     },
     {
-      "Route": "assets/index-CvRo0prG.7x2m0t0zep.js",
-      "AssetFile": "/Users/thomasjohnson/Documents/GitHub/CalendarWebsiteFork/CalendarWebsite.Server/wwwroot/assets/index-CvRo0prG.js",
+      "Route": "assets/index-Bzt5TfKa.9fca5hhygy.css",
+      "AssetFile": "/Users/thomasjohnson/Documents/GitHub/CalendarWebsiteFork/CalendarWebsite.Server/wwwroot/assets/index-Bzt5TfKa.css",
       "Selectors": [],
       "ResponseHeaders": [
         {
@@ -293,19 +293,19 @@
         },
         {
           "Name": "Content-Length",
-          "Value": "1541521"
+          "Value": "125141"
         },
         {
           "Name": "Content-Type",
-          "Value": "text/javascript"
+          "Value": "text/css"
         },
         {
           "Name": "ETag",
-          "Value": "\"SwwJRe3AO5MFBPvshfVV+3yMgxZ1YsBpUY6JmrLrfmI=\""
+          "Value": "\"mwnH5VPFJ071rsxa3AZRx1kZDApltBRTahqpp5XOLIw=\""
         },
         {
           "Name": "Last-Modified",
-          "Value": "Tue, 27 May 2025 05:52:40 GMT"
+          "Value": "Mon, 16 Jun 2025 06:39:34 GMT"
         },
         {
           "Name": "Cache-Control",
@@ -315,21 +315,21 @@
       "EndpointProperties": [
         {
           "Name": "fingerprint",
-          "Value": "7x2m0t0zep"
+          "Value": "9fca5hhygy"
         },
         {
           "Name": "label",
-          "Value": "assets/index-CvRo0prG.js"
+          "Value": "assets/index-Bzt5TfKa.css"
         },
         {
           "Name": "integrity",
-          "Value": "sha256-SwwJRe3AO5MFBPvshfVV+3yMgxZ1YsBpUY6JmrLrfmI="
+          "Value": "sha256-mwnH5VPFJ071rsxa3AZRx1kZDApltBRTahqpp5XOLIw="
         }
       ]
     },
     {
-      "Route": "assets/index-CvRo0prG.7x2m0t0zep.js.gz",
-      "AssetFile": "/Users/thomasjohnson/Documents/GitHub/CalendarWebsiteFork/CalendarWebsite.Server/obj/Debug/net9.0/compressed/4x1o8rbyr4-7x2m0t0zep.gz",
+      "Route": "assets/index-Bzt5TfKa.9fca5hhygy.css.gz",
+      "AssetFile": "/Users/thomasjohnson/Documents/GitHub/CalendarWebsiteFork/CalendarWebsite.Server/obj/Debug/net9.0/compressed/xr45ieh6n9-9fca5hhygy.gz",
       "Selectors": [],
       "ResponseHeaders": [
         {
@@ -338,19 +338,19 @@
         },
         {
           "Name": "Content-Length",
-          "Value": "474814"
+          "Value": "21824"
         },
         {
           "Name": "Content-Type",
-          "Value": "text/javascript"
+          "Value": "text/css"
         },
         {
           "Name": "ETag",
-          "Value": "\"W7WaqoCpFLvWspTOG5Jqb4VK+K2vfSXqh5MTdJEEl8o=\""
+          "Value": "\"aKQEDP58qzRqPXAj0xMk6gGyI5QbT7hI9NgHSjdtOQc=\""
         },
         {
           "Name": "Last-Modified",
-          "Value": "Tue, 27 May 2025 05:52:40 GMT"
+          "Value": "Mon, 16 Jun 2025 06:39:34 GMT"
         },
         {
           "Name": "Cache-Control",
@@ -368,26 +368,26 @@
       "EndpointProperties": [
         {
           "Name": "fingerprint",
-          "Value": "7x2m0t0zep"
+          "Value": "9fca5hhygy"
         },
         {
           "Name": "label",
-          "Value": "assets/index-CvRo0prG.js.gz"
+          "Value": "assets/index-Bzt5TfKa.css.gz"
         },
         {
           "Name": "integrity",
-          "Value": "sha256-W7WaqoCpFLvWspTOG5Jqb4VK+K2vfSXqh5MTdJEEl8o="
+          "Value": "sha256-aKQEDP58qzRqPXAj0xMk6gGyI5QbT7hI9NgHSjdtOQc="
         }
       ]
     },
     {
-      "Route": "assets/index-CvRo0prG.js",
-      "AssetFile": "/Users/thomasjohnson/Documents/GitHub/CalendarWebsiteFork/CalendarWebsite.Server/obj/Debug/net9.0/compressed/4x1o8rbyr4-7x2m0t0zep.gz",
+      "Route": "assets/index-Bzt5TfKa.css",
+      "AssetFile": "/Users/thomasjohnson/Documents/GitHub/CalendarWebsiteFork/CalendarWebsite.Server/obj/Debug/net9.0/compressed/xr45ieh6n9-9fca5hhygy.gz",
       "Selectors": [
         {
           "Name": "Content-Encoding",
           "Value": "gzip",
-          "Quality": "0.000002106083"
+          "Quality": "0.000045819015"
         }
       ],
       "ResponseHeaders": [
@@ -397,15 +397,15 @@
         },
         {
           "Name": "Content-Length",
-          "Value": "474814"
+          "Value": "21824"
         },
         {
           "Name": "ETag",
-          "Value": "\"W7WaqoCpFLvWspTOG5Jqb4VK+K2vfSXqh5MTdJEEl8o=\""
+          "Value": "\"aKQEDP58qzRqPXAj0xMk6gGyI5QbT7hI9NgHSjdtOQc=\""
         },
         {
           "Name": "Last-Modified",
-          "Value": "Tue, 27 May 2025 05:52:40 GMT"
+          "Value": "Mon, 16 Jun 2025 06:39:34 GMT"
         },
         {
           "Name": "Cache-Control",
@@ -421,23 +421,23 @@
         },
         {
           "Name": "Content-Type",
-          "Value": "text/javascript"
+          "Value": "text/css"
         },
         {
           "Name": "ETag",
-          "Value": "W/\"SwwJRe3AO5MFBPvshfVV+3yMgxZ1YsBpUY6JmrLrfmI=\""
+          "Value": "W/\"mwnH5VPFJ071rsxa3AZRx1kZDApltBRTahqpp5XOLIw=\""
         }
       ],
       "EndpointProperties": [
         {
           "Name": "integrity",
-          "Value": "sha256-SwwJRe3AO5MFBPvshfVV+3yMgxZ1YsBpUY6JmrLrfmI="
+          "Value": "sha256-mwnH5VPFJ071rsxa3AZRx1kZDApltBRTahqpp5XOLIw="
         }
       ]
     },
     {
-      "Route": "assets/index-CvRo0prG.js",
-      "AssetFile": "/Users/thomasjohnson/Documents/GitHub/CalendarWebsiteFork/CalendarWebsite.Server/wwwroot/assets/index-CvRo0prG.js",
+      "Route": "assets/index-Bzt5TfKa.css",
+      "AssetFile": "/Users/thomasjohnson/Documents/GitHub/CalendarWebsiteFork/CalendarWebsite.Server/wwwroot/assets/index-Bzt5TfKa.css",
       "Selectors": [],
       "ResponseHeaders": [
         {
@@ -446,19 +446,19 @@
         },
         {
           "Name": "Content-Length",
-          "Value": "1541521"
+          "Value": "125141"
         },
         {
           "Name": "Content-Type",
-          "Value": "text/javascript"
+          "Value": "text/css"
         },
         {
           "Name": "ETag",
-          "Value": "\"SwwJRe3AO5MFBPvshfVV+3yMgxZ1YsBpUY6JmrLrfmI=\""
+          "Value": "\"mwnH5VPFJ071rsxa3AZRx1kZDApltBRTahqpp5XOLIw=\""
         },
         {
           "Name": "Last-Modified",
-          "Value": "Tue, 27 May 2025 05:52:40 GMT"
+          "Value": "Mon, 16 Jun 2025 06:39:34 GMT"
         },
         {
           "Name": "Cache-Control",
@@ -468,13 +468,13 @@
       "EndpointProperties": [
         {
           "Name": "integrity",
-          "Value": "sha256-SwwJRe3AO5MFBPvshfVV+3yMgxZ1YsBpUY6JmrLrfmI="
+          "Value": "sha256-mwnH5VPFJ071rsxa3AZRx1kZDApltBRTahqpp5XOLIw="
         }
       ]
     },
     {
-      "Route": "assets/index-CvRo0prG.js.gz",
-      "AssetFile": "/Users/thomasjohnson/Documents/GitHub/CalendarWebsiteFork/CalendarWebsite.Server/obj/Debug/net9.0/compressed/4x1o8rbyr4-7x2m0t0zep.gz",
+      "Route": "assets/index-Bzt5TfKa.css.gz",
+      "AssetFile": "/Users/thomasjohnson/Documents/GitHub/CalendarWebsiteFork/CalendarWebsite.Server/obj/Debug/net9.0/compressed/xr45ieh6n9-9fca5hhygy.gz",
       "Selectors": [],
       "ResponseHeaders": [
         {
@@ -483,19 +483,19 @@
         },
         {
           "Name": "Content-Length",
-          "Value": "474814"
+          "Value": "21824"
         },
         {
           "Name": "Content-Type",
-          "Value": "text/javascript"
+          "Value": "text/css"
         },
         {
           "Name": "ETag",
-          "Value": "\"W7WaqoCpFLvWspTOG5Jqb4VK+K2vfSXqh5MTdJEEl8o=\""
+          "Value": "\"aKQEDP58qzRqPXAj0xMk6gGyI5QbT7hI9NgHSjdtOQc=\""
         },
         {
           "Name": "Last-Modified",
-          "Value": "Tue, 27 May 2025 05:52:40 GMT"
+          "Value": "Mon, 16 Jun 2025 06:39:34 GMT"
         },
         {
           "Name": "Cache-Control",
@@ -513,18 +513,18 @@
       "EndpointProperties": [
         {
           "Name": "integrity",
-          "Value": "sha256-W7WaqoCpFLvWspTOG5Jqb4VK+K2vfSXqh5MTdJEEl8o="
+          "Value": "sha256-aKQEDP58qzRqPXAj0xMk6gGyI5QbT7hI9NgHSjdtOQc="
         }
       ]
     },
     {
-      "Route": "assets/index-D4iZaHOq.css",
-      "AssetFile": "/Users/thomasjohnson/Documents/GitHub/CalendarWebsiteFork/CalendarWebsite.Server/obj/Debug/net9.0/compressed/2vay0mz8sa-zshll5hg09.gz",
+      "Route": "assets/index-CYgMd_hN.6msgk6v1zd.js",
+      "AssetFile": "/Users/thomasjohnson/Documents/GitHub/CalendarWebsiteFork/CalendarWebsite.Server/obj/Debug/net9.0/compressed/iuq58lgsw7-6msgk6v1zd.gz",
       "Selectors": [
         {
           "Name": "Content-Encoding",
           "Value": "gzip",
-          "Quality": "0.000046639616"
+          "Quality": "0.000001921850"
         }
       ],
       "ResponseHeaders": [
@@ -534,19 +534,19 @@
         },
         {
           "Name": "Content-Length",
-          "Value": "21440"
+          "Value": "520331"
         },
         {
           "Name": "ETag",
-          "Value": "\"BfXD/uomdg2g6VDH2j8NzrUK9l4ZLSy89BIm71JmCZI=\""
+          "Value": "\"1yTVYbiJchx6vsM1sNq7wRwzIDD5xbzqUZ/bPfyfuUw=\""
         },
         {
           "Name": "Last-Modified",
-          "Value": "Tue, 27 May 2025 05:52:40 GMT"
+          "Value": "Mon, 16 Jun 2025 06:39:34 GMT"
         },
         {
           "Name": "Cache-Control",
-          "Value": "no-cache"
+          "Value": "max-age=31536000, immutable"
         },
         {
           "Name": "Content-Encoding",
@@ -558,23 +558,31 @@
         },
         {
           "Name": "Content-Type",
-          "Value": "text/css"
+          "Value": "text/javascript"
         },
         {
           "Name": "ETag",
-          "Value": "W/\"Y8aGRvENr/lTtf+DwcSZa8nXqZnac+Vcc5/hU3Sgd98=\""
+          "Value": "W/\"Im974x4YS+fx3w4BM6OPJ0PATGPaOiIA6D5+WkxrMDs=\""
         }
       ],
       "EndpointProperties": [
         {
+          "Name": "fingerprint",
+          "Value": "6msgk6v1zd"
+        },
+        {
+          "Name": "label",
+          "Value": "assets/index-CYgMd_hN.js"
+        },
+        {
           "Name": "integrity",
-          "Value": "sha256-Y8aGRvENr/lTtf+DwcSZa8nXqZnac+Vcc5/hU3Sgd98="
+          "Value": "sha256-Im974x4YS+fx3w4BM6OPJ0PATGPaOiIA6D5+WkxrMDs="
         }
       ]
     },
     {
-      "Route": "assets/index-D4iZaHOq.css",
-      "AssetFile": "/Users/thomasjohnson/Documents/GitHub/CalendarWebsiteFork/CalendarWebsite.Server/wwwroot/assets/index-D4iZaHOq.css",
+      "Route": "assets/index-CYgMd_hN.6msgk6v1zd.js",
+      "AssetFile": "/Users/thomasjohnson/Documents/GitHub/CalendarWebsiteFork/CalendarWebsite.Server/wwwroot/assets/index-CYgMd_hN.js",
       "Selectors": [],
       "ResponseHeaders": [
         {
@@ -583,35 +591,43 @@
         },
         {
           "Name": "Content-Length",
-          "Value": "122272"
+          "Value": "1682291"
         },
         {
           "Name": "Content-Type",
-          "Value": "text/css"
+          "Value": "text/javascript"
         },
         {
           "Name": "ETag",
-          "Value": "\"Y8aGRvENr/lTtf+DwcSZa8nXqZnac+Vcc5/hU3Sgd98=\""
+          "Value": "\"Im974x4YS+fx3w4BM6OPJ0PATGPaOiIA6D5+WkxrMDs=\""
         },
         {
           "Name": "Last-Modified",
-          "Value": "Tue, 27 May 2025 05:52:40 GMT"
+          "Value": "Mon, 16 Jun 2025 06:39:34 GMT"
         },
         {
           "Name": "Cache-Control",
-          "Value": "no-cache"
+          "Value": "max-age=31536000, immutable"
         }
       ],
       "EndpointProperties": [
         {
+          "Name": "fingerprint",
+          "Value": "6msgk6v1zd"
+        },
+        {
+          "Name": "label",
+          "Value": "assets/index-CYgMd_hN.js"
+        },
+        {
           "Name": "integrity",
-          "Value": "sha256-Y8aGRvENr/lTtf+DwcSZa8nXqZnac+Vcc5/hU3Sgd98="
+          "Value": "sha256-Im974x4YS+fx3w4BM6OPJ0PATGPaOiIA6D5+WkxrMDs="
         }
       ]
     },
     {
-      "Route": "assets/index-D4iZaHOq.css.gz",
-      "AssetFile": "/Users/thomasjohnson/Documents/GitHub/CalendarWebsiteFork/CalendarWebsite.Server/obj/Debug/net9.0/compressed/2vay0mz8sa-zshll5hg09.gz",
+      "Route": "assets/index-CYgMd_hN.6msgk6v1zd.js.gz",
+      "AssetFile": "/Users/thomasjohnson/Documents/GitHub/CalendarWebsiteFork/CalendarWebsite.Server/obj/Debug/net9.0/compressed/iuq58lgsw7-6msgk6v1zd.gz",
       "Selectors": [],
       "ResponseHeaders": [
         {
@@ -620,23 +636,23 @@
         },
         {
           "Name": "Content-Length",
-          "Value": "21440"
+          "Value": "520331"
         },
         {
           "Name": "Content-Type",
-          "Value": "text/css"
+          "Value": "text/javascript"
         },
         {
           "Name": "ETag",
-          "Value": "\"BfXD/uomdg2g6VDH2j8NzrUK9l4ZLSy89BIm71JmCZI=\""
+          "Value": "\"1yTVYbiJchx6vsM1sNq7wRwzIDD5xbzqUZ/bPfyfuUw=\""
         },
         {
           "Name": "Last-Modified",
-          "Value": "Tue, 27 May 2025 05:52:40 GMT"
+          "Value": "Mon, 16 Jun 2025 06:39:34 GMT"
         },
         {
           "Name": "Cache-Control",
-          "Value": "no-cache"
+          "Value": "max-age=31536000, immutable"
         },
         {
           "Name": "Content-Encoding",
@@ -649,19 +665,27 @@
       ],
       "EndpointProperties": [
         {
+          "Name": "fingerprint",
+          "Value": "6msgk6v1zd"
+        },
+        {
+          "Name": "label",
+          "Value": "assets/index-CYgMd_hN.js.gz"
+        },
+        {
           "Name": "integrity",
-          "Value": "sha256-BfXD/uomdg2g6VDH2j8NzrUK9l4ZLSy89BIm71JmCZI="
+          "Value": "sha256-1yTVYbiJchx6vsM1sNq7wRwzIDD5xbzqUZ/bPfyfuUw="
         }
       ]
     },
     {
-      "Route": "assets/index-D4iZaHOq.zshll5hg09.css",
-      "AssetFile": "/Users/thomasjohnson/Documents/GitHub/CalendarWebsiteFork/CalendarWebsite.Server/obj/Debug/net9.0/compressed/2vay0mz8sa-zshll5hg09.gz",
+      "Route": "assets/index-CYgMd_hN.js",
+      "AssetFile": "/Users/thomasjohnson/Documents/GitHub/CalendarWebsiteFork/CalendarWebsite.Server/obj/Debug/net9.0/compressed/iuq58lgsw7-6msgk6v1zd.gz",
       "Selectors": [
         {
           "Name": "Content-Encoding",
           "Value": "gzip",
-          "Quality": "0.000046639616"
+          "Quality": "0.000001921850"
         }
       ],
       "ResponseHeaders": [
@@ -671,19 +695,19 @@
         },
         {
           "Name": "Content-Length",
-          "Value": "21440"
+          "Value": "520331"
         },
         {
           "Name": "ETag",
-          "Value": "\"BfXD/uomdg2g6VDH2j8NzrUK9l4ZLSy89BIm71JmCZI=\""
+          "Value": "\"1yTVYbiJchx6vsM1sNq7wRwzIDD5xbzqUZ/bPfyfuUw=\""
         },
         {
           "Name": "Last-Modified",
-          "Value": "Tue, 27 May 2025 05:52:40 GMT"
+          "Value": "Mon, 16 Jun 2025 06:39:34 GMT"
         },
         {
           "Name": "Cache-Control",
-          "Value": "max-age=31536000, immutable"
+          "Value": "no-cache"
         },
         {
           "Name": "Content-Encoding",
@@ -695,31 +719,23 @@
         },
         {
           "Name": "Content-Type",
-          "Value": "text/css"
+          "Value": "text/javascript"
         },
         {
           "Name": "ETag",
-          "Value": "W/\"Y8aGRvENr/lTtf+DwcSZa8nXqZnac+Vcc5/hU3Sgd98=\""
+          "Value": "W/\"Im974x4YS+fx3w4BM6OPJ0PATGPaOiIA6D5+WkxrMDs=\""
         }
       ],
       "EndpointProperties": [
         {
-          "Name": "fingerprint",
-          "Value": "zshll5hg09"
-        },
-        {
-          "Name": "label",
-          "Value": "assets/index-D4iZaHOq.css"
-        },
-        {
           "Name": "integrity",
-          "Value": "sha256-Y8aGRvENr/lTtf+DwcSZa8nXqZnac+Vcc5/hU3Sgd98="
+          "Value": "sha256-Im974x4YS+fx3w4BM6OPJ0PATGPaOiIA6D5+WkxrMDs="
         }
       ]
     },
     {
-      "Route": "assets/index-D4iZaHOq.zshll5hg09.css",
-      "AssetFile": "/Users/thomasjohnson/Documents/GitHub/CalendarWebsiteFork/CalendarWebsite.Server/wwwroot/assets/index-D4iZaHOq.css",
+      "Route": "assets/index-CYgMd_hN.js",
+      "AssetFile": "/Users/thomasjohnson/Documents/GitHub/CalendarWebsiteFork/CalendarWebsite.Server/wwwroot/assets/index-CYgMd_hN.js",
       "Selectors": [],
       "ResponseHeaders": [
         {
@@ -728,43 +744,35 @@
         },
         {
           "Name": "Content-Length",
-          "Value": "122272"
+          "Value": "1682291"
         },
         {
           "Name": "Content-Type",
-          "Value": "text/css"
+          "Value": "text/javascript"
         },
         {
           "Name": "ETag",
-          "Value": "\"Y8aGRvENr/lTtf+DwcSZa8nXqZnac+Vcc5/hU3Sgd98=\""
+          "Value": "\"Im974x4YS+fx3w4BM6OPJ0PATGPaOiIA6D5+WkxrMDs=\""
         },
         {
           "Name": "Last-Modified",
-          "Value": "Tue, 27 May 2025 05:52:40 GMT"
+          "Value": "Mon, 16 Jun 2025 06:39:34 GMT"
         },
         {
           "Name": "Cache-Control",
-          "Value": "max-age=31536000, immutable"
+          "Value": "no-cache"
         }
       ],
       "EndpointProperties": [
         {
-          "Name": "fingerprint",
-          "Value": "zshll5hg09"
-        },
-        {
-          "Name": "label",
-          "Value": "assets/index-D4iZaHOq.css"
-        },
-        {
           "Name": "integrity",
-          "Value": "sha256-Y8aGRvENr/lTtf+DwcSZa8nXqZnac+Vcc5/hU3Sgd98="
+          "Value": "sha256-Im974x4YS+fx3w4BM6OPJ0PATGPaOiIA6D5+WkxrMDs="
         }
       ]
     },
     {
-      "Route": "assets/index-D4iZaHOq.zshll5hg09.css.gz",
-      "AssetFile": "/Users/thomasjohnson/Documents/GitHub/CalendarWebsiteFork/CalendarWebsite.Server/obj/Debug/net9.0/compressed/2vay0mz8sa-zshll5hg09.gz",
+      "Route": "assets/index-CYgMd_hN.js.gz",
+      "AssetFile": "/Users/thomasjohnson/Documents/GitHub/CalendarWebsiteFork/CalendarWebsite.Server/obj/Debug/net9.0/compressed/iuq58lgsw7-6msgk6v1zd.gz",
       "Selectors": [],
       "ResponseHeaders": [
         {
@@ -773,23 +781,23 @@
         },
         {
           "Name": "Content-Length",
-          "Value": "21440"
+          "Value": "520331"
         },
         {
           "Name": "Content-Type",
-          "Value": "text/css"
+          "Value": "text/javascript"
         },
         {
           "Name": "ETag",
-          "Value": "\"BfXD/uomdg2g6VDH2j8NzrUK9l4ZLSy89BIm71JmCZI=\""
+          "Value": "\"1yTVYbiJchx6vsM1sNq7wRwzIDD5xbzqUZ/bPfyfuUw=\""
         },
         {
           "Name": "Last-Modified",
-          "Value": "Tue, 27 May 2025 05:52:40 GMT"
+          "Value": "Mon, 16 Jun 2025 06:39:34 GMT"
         },
         {
           "Name": "Cache-Control",
-          "Value": "max-age=31536000, immutable"
+          "Value": "no-cache"
         },
         {
           "Name": "Content-Encoding",
@@ -802,16 +810,8 @@
       ],
       "EndpointProperties": [
         {
-          "Name": "fingerprint",
-          "Value": "zshll5hg09"
-        },
-        {
-          "Name": "label",
-          "Value": "assets/index-D4iZaHOq.css.gz"
-        },
-        {
           "Name": "integrity",
-          "Value": "sha256-BfXD/uomdg2g6VDH2j8NzrUK9l4ZLSy89BIm71JmCZI="
+          "Value": "sha256-1yTVYbiJchx6vsM1sNq7wRwzIDD5xbzqUZ/bPfyfuUw="
         }
       ]
     },
@@ -838,7 +838,7 @@
         },
         {
           "Name": "Last-Modified",
-          "Value": "Tue, 27 May 2025 05:52:40 GMT"
+          "Value": "Mon, 16 Jun 2025 06:39:34 GMT"
         },
         {
           "Name": "Cache-Control",
@@ -883,7 +883,7 @@
         },
         {
           "Name": "Last-Modified",
-          "Value": "Tue, 27 May 2025 05:52:40 GMT"
+          "Value": "Mon, 16 Jun 2025 06:39:34 GMT"
         },
         {
           "Name": "Cache-Control",
@@ -898,13 +898,13 @@
       ]
     },
     {
-      "Route": "index.avaogkp7sz.html",
-      "AssetFile": "/Users/thomasjohnson/Documents/GitHub/CalendarWebsiteFork/CalendarWebsite.Server/obj/Debug/net9.0/compressed/9n9umewjrj-avaogkp7sz.gz",
+      "Route": "index.hi2ylp8lw7.html",
+      "AssetFile": "/Users/thomasjohnson/Documents/GitHub/CalendarWebsiteFork/CalendarWebsite.Server/obj/Debug/net9.0/compressed/9n9umewjrj-hi2ylp8lw7.gz",
       "Selectors": [
         {
           "Name": "Content-Encoding",
           "Value": "gzip",
-          "Quality": "0.003300330033"
+          "Quality": "0.003278688525"
         }
       ],
       "ResponseHeaders": [
@@ -914,15 +914,15 @@
         },
         {
           "Name": "Content-Length",
-          "Value": "302"
+          "Value": "304"
         },
         {
           "Name": "ETag",
-          "Value": "\"Y8o8Bg+gZ25306erfQPVvnn3/q8oewuj5Noo4qbc+80=\""
+          "Value": "\"QJgLI6lZusGHTjnLJPtveqw+XVccE1tmxubI7hn3Ns8=\""
         },
         {
           "Name": "Last-Modified",
-          "Value": "Tue, 27 May 2025 05:52:40 GMT"
+          "Value": "Mon, 16 Jun 2025 06:39:34 GMT"
         },
         {
           "Name": "Cache-Control",
@@ -942,13 +942,13 @@
         },
         {
           "Name": "ETag",
-          "Value": "W/\"Bn1EEEeCfyolN9qf3jSE3aVCxQE8yMiq9CuVCziVzUY=\""
+          "Value": "W/\"OTrM0eYsgIEFK31kJLcZ44tgt4oXpFBToYzLsVUjfB8=\""
         }
       ],
       "EndpointProperties": [
         {
           "Name": "fingerprint",
-          "Value": "avaogkp7sz"
+          "Value": "hi2ylp8lw7"
         },
         {
           "Name": "label",
@@ -956,12 +956,12 @@
         },
         {
           "Name": "integrity",
-          "Value": "sha256-Bn1EEEeCfyolN9qf3jSE3aVCxQE8yMiq9CuVCziVzUY="
+          "Value": "sha256-OTrM0eYsgIEFK31kJLcZ44tgt4oXpFBToYzLsVUjfB8="
         }
       ]
     },
     {
-      "Route": "index.avaogkp7sz.html",
+      "Route": "index.hi2ylp8lw7.html",
       "AssetFile": "/Users/thomasjohnson/Documents/GitHub/CalendarWebsiteFork/CalendarWebsite.Server/wwwroot/index.html",
       "Selectors": [],
       "ResponseHeaders": [
@@ -979,11 +979,11 @@
         },
         {
           "Name": "ETag",
-          "Value": "\"Bn1EEEeCfyolN9qf3jSE3aVCxQE8yMiq9CuVCziVzUY=\""
+          "Value": "\"OTrM0eYsgIEFK31kJLcZ44tgt4oXpFBToYzLsVUjfB8=\""
         },
         {
           "Name": "Last-Modified",
-          "Value": "Tue, 27 May 2025 05:52:40 GMT"
+          "Value": "Mon, 16 Jun 2025 06:39:34 GMT"
         },
         {
           "Name": "Cache-Control",
@@ -993,7 +993,7 @@
       "EndpointProperties": [
         {
           "Name": "fingerprint",
-          "Value": "avaogkp7sz"
+          "Value": "hi2ylp8lw7"
         },
         {
           "Name": "label",
@@ -1001,13 +1001,13 @@
         },
         {
           "Name": "integrity",
-          "Value": "sha256-Bn1EEEeCfyolN9qf3jSE3aVCxQE8yMiq9CuVCziVzUY="
+          "Value": "sha256-OTrM0eYsgIEFK31kJLcZ44tgt4oXpFBToYzLsVUjfB8="
         }
       ]
     },
     {
-      "Route": "index.avaogkp7sz.html.gz",
-      "AssetFile": "/Users/thomasjohnson/Documents/GitHub/CalendarWebsiteFork/CalendarWebsite.Server/obj/Debug/net9.0/compressed/9n9umewjrj-avaogkp7sz.gz",
+      "Route": "index.hi2ylp8lw7.html.gz",
+      "AssetFile": "/Users/thomasjohnson/Documents/GitHub/CalendarWebsiteFork/CalendarWebsite.Server/obj/Debug/net9.0/compressed/9n9umewjrj-hi2ylp8lw7.gz",
       "Selectors": [],
       "ResponseHeaders": [
         {
@@ -1016,7 +1016,7 @@
         },
         {
           "Name": "Content-Length",
-          "Value": "302"
+          "Value": "304"
         },
         {
           "Name": "Content-Type",
@@ -1024,11 +1024,11 @@
         },
         {
           "Name": "ETag",
-          "Value": "\"Y8o8Bg+gZ25306erfQPVvnn3/q8oewuj5Noo4qbc+80=\""
+          "Value": "\"QJgLI6lZusGHTjnLJPtveqw+XVccE1tmxubI7hn3Ns8=\""
         },
         {
           "Name": "Last-Modified",
-          "Value": "Tue, 27 May 2025 05:52:40 GMT"
+          "Value": "Mon, 16 Jun 2025 06:39:34 GMT"
         },
         {
           "Name": "Cache-Control",
@@ -1046,7 +1046,7 @@
       "EndpointProperties": [
         {
           "Name": "fingerprint",
-          "Value": "avaogkp7sz"
+          "Value": "hi2ylp8lw7"
         },
         {
           "Name": "label",
@@ -1054,18 +1054,18 @@
         },
         {
           "Name": "integrity",
-          "Value": "sha256-Y8o8Bg+gZ25306erfQPVvnn3/q8oewuj5Noo4qbc+80="
+          "Value": "sha256-QJgLI6lZusGHTjnLJPtveqw+XVccE1tmxubI7hn3Ns8="
         }
       ]
     },
     {
       "Route": "index.html",
-      "AssetFile": "/Users/thomasjohnson/Documents/GitHub/CalendarWebsiteFork/CalendarWebsite.Server/obj/Debug/net9.0/compressed/9n9umewjrj-avaogkp7sz.gz",
+      "AssetFile": "/Users/thomasjohnson/Documents/GitHub/CalendarWebsiteFork/CalendarWebsite.Server/obj/Debug/net9.0/compressed/9n9umewjrj-hi2ylp8lw7.gz",
       "Selectors": [
         {
           "Name": "Content-Encoding",
           "Value": "gzip",
-          "Quality": "0.003300330033"
+          "Quality": "0.003278688525"
         }
       ],
       "ResponseHeaders": [
@@ -1075,15 +1075,15 @@
         },
         {
           "Name": "Content-Length",
-          "Value": "302"
+          "Value": "304"
         },
         {
           "Name": "ETag",
-          "Value": "\"Y8o8Bg+gZ25306erfQPVvnn3/q8oewuj5Noo4qbc+80=\""
+          "Value": "\"QJgLI6lZusGHTjnLJPtveqw+XVccE1tmxubI7hn3Ns8=\""
         },
         {
           "Name": "Last-Modified",
-          "Value": "Tue, 27 May 2025 05:52:40 GMT"
+          "Value": "Mon, 16 Jun 2025 06:39:34 GMT"
         },
         {
           "Name": "Cache-Control",
@@ -1103,13 +1103,13 @@
         },
         {
           "Name": "ETag",
-          "Value": "W/\"Bn1EEEeCfyolN9qf3jSE3aVCxQE8yMiq9CuVCziVzUY=\""
+          "Value": "W/\"OTrM0eYsgIEFK31kJLcZ44tgt4oXpFBToYzLsVUjfB8=\""
         }
       ],
       "EndpointProperties": [
         {
           "Name": "integrity",
-          "Value": "sha256-Bn1EEEeCfyolN9qf3jSE3aVCxQE8yMiq9CuVCziVzUY="
+          "Value": "sha256-OTrM0eYsgIEFK31kJLcZ44tgt4oXpFBToYzLsVUjfB8="
         }
       ]
     },
@@ -1132,11 +1132,11 @@
         },
         {
           "Name": "ETag",
-          "Value": "\"Bn1EEEeCfyolN9qf3jSE3aVCxQE8yMiq9CuVCziVzUY=\""
+          "Value": "\"OTrM0eYsgIEFK31kJLcZ44tgt4oXpFBToYzLsVUjfB8=\""
         },
         {
           "Name": "Last-Modified",
-          "Value": "Tue, 27 May 2025 05:52:40 GMT"
+          "Value": "Mon, 16 Jun 2025 06:39:34 GMT"
         },
         {
           "Name": "Cache-Control",
@@ -1146,13 +1146,13 @@
       "EndpointProperties": [
         {
           "Name": "integrity",
-          "Value": "sha256-Bn1EEEeCfyolN9qf3jSE3aVCxQE8yMiq9CuVCziVzUY="
+          "Value": "sha256-OTrM0eYsgIEFK31kJLcZ44tgt4oXpFBToYzLsVUjfB8="
         }
       ]
     },
     {
       "Route": "index.html.gz",
-      "AssetFile": "/Users/thomasjohnson/Documents/GitHub/CalendarWebsiteFork/CalendarWebsite.Server/obj/Debug/net9.0/compressed/9n9umewjrj-avaogkp7sz.gz",
+      "AssetFile": "/Users/thomasjohnson/Documents/GitHub/CalendarWebsiteFork/CalendarWebsite.Server/obj/Debug/net9.0/compressed/9n9umewjrj-hi2ylp8lw7.gz",
       "Selectors": [],
       "ResponseHeaders": [
         {
@@ -1161,7 +1161,7 @@
         },
         {
           "Name": "Content-Length",
-          "Value": "302"
+          "Value": "304"
         },
         {
           "Name": "Content-Type",
@@ -1169,11 +1169,11 @@
         },
         {
           "Name": "ETag",
-          "Value": "\"Y8o8Bg+gZ25306erfQPVvnn3/q8oewuj5Noo4qbc+80=\""
+          "Value": "\"QJgLI6lZusGHTjnLJPtveqw+XVccE1tmxubI7hn3Ns8=\""
         },
         {
           "Name": "Last-Modified",
-          "Value": "Tue, 27 May 2025 05:52:40 GMT"
+          "Value": "Mon, 16 Jun 2025 06:39:34 GMT"
         },
         {
           "Name": "Cache-Control",
@@ -1191,7 +1191,7 @@
       "EndpointProperties": [
         {
           "Name": "integrity",
-          "Value": "sha256-Y8o8Bg+gZ25306erfQPVvnn3/q8oewuj5Noo4qbc+80="
+          "Value": "sha256-QJgLI6lZusGHTjnLJPtveqw+XVccE1tmxubI7hn3Ns8="
         }
       ]
     },
@@ -1220,7 +1220,7 @@
         },
         {
           "Name": "Last-Modified",
-          "Value": "Tue, 27 May 2025 05:52:39 GMT"
+          "Value": "Mon, 16 Jun 2025 06:39:34 GMT"
         },
         {
           "Name": "Cache-Control",
@@ -1281,7 +1281,7 @@
         },
         {
           "Name": "Last-Modified",
-          "Value": "Tue, 27 May 2025 05:52:39 GMT"
+          "Value": "Mon, 16 Jun 2025 06:39:34 GMT"
         },
         {
           "Name": "Cache-Control",
@@ -1326,7 +1326,7 @@
         },
         {
           "Name": "Last-Modified",
-          "Value": "Tue, 27 May 2025 05:52:39 GMT"
+          "Value": "Mon, 16 Jun 2025 06:39:34 GMT"
         },
         {
           "Name": "Cache-Control",
@@ -1381,7 +1381,7 @@
         },
         {
           "Name": "Last-Modified",
-          "Value": "Tue, 27 May 2025 05:52:39 GMT"
+          "Value": "Mon, 16 Jun 2025 06:39:34 GMT"
         },
         {
           "Name": "Cache-Control",
@@ -1434,7 +1434,7 @@
         },
         {
           "Name": "Last-Modified",
-          "Value": "Tue, 27 May 2025 05:52:39 GMT"
+          "Value": "Mon, 16 Jun 2025 06:39:34 GMT"
         },
         {
           "Name": "Cache-Control",
@@ -1471,7 +1471,7 @@
         },
         {
           "Name": "Last-Modified",
-          "Value": "Tue, 27 May 2025 05:52:39 GMT"
+          "Value": "Mon, 16 Jun 2025 06:39:34 GMT"
         },
         {
           "Name": "Cache-Control",

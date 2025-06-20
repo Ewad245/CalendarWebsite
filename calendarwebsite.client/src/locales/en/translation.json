@@ -1,4 +1,14 @@
 {
+  "auth": {
+    "login": "Sign In",
+    "logout": "Sign Out",
+    "welcome": "Welcome",
+    "welcomeMessage": "Welcome to Calendar Website",
+    "loginPrompt": "Please sign in to continue",
+    "loginWithIdentityServer": "Sign in with Identity Server",
+    "authenticating": "Authenticating...",
+    "secureLogin": "Secure authentication powered by Identity Server"
+  },
   "maintitle": "Attendance View",
   "common": {
     "loading": "Loading...",
