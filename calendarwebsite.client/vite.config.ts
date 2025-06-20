@@ -62,7 +62,7 @@ export default defineConfig({
     },
   },
     build: {
-        outDir: './../CalendarWebsite.Server/wwwroot',
+        outDir: 'dist',
         emptyOutDir: true
     },
   server: isDevelopment
