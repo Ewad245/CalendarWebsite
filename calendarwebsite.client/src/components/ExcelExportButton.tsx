@@ -23,6 +23,12 @@ export default function ExcelExportButton({
     let correctedSelectedMonth = selectedDate?.getMonth() ? selectedDate?.getMonth() + 1 : new Date().getMonth() +1;
     let correctedSelectedYear = selectedDate?.getFullYear() || new Date().getFullYear();
 
+    //Check edge case
+    if (correctedSelectedMonth == 13) {
+      correctedSelectedYear++;
+      correctedSelectedMonth = 1;
+    }
+
     setIsLoading(true);
     console.log(`Starting Excel export for user ID: ${userData.id}`);
     

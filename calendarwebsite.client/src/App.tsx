@@ -62,6 +62,12 @@ function CalendarPage() {
         month = now.getMonth() + 1;
         year = now.getFullYear();
       }
+      
+      //Check edge case
+      if (month == 13) {
+        year++;
+        month = 1;
+      }
 
       const endpoint = `/api/DataOnly_APIaCheckIn/date-range/${userId}?month=${month}&year=${year}`;
 
