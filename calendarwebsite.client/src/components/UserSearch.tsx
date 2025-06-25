@@ -99,7 +99,7 @@ const normalizeString = (str: string) => {
 export default function UserSearch({
   userList,
   selectedUser,
-  selectedDate: _selectedDate,
+  selectedDate: selectedDate,
   setSelectedUser,
   inputValue,
   setInputValue,
@@ -237,7 +237,7 @@ export default function UserSearch({
                   </div>
                 </div>
                 <div>
-                  <ExcelExportButton userData={selectedUser} />
+                  <ExcelExportButton userData={selectedUser} selectedDate={selectedDate} />
                 </div>
               </div>
             </div>

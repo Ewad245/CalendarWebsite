@@ -11,6 +11,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using Scalar.AspNetCore;
+using Microsoft.Extensions.FileProviders;
 
 namespace CalendarWebsite.Server
 {
@@ -236,7 +237,20 @@ namespace CalendarWebsite.Server
             });
 
             app.MapGet("/health", () => Results.Ok(new { status = "healthy" }));
-            app.MapFallbackToFile("/");
+            var spaPath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot");
+if (Directory.Exists(spaPath))
+{
+    app.UseStaticFiles(new StaticFileOptions
+    {
+        FileProvider = new PhysicalFileProvider(spaPath)
+    });
+    
+    // This handles all other routes by serving the SPA's index.html
+    app.MapFallbackToFile("index.html", new StaticFileOptions
+    {
+        FileProvider = new PhysicalFileProvider(spaPath)
+    });
+}
 
             app.Run();
             
