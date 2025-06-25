@@ -163,34 +163,28 @@ namespace CalendarWebsite.Server
             builder.Services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "My API", Version = "v1" });
-                c.AddSecurityDefinition("oauth2", new OpenApiSecurityScheme
+    
+                // Add cookie authentication support
+                c.AddSecurityDefinition("cookieAuth", new OpenApiSecurityScheme
                 {
-                    Type = SecuritySchemeType.OAuth2,
-                    Flows = new OpenApiOAuthFlows
-                    {
-                        AuthorizationCode = new OpenApiOAuthFlow
-                        {
-                            AuthorizationUrl = new Uri($"{authConfig.Authority}/connect/authorize"),
-                            TokenUrl = new Uri($"{authConfig.Authority}/connect/token"),
-                            Scopes = new Dictionary<string, string>
-                            {
-                                { "openid", "OpenID" },
-                                { "profile", "Profile" },
-                                { "email", "Email" },
-                                { "role", "Role" },
-                                { "EOfficeAPI", "EOffice API" }
-                            }
-                        }
-                    }
+                    Type = SecuritySchemeType.ApiKey,
+                    In = ParameterLocation.Cookie,
+                    Name = "AttendanceView.Auth", // Default cookie name
+                    Description = "Enter the authentication cookie"
                 });
+
                 c.AddSecurityRequirement(new OpenApiSecurityRequirement
                 {
                     {
                         new OpenApiSecurityScheme
                         {
-                            Reference = new OpenApiReference { Type = ReferenceType.SecurityScheme, Id = "oauth2" }
+                            Reference = new OpenApiReference 
+                            { 
+                                Type = ReferenceType.SecurityScheme, 
+                                Id = "cookieAuth" 
+                            }
                         },
-                        new[] { "openid", "profile", "email", "role", "EOfficeAPI" }
+                        Array.Empty<string>()
                     }
                 });
             });
@@ -235,9 +229,10 @@ namespace CalendarWebsite.Server
             app.UseSwaggerUI(c =>
             {
                 c.SwaggerEndpoint("/swagger/v1/swagger.json", "My API V1");
-                c.OAuthClientId(authConfig.ClientId);
-                c.OAuthClientSecret(authConfig.ClientSecret);
-                // c.OAuthUsePkce(); // Optional, remove if not needed
+                c.OAuthUsePkce();
+                c.ConfigObject.AdditionalItems["requestSnippetsEnabled"] = true;
+                c.ConfigObject.AdditionalItems["filter"] = true;
+                c.ConfigObject.AdditionalItems["withCredentials"] = true; // Important for cookies
             });
 
             app.MapGet("/health", () => Results.Ok(new { status = "healthy" }));
