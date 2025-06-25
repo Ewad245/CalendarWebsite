@@ -20,7 +20,7 @@ export default function ExcelExportButton({
 
   const handleExportExcel = async () => {
     if (!userData.id) return;
-    let correctedSelectedMonth = selectedDate?.getMonth() || new Date().getMonth() +1;
+    let correctedSelectedMonth = selectedDate?.getMonth() ? selectedDate?.getMonth() + 1 : new Date().getMonth() +1;
     let correctedSelectedYear = selectedDate?.getFullYear() || new Date().getFullYear();
 
     setIsLoading(true);
