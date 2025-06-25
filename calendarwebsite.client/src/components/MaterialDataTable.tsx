@@ -119,7 +119,7 @@ export default function MaterialDataTable({
   const columns: GridColDef[] = [
     {
       field: "id",
-      headerName: t('attendance.table id'),
+      headerName: t('attendance.table.id'),
       width: 60,
       flex: 0.3,
       minWidth: 50,
