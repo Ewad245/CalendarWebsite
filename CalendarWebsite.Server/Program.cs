@@ -20,18 +20,16 @@ namespace CalendarWebsite.Server
         public static void Main(string[] args)
         {
             var builder = WebApplication.CreateBuilder(args);
-            var port = Environment.GetEnvironmentVariable("PORT") ?? "8080";
-builder.WebHost.UseUrls($"http://*:{port}");
 
             // Add services to the container
             builder.Services.AddControllers();
             // Configure forwarded headers BEFORE authentication
             builder.Services.Configure<ForwardedHeadersOptions>(options =>
             {
-                options.ForwardedHeaders = ForwardedHeaders.XForwardedFor | 
-                                           ForwardedHeaders.XForwardedProto | 
+                options.ForwardedHeaders = ForwardedHeaders.XForwardedFor |
+                                           ForwardedHeaders.XForwardedProto |
                                            ForwardedHeaders.XForwardedHost;
-    
+
                 // Trust all proxies (for cloud platforms like Render)
                 options.KnownNetworks.Clear();
                 options.KnownProxies.Clear();
@@ -40,104 +38,110 @@ builder.WebHost.UseUrls($"http://*:{port}");
 
             // Configure authentication
             var authConfig = builder.Configuration.GetSection("Authentication").Get<AuthConfig>()
-                ?? throw new InvalidOperationException("Authentication configuration is missing.");
+                             ?? throw new InvalidOperationException("Authentication configuration is missing.");
 
             builder.Services.AddAuthentication(options =>
-            {
-                options.DefaultScheme = CookieAuthenticationDefaults.AuthenticationScheme;
-                options.DefaultChallengeScheme = IdentityConstants.ApplicationScheme;
-            })
-            .AddCookie(CookieAuthenticationDefaults.AuthenticationScheme, options =>
-            {
-                options.ExpireTimeSpan = TimeSpan.FromDays(30);
-                options.Cookie.Name = "AttendanceView.Auth";
-                options.SlidingExpiration = true;
-                options.Cookie.IsEssential = true;
-                options.Cookie.SameSite = Microsoft.AspNetCore.Http.SameSiteMode.None;
-                options.Cookie.HttpOnly = true;
-                options.Cookie.SecurePolicy = CookieSecurePolicy.Always;
-                options.Events.OnSigningIn = (context) =>
                 {
-                    context.CookieOptions.Expires = DateTimeOffset.UtcNow.AddDays(30);
-                    return Task.CompletedTask;
-                };
-
-                options.Events.OnSigningOut = context =>
+                    options.DefaultScheme = CookieAuthenticationDefaults.AuthenticationScheme;
+                    options.DefaultChallengeScheme = IdentityConstants.ApplicationScheme;
+                })
+                .AddCookie(CookieAuthenticationDefaults.AuthenticationScheme, options =>
                 {
-                    var cookieNames = new[] { "AttendanceView.Auth", "AttendanceView.AuthC1", "AttendanceView.AuthC2" };
-                    var cookieOptions = new CookieOptions
+                    options.ExpireTimeSpan = TimeSpan.FromDays(30);
+                    options.Cookie.Name = "AttendanceView.Auth";
+                    options.SlidingExpiration = true;
+                    options.Cookie.IsEssential = true;
+                    options.Cookie.SameSite = Microsoft.AspNetCore.Http.SameSiteMode.None;
+                    options.Cookie.HttpOnly = true;
+                    options.Cookie.SecurePolicy = CookieSecurePolicy.Always;
+                    options.Events.OnSigningIn = (context) =>
                     {
-                        Expires = DateTime.Now.AddDays(-1),
-                        Path = "/",
-                        Secure = true,
-                        HttpOnly = true,
-                        SameSite = SameSiteMode.None,
-                        Domain = context.HttpContext.Request.Host.Host
+                        context.CookieOptions.Expires = DateTimeOffset.UtcNow.AddDays(30);
+                        return Task.CompletedTask;
                     };
-                    foreach (var cookieName in cookieNames)
+
+                    options.Events.OnSigningOut = context =>
                     {
-                        context.HttpContext.Response.Cookies.Delete(cookieName, cookieOptions);
-                    }
-
-                    return Task.CompletedTask;
-                };
-            })
-            .AddOpenIdConnect(IdentityConstants.ApplicationScheme, options =>
-            {
-                options.Authority = authConfig.Authority;
-                options.ClientId = authConfig.ClientId;
-                options.ClientSecret = authConfig.ClientSecret;
-                options.ResponseType = authConfig.ResponseType;
-                options.RequireHttpsMetadata = authConfig.RequireHttpsMetadata;
-                options.SaveTokens = authConfig.SaveTokens;
-                options.GetClaimsFromUserInfoEndpoint = authConfig.GetClaimsFromUserInfoEndpoint;
-                /*options.CallbackPath = "/signin-oidc";
-                options.SignedOutCallbackPath = "/signout-callback-oidc";
-                options.RemoteSignOutPath = "/signout-oidc";*/
-
-                options.Scope.Add("openid");
-                options.Scope.Add("profile");
-                options.Scope.Add("email");
-
-                options.TokenValidationParameters = new()
-                {
-                    NameClaimType = "name",
-                    ValidateIssuer = true,
-                    ValidIssuer = authConfig.Authority
-                };
-                options.NonceCookie.SecurePolicy = CookieSecurePolicy.Always;
-                options.CorrelationCookie.SecurePolicy = CookieSecurePolicy.Always;
-
-                options.Events = new OpenIdConnectEvents
-                {
-                    OnRedirectToIdentityProvider = context =>
-                    {
-                        if (context.Request.Headers.ContainsKey("X-Forwarded-Proto"))
+                        var cookieNames = new[]
+                            { "AttendanceView.Auth", "AttendanceView.AuthC1", "AttendanceView.AuthC2" };
+                        var cookieOptions = new CookieOptions
                         {
-                            context.ProtocolMessage.RedirectUri = context.ProtocolMessage.RedirectUri.Replace("http://", "https://");
+                            Expires = DateTime.Now.AddDays(-1),
+                            Path = "/",
+                            Secure = true,
+                            HttpOnly = true,
+                            SameSite = SameSiteMode.None,
+                            Domain = context.HttpContext.Request.Host.Host
+                        };
+                        foreach (var cookieName in cookieNames)
+                        {
+                            context.HttpContext.Response.Cookies.Delete(cookieName, cookieOptions);
                         }
-                        Console.WriteLine($"Redirecting to IdP with ReturnUrl: {context.Properties.RedirectUri}");
+
                         return Task.CompletedTask;
-                    },
-                    OnTokenValidated = context =>
+                    };
+                })
+                .AddOpenIdConnect(IdentityConstants.ApplicationScheme, options =>
+                {
+                    options.Authority = authConfig.Authority;
+                    options.ClientId = authConfig.ClientId;
+                    options.ClientSecret = authConfig.ClientSecret;
+                    options.ResponseType = authConfig.ResponseType;
+                    options.RequireHttpsMetadata = authConfig.RequireHttpsMetadata;
+                    options.SaveTokens = authConfig.SaveTokens;
+                    options.GetClaimsFromUserInfoEndpoint = authConfig.GetClaimsFromUserInfoEndpoint;
+                    /*options.CallbackPath = "/signin-oidc";
+                    options.SignedOutCallbackPath = "/signout-callback-oidc";
+                    options.RemoteSignOutPath = "/signout-oidc";*/
+
+                    options.Scope.Add("openid");
+                    options.Scope.Add("profile");
+                    options.Scope.Add("email");
+
+                    options.TokenValidationParameters = new()
                     {
-                        Console.WriteLine($"Token validated, redirecting to: {context.Properties.RedirectUri}");
-                        return Task.CompletedTask;
-                    },
-                    OnRedirectToIdentityProviderForSignOut = context =>
+                        NameClaimType = "name",
+                        ValidateIssuer = true,
+                        ValidIssuer = authConfig.Authority
+                    };
+                    options.NonceCookie.SecurePolicy = CookieSecurePolicy.Always;
+                    options.CorrelationCookie.SecurePolicy = CookieSecurePolicy.Always;
+
+                    options.Events = new OpenIdConnectEvents
                     {
-                        context.ProtocolMessage.PostLogoutRedirectUri = context.HttpContext.Request.Scheme + "://" + context.HttpContext.Request.Host + "/signout-callback-oidc";
-                        context.ProtocolMessage.IdTokenHint = context.HttpContext.GetTokenAsync("id_token").Result;
-                        return Task.CompletedTask;
-                    },
-                    OnAuthenticationFailed = context =>
-                    {
-                        context.HandleResponse();
-                        context.Response.Redirect("/Error?message=" + Uri.EscapeDataString(context.Exception.Message));
-                        return Task.CompletedTask;
-                    }
-                };
-            });
+                        OnRedirectToIdentityProvider = context =>
+                        {
+                            if (context.Request.Headers.ContainsKey("X-Forwarded-Proto"))
+                            {
+                                context.ProtocolMessage.RedirectUri =
+                                    context.ProtocolMessage.RedirectUri.Replace("http://", "https://");
+                            }
+
+                            Console.WriteLine($"Redirecting to IdP with ReturnUrl: {context.Properties.RedirectUri}");
+                            return Task.CompletedTask;
+                        },
+                        OnTokenValidated = context =>
+                        {
+                            Console.WriteLine($"Token validated, redirecting to: {context.Properties.RedirectUri}");
+                            return Task.CompletedTask;
+                        },
+                        OnRedirectToIdentityProviderForSignOut = context =>
+                        {
+                            context.ProtocolMessage.PostLogoutRedirectUri = context.HttpContext.Request.Scheme + "://" +
+                                                                            context.HttpContext.Request.Host +
+                                                                            "/signout-callback-oidc";
+                            context.ProtocolMessage.IdTokenHint = context.HttpContext.GetTokenAsync("id_token").Result;
+                            return Task.CompletedTask;
+                        },
+                        OnAuthenticationFailed = context =>
+                        {
+                            context.HandleResponse();
+                            context.Response.Redirect("/Error?message=" +
+                                                      Uri.EscapeDataString(context.Exception.Message));
+                            return Task.CompletedTask;
+                        }
+                    };
+                });
 
             builder.Services.AddAuthorization();
 
@@ -152,7 +156,7 @@ builder.WebHost.UseUrls($"http://*:{port}");
             builder.Services.AddScoped<IPersonalProfileRepository, PersonalProfileRepository>();
             builder.Services.AddScoped<IWorkWeekRepository, WorkWeekRepository>();
             builder.Services.AddScoped<ICustomWorkingTimeRepository, CustomWorkingTimeRepository>();
-            
+
             // Register services
             builder.Services.AddScoped<IAttendanceService, AttendanceService>();
             builder.Services.AddScoped<IDepartmentService, DepartmentService>();
@@ -161,12 +165,12 @@ builder.WebHost.UseUrls($"http://*:{port}");
             builder.Services.AddScoped<IPersonalProfileService, PersonalProfileService>();
             builder.Services.AddScoped<IWorkWeekService, WorkWeekService>();
             builder.Services.AddScoped<ICustomWorkingTimeService, CustomWorkingTimeService>();
-            
+
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "My API", Version = "v1" });
-    
+
                 // Add cookie authentication support
                 c.AddSecurityDefinition("cookieAuth", new OpenApiSecurityScheme
                 {
@@ -181,10 +185,10 @@ builder.WebHost.UseUrls($"http://*:{port}");
                     {
                         new OpenApiSecurityScheme
                         {
-                            Reference = new OpenApiReference 
-                            { 
-                                Type = ReferenceType.SecurityScheme, 
-                                Id = "cookieAuth" 
+                            Reference = new OpenApiReference
+                            {
+                                Type = ReferenceType.SecurityScheme,
+                                Id = "cookieAuth"
                             }
                         },
                         Array.Empty<string>()
@@ -193,7 +197,7 @@ builder.WebHost.UseUrls($"http://*:{port}");
             });
 
             builder.Services.AddAutoMapper(typeof(Program));
-            
+
             var allowedDomainSuffix = "https://*.vntts.vn";
             builder.Services.AddCors(options =>
             {
@@ -222,7 +226,7 @@ builder.WebHost.UseUrls($"http://*:{port}");
                 app.MapScalarApiReference();
                 app.MapOpenApi();
             }
-            
+
             app.UseRouting();
             app.UseAuthentication();
             app.UseAuthorization();
@@ -240,23 +244,21 @@ builder.WebHost.UseUrls($"http://*:{port}");
 
             app.MapGet("/health", () => Results.Ok(new { status = "healthy" }));
             var spaPath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot");
-if (Directory.Exists(spaPath))
-{
-    app.UseStaticFiles(new StaticFileOptions
-    {
-        FileProvider = new PhysicalFileProvider(spaPath)
-    });
-    
-    // This handles all other routes by serving the SPA's index.html
-    app.MapFallbackToFile("index.html", new StaticFileOptions
-    {
-        FileProvider = new PhysicalFileProvider(spaPath)
-    });
-}
+            if (Directory.Exists(spaPath))
+            {
+                app.UseStaticFiles(new StaticFileOptions
+                {
+                    FileProvider = new PhysicalFileProvider(spaPath)
+                });
+
+                // This handles all other routes by serving the SPA's index.html
+                app.MapFallbackToFile("index.html", new StaticFileOptions
+                {
+                    FileProvider = new PhysicalFileProvider(spaPath)
+                });
+            }
 
             app.Run();
-            
-            
         }
     }
 }

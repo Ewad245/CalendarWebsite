@@ -68,4 +68,4 @@ HEALTHCHECK --interval=30s --timeout=10s --retries=3 \
     CMD curl --fail http://localhost:$PORT/health || exit 1
 
 # Set the entrypoint
-ENTRYPOINT ["dotnet", "CalendarWebsite.Server.dll", "--urls", "http://*:$PORT"]
+ENTRYPOINT ["dotnet", "CalendarWebsite.Server.dll"]
