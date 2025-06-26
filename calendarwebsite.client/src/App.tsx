@@ -273,7 +273,7 @@ function CalendarPage() {
               onDateRangeChange={(month, year) => {
                 if (selectedUser) {
                   // Month from FullCalendar is 0-indexed, but our API expects 1-indexed
-                  fetchUserCheckInData(selectedUser.email, month + 2, year);
+                  fetchUserCheckInData(selectedUser.email, month, year);
                 }
               }}
             />
