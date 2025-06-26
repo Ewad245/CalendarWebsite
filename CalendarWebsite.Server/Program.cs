@@ -20,6 +20,8 @@ namespace CalendarWebsite.Server
         public static void Main(string[] args)
         {
             var builder = WebApplication.CreateBuilder(args);
+            var port = Environment.GetEnvironmentVariable("PORT") ?? "8080";
+builder.WebHost.UseUrls($"http://*:{port}");
 
             // Add services to the container
             builder.Services.AddControllers();
@@ -213,7 +215,7 @@ namespace CalendarWebsite.Server
             app.UseCors("CorsPolicy");
             app.UseDefaultFiles();
             app.MapStaticAssets();
-            app.UseHttpsRedirection();
+            //app.UseHttpsRedirection();
 
             if (app.Environment.IsDevelopment())
             {
