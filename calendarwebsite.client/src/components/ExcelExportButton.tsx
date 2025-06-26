@@ -20,13 +20,11 @@ export default function ExcelExportButton({
 
   const handleExportExcel = async () => {
     if (!userData.id) return;
-    let correctedSelectedMonth = selectedDate?.getMonth() ? selectedDate?.getMonth() + 1 : new Date().getMonth() +1;
-    let correctedSelectedYear = selectedDate?.getFullYear() || new Date().getFullYear();
-
-    //Check edge case
-    if (correctedSelectedMonth == 13) {
-      correctedSelectedYear++;
-      correctedSelectedMonth = 1;
+    let correctedSelectedMonth = new Date().getMonth() +1;
+    let correctedSelectedYear = new Date().getFullYear();
+    if (selectedDate) {
+       correctedSelectedMonth = selectedDate.getMonth() +1;
+       correctedSelectedYear = selectedDate.getFullYear();
     }
 
     setIsLoading(true);
