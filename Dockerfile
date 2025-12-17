@@ -17,7 +17,7 @@ ENV NODE_ENV=production
 RUN npm run build
 
 # Backend build stage
-FROM mcr.microsoft.com/dotnet/sdk:9.0 AS backend-build
+FROM mcr.microsoft.com/dotnet/sdk:10.0 AS backend-build
 
 # Install Node.js in the backend build stage
 RUN apt-get update && \
@@ -50,7 +50,7 @@ RUN dotnet build "CalendarWebsite.Server.csproj" -c Release -o /app/build --prop
     dotnet publish "CalendarWebsite.Server.csproj" -c Release -o /app/publish /p:UseAppHost=false --property:SpaProxyServerUrl="" --property:BuildReactApp=false
 
 # Final runtime stage
-FROM mcr.microsoft.com/dotnet/aspnet:9.0 AS final
+FROM mcr.microsoft.com/dotnet/aspnet:10.0 AS final
 WORKDIR /app
 
 # Copy the published application (includes wwwroot with React app)
