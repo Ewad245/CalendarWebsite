@@ -21,7 +21,7 @@ public interface IReportRepository : IGenericRepository<DetailAttendanceDTOExcel
     /// </summary>
     /// <param name="staffEmail">The email of the staff member</param>
     /// <returns>List of attendance records</returns>
-    Task<List<DetailAttendanceDTOExcel>> GetAttendanceRecordsByEmailAsync(string staffEmail);
+    Task<List<DetailAttendanceDTOExcel>> GetAttendanceRecordsByEmailAsync(string staffEmail, DateTime startDate, DateTime endDate);
     
     /// <summary>
     /// Gets filtered attendance records without pagination

@@ -6,13 +6,15 @@
     <ImplicitUsings>enable</ImplicitUsings>
     <SpaRoot>..\calendarwebsite.client</SpaRoot>
     <SpaProxyLaunchCommand>npm run dev</SpaProxyLaunchCommand>
-    <SpaProxyServerUrl>https://localhost:50857</SpaProxyServerUrl>
+    <SpaProxyServerUrl>https://localhost:44356</SpaProxyServerUrl>
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="AutoMapper" Version="14.0.0" />
     <PackageReference Include="ClosedXML" Version="0.105.0-rc" />
     <PackageReference Include="ClosedXML.Report" Version="0.2.12-rc" />
     <PackageReference Include="Dapper" Version="2.1.66" />
+    <PackageReference Include="Microsoft.AspNetCore.Authentication.OpenIdConnect" Version="9.0.5" />
     <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="9.0.0" />
     <PackageReference Include="Microsoft.AspNetCore.SpaProxy">
       <Version>9.*-*</Version>
@@ -35,6 +37,18 @@
 
   <ItemGroup>
     <Content Include="Templates/**/*" CopyToOutputDirectory="Always" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <_ContentIncludedByDefault Remove="wwwroot\assets\index-CvRo0prG.js" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\index-D4iZaHOq.css" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\VNTTLogo-DG9eiTv9.png" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\index-Bzt5TfKa.css" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\index-CYgMd_hN.js" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="wwwroot\" />
   </ItemGroup>
 
 </Project>

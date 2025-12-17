@@ -7,6 +7,5 @@ namespace CalendarWebsite.Server.Repositories
 {
     public interface IPositionRepository : IGenericRepository<Position>
     {
-        Task<IEnumerable<PositionDto>> GetAllPositionsAsync();
     }
 }

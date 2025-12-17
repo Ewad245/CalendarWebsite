@@ -15,7 +15,7 @@ public class ReportService : IReportService
         _templatePath = Path.Combine(env.ContentRootPath, "Templates");
     }
 
-    public async Task<(byte[] FileContents, string FileName)> GenerateCheckInOutReportAsync(int staffId)
+    public async Task<(byte[] FileContents, string FileName)> GenerateCheckInOutReportAsync(int staffId, int month, int year)
     {
         // Get staff information
         var staff = await _reportRepository.GetStaffByIdAsync(staffId);
@@ -29,8 +29,12 @@ public class ReportService : IReportService
         // Debug the staff email before query
         Console.WriteLine($"Looking for records with staff email: {staffEmail}");
         
+        // Get first date of specific month and year
+        var firstDate = new DateTime(year, month, 1);
+        var endDate = firstDate.AddMonths(1).AddDays(-1);
+        
         // Get attendance records
-        var reportData = await _reportRepository.GetAttendanceRecordsByEmailAsync(staffEmail);
+        var reportData = await _reportRepository.GetAttendanceRecordsByEmailAsync(staffEmail, firstDate, endDate);
         
         // Debug information
         Console.WriteLine($"Staff Email used in query: {staffEmail}");

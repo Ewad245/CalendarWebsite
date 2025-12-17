@@ -11,12 +11,12 @@ import { useTranslation } from "react-i18next";
 interface UserSearchProps {
   userList: UserInfo[];
   selectedUser: UserInfo | null;
+  selectedDate?: Date | null;
   setSelectedUser: (user: UserInfo | null) => void;
   inputValue: string;
   setInputValue: (value: string) => void;
   setEvents: (events: any[]) => void;
 }
-
 
 const normalizeString = (str: string) => {
   if (!str) return "";
@@ -99,6 +99,7 @@ const normalizeString = (str: string) => {
 export default function UserSearch({
   userList,
   selectedUser,
+  selectedDate: selectedDate,
   setSelectedUser,
   inputValue,
   setInputValue,
@@ -164,7 +165,7 @@ export default function UserSearch({
                 <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-muted-foreground" />
                 <Input
                   {...getInputProps()}
-                  placeholder={t('attendance.filters.selectUser')}
+                  placeholder={t("attendance.filters.selectUser")}
                   className="pl-9 pr-9 w-full"
                 />
                 {inputValue && (
@@ -211,7 +212,7 @@ export default function UserSearch({
                     ))}
                   {isOpen && filteredItems.length === 0 && inputValue && (
                     <div className="p-3 text-muted-foreground text-sm">
-                      {t('common.loading')}
+                      {t("common.loading")}
                     </div>
                   )}
                 </div>
@@ -236,7 +237,7 @@ export default function UserSearch({
                   </div>
                 </div>
                 <div>
-                  <ExcelExportButton userData={selectedUser} />
+                  <ExcelExportButton userData={selectedUser} selectedDate={selectedDate} />
                 </div>
               </div>
             </div>
