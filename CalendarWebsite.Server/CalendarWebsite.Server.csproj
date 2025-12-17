@@ -43,6 +43,8 @@
     <_ContentIncludedByDefault Remove="wwwroot\assets\index-CvRo0prG.js" />
     <_ContentIncludedByDefault Remove="wwwroot\assets\index-D4iZaHOq.css" />
     <_ContentIncludedByDefault Remove="wwwroot\assets\VNTTLogo-DG9eiTv9.png" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\index-Bzt5TfKa.css" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\index-CYgMd_hN.js" />
   </ItemGroup>
 
   <ItemGroup>
