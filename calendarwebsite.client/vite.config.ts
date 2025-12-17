@@ -61,10 +61,10 @@ export default defineConfig({
       "@": fileURLToPath(new URL("./src", import.meta.url)),
     },
   },
-    build: {
-        outDir: './../CalendarWebsite.Server/wwwroot',
-        emptyOutDir: true
-    },
+  build: {
+    outDir: "./dist",
+    emptyOutDir: true,
+  },
   server: isDevelopment
     ? {
         proxy: {

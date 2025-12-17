@@ -40,6 +40,9 @@ RUN dotnet restore "CalendarWebsite.Server/CalendarWebsite.Server.csproj"
 COPY CalendarWebsite.Server/ CalendarWebsite.Server/
 COPY calendarwebsite.client/ calendarwebsite.client/
 
+# Copy built frontend to wwwroot before building backend
+COPY --from=frontend-build /app/dist CalendarWebsite.Server/wwwroot/
+
 WORKDIR "/src/CalendarWebsite.Server"
 
 # Build and publish the backend (skip frontend build since we already have it)
