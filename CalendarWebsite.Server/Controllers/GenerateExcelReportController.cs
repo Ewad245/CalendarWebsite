@@ -1,9 +1,10 @@
 using CalendarWebsite.Server.Models;
 using CalendarWebsite.Server.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace CalendarWebsite.Server.Controllers;
-
+[Authorize]
 [Route("api/[controller]")]
     [ApiController]
     public class GenerateExcelReport : ControllerBase
@@ -17,11 +18,13 @@ namespace CalendarWebsite.Server.Controllers;
         
         //GET: api/GenerateExcelReport/generate-checkinout-report/1
         [HttpGet("generate-checkinout-report/{staffId}")]
-        public async Task<IActionResult> GenerateCheckInOutReport(int staffId)
+        public async Task<IActionResult> GenerateCheckInOutReport(int staffId,
+        [FromQuery] int month,
+        [FromQuery] int year)
         {
             try
             {
-                var (fileContents, fileName) = await _reportService.GenerateCheckInOutReportAsync(staffId);
+                var (fileContents, fileName) = await _reportService.GenerateCheckInOutReportAsync(staffId, month, year);
                 return File(fileContents, "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", fileName);
             }
             catch (KeyNotFoundException ex)

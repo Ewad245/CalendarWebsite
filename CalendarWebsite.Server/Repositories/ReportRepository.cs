@@ -1,3 +1,4 @@
+using System.Runtime.InteropServices.JavaScript;
 using CalendarWebsite.Server.Data;
 using CalendarWebsite.Server.Models;
 using Microsoft.Data.SqlClient;
@@ -19,7 +20,7 @@ public class ReportRepository : GenericRepository<DetailAttendanceDTOExcel>, IRe
         return staffs.FirstOrDefault();
     }
 
-    public async Task<List<DetailAttendanceDTOExcel>> GetAttendanceRecordsByEmailAsync(string staffEmail)
+    public async Task<List<DetailAttendanceDTOExcel>> GetAttendanceRecordsByEmailAsync(string staffEmail, DateTime startDate, DateTime endDate)
     {
         string sql = @"
             SELECT
@@ -34,10 +35,10 @@ public class ReportRepository : GenericRepository<DetailAttendanceDTOExcel>, IRe
                     [d].[EarlyOut],
                     [d].[LateOut],
                     [d].[Wt]
-            FROM [Dynamic].[DataOnly_APIaCheckIn] AS [d] WHERE [d].[UserId] = @staffEmail";
+            FROM [Dynamic].[DataOnly_APIaCheckIn] AS [d] WHERE [d].[UserId] = @staffEmail AND [d].[At] >= @startDate AND [d].[At] <= @endDate";
 
         return await _context.DetailAttendancesDtoExcel
-            .FromSqlRaw(sql, new SqlParameter("@staffEmail", staffEmail))
+            .FromSqlRaw(sql, new SqlParameter("@staffEmail", staffEmail), new SqlParameter("@startDate", startDate), new SqlParameter("@endDate", endDate))
             .ToListAsync();
     }
     

@@ -1,6 +1,6 @@
 import { useLocation, Link } from "react-router-dom";
 import { useTranslation } from "react-i18next";
-import { CalendarIcon, ClipboardListIcon } from "lucide-react";
+import { CalendarIcon, ClipboardListIcon, ClockIcon } from "lucide-react";
 import VNTTLogo from "../assets/VNTTLogo.png";
 import {
   Sidebar,
@@ -51,6 +51,17 @@ export default function SidebarLayout() {
                   <Link to="/attendance">
                     <ClipboardListIcon />
                     <span>{t("navigation.attendance") || "Attendance Data"}</span>
+                  </Link>
+                </SidebarMenuButton>
+              </SidebarMenuItem>
+              <SidebarMenuItem>
+                <SidebarMenuButton
+                  data-active={location.pathname === "/custom-working-time"}
+                  asChild
+                >
+                  <Link to="/custom-working-time">
+                    <ClockIcon />
+                    <span>{t("navigation.customWorkingTime") || "Custom Working Times"}</span>
                   </Link>
                 </SidebarMenuButton>
               </SidebarMenuItem>

@@ -13,14 +13,5 @@ namespace CalendarWebsite.Server.Repositories
         public DepartmentRepository(DatabaseContext context) : base(context)
         {
         }
-
-        public async Task<IEnumerable<DepartmentDto>> GetAllDepartmentsAsync()
-        {
-            return await _context.Departments.Select(o => new DepartmentDto()
-            {
-                Id = o.Id,
-                Title = o.Title,
-            }).ToListAsync();
-        }
     }
 }
