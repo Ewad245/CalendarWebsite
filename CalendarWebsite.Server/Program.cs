@@ -207,7 +207,8 @@ namespace CalendarWebsite.Server
                         .WithOrigins(
                             "https://localhost:44356",
                             "https://localhost:44357",
-                            "https://identity.vntts.vn"
+                            "https://identity.vntts.vn",
+                            "https://calendarwebsite.onrender.com"
                         )
                         .SetIsOriginAllowedToAllowWildcardSubdomains()
                         .AllowCredentials());
@@ -216,6 +217,7 @@ namespace CalendarWebsite.Server
             var app = builder.Build();
             // Use forwarded headers FIRST - this is critical
             app.UseForwardedHeaders();
+            app.UseRouting();
             app.UseCors("CorsPolicy");
             app.UseDefaultFiles();
             app.MapStaticAssets();
@@ -226,8 +228,7 @@ namespace CalendarWebsite.Server
                 app.MapScalarApiReference();
                 app.MapOpenApi();
             }
-
-            app.UseRouting();
+            
             app.UseAuthentication();
             app.UseAuthorization();
             app.UseSpaAuthentication();
