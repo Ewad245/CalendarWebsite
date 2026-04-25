@@ -50,7 +50,7 @@ namespace CalendarWebsite.Server.Controllers
         }
 
         [HttpGet("user")]
-        
+        [Authorize]
         public IActionResult GetUser()
         {
             var claims = User.Claims.Select(c => new { c.Type, c.Value });
