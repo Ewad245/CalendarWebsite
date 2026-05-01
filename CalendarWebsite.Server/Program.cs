@@ -196,7 +196,7 @@ namespace CalendarWebsite.Server
                 });
             });
 
-            builder.Services.AddAutoMapper(typeof(Program));
+            builder.Services.AddAutoMapper(cfg => {}, typeof(Program).Assembly);
 
             var allowedDomainSuffix = "https://*.vntts.vn";
             builder.Services.AddCors(options =>
