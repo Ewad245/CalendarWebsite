@@ -904,3 +904,4 @@ FodyWeavers.xsd
 # Additional files built by Visual Studio
 
 # End of https://www.toptal.com/developers/gitignore/api/dotnetcore,node,macos,windows,visualstudiocode,visualstudio,rider,intellij,aspnetcore
+CalendarWebsite.Server/appsettings.Development.json
